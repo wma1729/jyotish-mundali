@@ -1,0 +1,55 @@
+services:
+  keycloak-customized:
+    image: keycloak-customized:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8443:8443
+    environment:
+      KEYCLOAK_ADMIN: ${KC_ADMIN_USR}
+      KEYCLOAK_ADMIN_PASSWORD: ${KC_ADMIN_PWD}
+      KC_DB_URL_HOST: postgres-for-kc
+      KC_DB_USERNAME: ${KC_DB_USR}
+      KC_DB_PASSWORD: ${KC_DB_PWD}
+      KC_HTTPS_KEY_STORE_FILE: /opt/keycloak/keystore/jm-keystore.jks
+      KC_HTTPS_KEY_STORE_PASSWORD: ${KC_KS_PWD}
+      KC_HOSTNAME: ${KC_HOSTNAME}
+      KC_HOSTNAME_PORT: 8443
+    # Check out the following link for logging levels and
+    # specify command as per needs.
+    # https://www.keycloak.org/server/logging
+    # command: "--log-level=info,debug,warning,error,fatal"
+    volumes:
+      - type: bind
+        source: ./keystore
+        target: /opt/keycloak/keystore
+        read_only: true
+    hostname: keycloak
+    networks:
+      - front-end
+      - back-end
+    depends_on:
+      - postgres-for-kc
+
+  postgres-for-kc:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${KC_DB_PWD}
+    volumes:
+      - type: bind
+        source: ./postgres/db
+        target: /var/lib/postgresql/data
+    hostname: postgres-for-kc
+    networks:
+      - back-end
+
+networks:
+  front-end:
+    driver: bridge
+  back-end:
+    driver: bridge

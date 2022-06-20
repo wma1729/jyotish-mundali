@@ -1,0 +1,20 @@
+services:
+  init-postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: ${PG_DB}
+      POSTGRES_USER: ${PG_DB_USR}
+      POSTGRES_PASSWORD: ${PG_DB_PWD}
+      KEYCLOAK_DB: ${KC_DB}
+      KEYCLOAK_USER: ${KC_DB_USR}
+      KEYCLOAK_PASSWORD: ${KC_DB_PWD}
+    volumes:
+      - type: bind
+        source: ./db
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./script
+        target: /docker-entrypoint-initdb.d
+        read_only: true
