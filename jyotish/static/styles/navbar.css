@@ -1,0 +1,71 @@
+/* set for the whole page */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* set for the whole body */
+body {
+    font-family: sans-serif;
+    font-size: large;
+}
+
+/* navigation bar at the top */
+nav {
+    display: flex;
+    position: fixed;
+    justify-content: space-evenly;
+    height: 3%;
+    width: 100%;
+    background-color: rgb(119, 174, 175);
+}
+
+/* top level navigation item container */
+nav div {
+    position: relative;
+    padding-top: 0.5rem;
+}
+
+/* top level navigation items - undecorated anchor */
+nav div a {
+    color: black;
+    text-decoration: none;
+}
+
+/* change the anchor color on hover */
+nav div a:hover {
+    color: blue;
+}
+
+/* drop down menu */
+nav div menu {
+    position: absolute;
+    display: none;
+    top: 100%;
+    left: 0%;
+    list-style: none;
+    background-color: rgb(119, 174, 175, 0.6);
+    border-radius: 0 0 5% 5%;
+    padding: 5% 10% 2.5% 10%; /* top right bottom left */
+}
+
+/* display dropdown menu */
+nav div:hover menu {
+    display: block;
+}
+
+/* sub menu item */
+nav div menu li {
+    float: left;
+    padding: 0.5rem;
+}
+
+/* sub menu item link */
+nav div menu li a {
+    padding: 10%;
+}
+
+/* highlight sub menu item when hovered */
+menu li a:hover {
+    background-color: rgb(119, 174, 175);
+}
