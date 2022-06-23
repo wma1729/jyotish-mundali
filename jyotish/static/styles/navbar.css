@@ -56,7 +56,6 @@ nav div:hover menu {
 
 /* sub menu item */
 nav div menu li {
-    float: left;
     padding: 0.5rem;
 }
 
@@ -68,4 +67,23 @@ nav div menu li a {
 /* highlight sub menu item when hovered */
 menu li a:hover {
     background-color: rgb(119, 174, 175);
+}
+
+/* section */
+section {
+	display: flex;
+	top: 3%;
+	width: 100%
+}
+
+/* footer */
+footer {
+    display: flex;
+    position: fixed;
+    justify-content: space-evenly;
+    top: 97%;
+    height: 3%;
+    width: 100%;
+    background-color: rgb(119, 174, 175);
+    padding-top: 0.5rem;
 }

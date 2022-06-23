@@ -39,6 +39,10 @@ func (page *MainPage) Load(lang string, user string) error {
 
 func (page *MainPage) Send(w http.ResponseWriter) error {
 	tmplName := "main"
-	tmpl := template.Must(template.New(tmplName).ParseFiles("templates/main.html", "templates/header.html", "templates/navbar.html"))
+	tmpl := template.Must(template.New(tmplName).ParseFiles(
+		"templates/main.html",
+		"templates/header.html",
+		"templates/navbar.html",
+		"templates/footer.html"))
 	return tmpl.ExecuteTemplate(w, tmplName, page)
 }
