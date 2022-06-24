@@ -117,30 +117,10 @@ func (a *Authenticator) Init() {
 func (a *Authenticator) BeginAuth(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request URL - %s\n", r.URL)
 
-	user, err := GetUserSession(r)
+	authUser, err := GetUserSession(r)
 	if err == nil {
 		log.Println("already authenticated user")
-
-		page := &models.MainPage{}
-		err = page.Load("en", user.Name)
-		if err != nil {
-			models.HTTPError{
-				StatusCode: http.StatusInternalServerError,
-				Error:      err.Error(),
-				Detail:     "failed to load the page details",
-			}.Send(w)
-			return
-		}
-
-		err = page.Send(w)
-		if err != nil {
-			models.HTTPError{
-				StatusCode: http.StatusInternalServerError,
-				Error:      err.Error(),
-				Detail:     "failed to send the page details",
-			}.Send(w)
-		}
-
+		sendMainPage(w, "en", authUser.Name)
 		return
 	}
 
@@ -225,25 +205,7 @@ func (a *Authenticator) CompleteAuth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	page := &models.MainPage{}
-	err = page.Load("en", authUser.Name)
-	if err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     "failed to load the page details",
-		}.Send(w)
-		return
-	}
-
-	err = page.Send(w)
-	if err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     "failed to send the page details",
-		}.Send(w)
-	}
+	sendMainPage(w, "en", authUser.Name)
 
 	return
 }
@@ -292,4 +254,29 @@ func (a *Authenticator) EndAuth(w http.ResponseWriter, r *http.Request) {
 	logoutURL.RawQuery = parameters.Encode()
 
 	http.Redirect(w, r, logoutURL.String(), http.StatusTemporaryRedirect)
+}
+
+func sendMainPage(w http.ResponseWriter, lang, userName string) {
+	page := &models.MainPage{}
+
+	err := page.Load(lang, userName)
+	if err != nil {
+		models.HTTPError{
+			StatusCode: http.StatusInternalServerError,
+			Error:      err.Error(),
+			Detail:     "failed to load the page details",
+		}.Send(w)
+		return
+	}
+
+	err = page.Send(w)
+	if err != nil {
+		models.HTTPError{
+			StatusCode: http.StatusInternalServerError,
+			Error:      err.Error(),
+			Detail:     "failed to send the page details",
+		}.Send(w)
+	}
+
+	return
 }
