@@ -8,3 +8,6 @@ tidy:
 
 jmserver:
 	go build -o $@
+
+clean:
+	rm -rf jmserver
