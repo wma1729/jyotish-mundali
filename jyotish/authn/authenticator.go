@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"os"
 
-	"jyotish/models"
+	"jyotish/views"
 
 	"github.com/coreos/go-oidc/v3/oidc"
 	"golang.org/x/net/context"
@@ -128,21 +128,17 @@ func (a *Authenticator) BeginAuth(w http.ResponseWriter, r *http.Request) {
 
 	state, err := SetStateInCookie(w, r)
 	if err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     "failed to set the state in the cookie",
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to set the state in the cookie")
+		httpError.Send(w)
 		return
 	}
 
 	nonce, err := SetNonceInCookie(w, r)
 	if err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     "failed to set the nonce in the cookie",
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to set the nonce in the cookie")
+		httpError.Send(w)
 		return
 	}
 
@@ -156,11 +152,9 @@ func (a *Authenticator) CompleteAuth(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request URL - %s\n", r.URL)
 
 	if err := ValidateState(r); err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     "failed to validate state",
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to validate state")
+		httpError.Send(w)
 		return
 	}
 
@@ -168,40 +162,33 @@ func (a *Authenticator) CompleteAuth(w http.ResponseWriter, r *http.Request) {
 
 	authUser, err := a.exchangeCodeWithToken(code)
 	if err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     "failed to exchange code with token",
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, fmt.Sprintf("failed to exchange the code (%s) with token",
+				code))
+		httpError.Send(w)
 		return
 	}
 
 	if err := ValidateNonce(r, authUser.IDToken); err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     "failed to validate nonce",
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to validate nonce")
+		httpError.Send(w)
 		return
 	}
 
 	authUser.User, err = a.Provider.UserInfo(a.Context, oauth2.StaticTokenSource(authUser.Token))
 	if err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     "failed to get user info",
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to get user information")
+		httpError.Send(w)
 		return
 	}
 
 	err = SetUserSession(w, r, authUser)
 	if err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     "failed to set user session",
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to set user session")
+		httpError.Send(w)
 		return
 	}
 
@@ -214,11 +201,9 @@ func (a *Authenticator) EndAuth(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request URL - %s\n", r.URL)
 	user, err := GetUserSession(r)
 	if err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusUnauthorized,
-			Error:      err.Error(),
-			Detail:     "failed to find user session",
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusUnauthorized,
+			err, "unable to find user session")
+		httpError.Send(w)
 		return
 	}
 
@@ -229,21 +214,17 @@ func (a *Authenticator) EndAuth(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := a.Provider.Claims(&claims); err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     fmt.Sprintf("failed to get logout URL"),
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to get logout URL")
+		httpError.Send(w)
 		return
 	}
 
 	logoutURL, err := url.Parse(claims.LogoutURL)
 	if err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     fmt.Sprintf("failed to parse logout URL"),
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to parse logout URL")
+		httpError.Send(w)
 		return
 	}
 
@@ -257,25 +238,19 @@ func (a *Authenticator) EndAuth(w http.ResponseWriter, r *http.Request) {
 }
 
 func sendMainPage(w http.ResponseWriter, lang, userName string) {
-	page := &models.MainPage{}
-
-	err := page.Load(lang, userName)
+	page, err := views.GetMainPage(lang, userName)
 	if err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     "failed to load the page details",
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to load the main page details")
+		httpError.Send(w)
 		return
 	}
 
 	err = page.Send(w)
 	if err != nil {
-		models.HTTPError{
-			StatusCode: http.StatusInternalServerError,
-			Error:      err.Error(),
-			Detail:     "failed to send the page details",
-		}.Send(w)
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to send the main page")
+		httpError.Send(w)
 	}
 
 	return

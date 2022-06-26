@@ -1,4 +1,4 @@
-package models
+package views
 
 import (
 	"encoding/json"
@@ -18,23 +18,26 @@ type MainPage struct {
 	UserName      string
 }
 
-func (page *MainPage) Load(lang string, user string) error {
+func GetMainPage(lang string, userName string) (*MainPage, error) {
 	fileName := fmt.Sprintf("lang/%s/mainpage.json", lang)
 	fileContent, err := ioutil.ReadFile(fileName)
 	if err != nil {
 		log.Printf("failed to open %s", fileName)
-		return err
+		return nil, err
 	}
 
-	err = json.Unmarshal(fileContent, page)
+	var page MainPage
+
+	err = json.Unmarshal(fileContent, &page)
 	if err != nil {
 		log.Printf("failed to unmarshal contents of %s", fileName)
-		return err
+		return nil, err
 	}
 
-	page.UserName = user
+	page.UserName = userName
 
-	return nil
+	return &page, nil
+
 }
 
 func (page *MainPage) Send(w http.ResponseWriter) error {
