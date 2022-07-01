@@ -1,0 +1,11 @@
+idp:
+  domain:
+  client_id:
+  client_secret:
+  redirect_url:
+
+database:
+  host:
+  port:
+  user:
+  password:

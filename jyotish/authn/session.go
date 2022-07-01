@@ -11,7 +11,7 @@ import (
 	"golang.org/x/oauth2"
 )
 
-type User struct {
+type AuthenticatedUser struct {
 	Token          *oauth2.Token
 	IDToken        *oidc.IDToken
 	RawIDToken     string
@@ -26,16 +26,16 @@ type User struct {
 
 type UserStore struct {
 	mutex   sync.Mutex
-	userMap map[string]*User
+	userMap map[string]*AuthenticatedUser
 }
 
 var store UserStore
 
 func init() {
-	store.userMap = make(map[string]*User)
+	store.userMap = make(map[string]*AuthenticatedUser)
 }
 
-func AddUserToStore(u *User) (string, error) {
+func AddUserToStore(u *AuthenticatedUser) (string, error) {
 	sessionId, err := GenerateRandomString(32)
 	if err != nil {
 		return "", err
@@ -60,7 +60,7 @@ func RemoveUserFromStore(sessionId string) {
 	delete(store.userMap, sessionId)
 }
 
-func GetUserFromStore(sessionId string) (user *User) {
+func GetUserFromStore(sessionId string) (user *AuthenticatedUser) {
 	store.mutex.Lock()
 	defer store.mutex.Unlock()
 
@@ -75,7 +75,7 @@ func GetUserFromStore(sessionId string) (user *User) {
 	return user
 }
 
-func GetUserSession(r *http.Request) (*User, error) {
+func GetUserSession(r *http.Request) (*AuthenticatedUser, error) {
 	sessionId, err := r.Cookie("sid")
 	if err != nil {
 		log.Printf("failed to get session ID from cookie: %s", err)
@@ -100,7 +100,7 @@ func GetUserSession(r *http.Request) (*User, error) {
 	return user, nil
 }
 
-func SetUserSession(w http.ResponseWriter, r *http.Request, u *User) error {
+func SetUserSession(w http.ResponseWriter, r *http.Request, u *AuthenticatedUser) error {
 	sessionId, err := AddUserToStore(u)
 	if err != nil {
 		log.Printf("failed to add user to store")
@@ -122,7 +122,7 @@ func SetUserSession(w http.ResponseWriter, r *http.Request, u *User) error {
 	return nil
 }
 
-func ResetUserSession(w http.ResponseWriter, r *http.Request, u *User) error {
+func ResetUserSession(w http.ResponseWriter, r *http.Request, u *AuthenticatedUser) error {
 	RemoveUserFromStore(u.SessionId)
 
 	cookie := &http.Cookie{

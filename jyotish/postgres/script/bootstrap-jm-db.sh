@@ -13,7 +13,8 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" --dbname "${POSTGRES_DB}" 
 		email text PRIMARY KEY,
 		name text NOT NULL,
 		lang language DEFAULT 'english',
-		description text DEFAULT '',
-		astrologer boolean DEFAULT false
+		description text NOT NULL DEFAULT '',
+		astrologer boolean DEFAULT false,
+		public boolean DEFAULT true
 	);
 EOSQL

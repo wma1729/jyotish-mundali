@@ -5,6 +5,8 @@ init:
 
 tidy:
 	go mod tidy
+	go get github.com/lib/pq
+	go get gopkg.in/yaml.v3
 
 jmserver:
 	go build -o $@
