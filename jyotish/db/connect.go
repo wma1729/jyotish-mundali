@@ -21,7 +21,7 @@ func ConnectToDB(config *config.Config) *sql.DB {
 	sb.WriteString(config.Database.Host)
 	sb.WriteByte(':')
 	sb.WriteString(fmt.Sprintf("%d", config.Database.Port))
-	sb.WriteString("/jyotish")
+	sb.WriteString("/jyotish?sslmode=disable")
 
 	log.Printf("Opening postgreSQL db using connection string %s", sb.String())
 

@@ -3,7 +3,7 @@ package models
 type User struct {
 	Email       string
 	Name        string
-	Language    string
+	Lang        string
 	Description string
 	Astrologer  bool
 	Public      bool

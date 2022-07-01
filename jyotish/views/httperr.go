@@ -29,7 +29,6 @@ func (httpError *HTTPError) Send(w http.ResponseWriter) {
 		log.Fatalf("JSON marshalling failed: %s", err)
 	}
 
-	w.WriteHeader(httpError.StatusCode)
 	w.Header().Add("Content-Type", "application/json; charset=utf-8")
 	_, err = w.Write(data)
 	if err != nil {

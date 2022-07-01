@@ -3,6 +3,8 @@ package controllers
 import (
 	"fmt"
 	"jyotish/authn"
+	"jyotish/db"
+	"jyotish/models"
 	"jyotish/views"
 	"log"
 	"net/http"
@@ -17,7 +19,16 @@ func (g *Globals) BeginAuth(w http.ResponseWriter, r *http.Request) {
 	authUser, err := authn.GetUserSession(r)
 	if err == nil {
 		log.Println("already authenticated user")
-		sendMainPage(w, "en", authUser.Name)
+
+		user, err := db.UserGet(g.DB, authUser.User.Email)
+		if err != nil {
+			httpError := views.GetHTTPError(http.StatusInternalServerError,
+				err, "failed to get the user from the database")
+			httpError.Send(w)
+			return
+		}
+
+		sendMainPage(w, user.Lang, user.Name)
 		return
 	}
 
@@ -81,6 +92,25 @@ func (g *Globals) CompleteAuth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var user *models.User
+
+	user, err = db.UserGet(g.DB, authUser.User.Email)
+	if err != nil {
+		userName := db.GetUserName(
+			authUser.User.Email,
+			authUser.Name,
+			authUser.GivenName,
+			authUser.FamilyName)
+
+		user, err = db.UserInsert(g.DB, authUser.User.Email, userName)
+		if err != nil {
+			httpError := views.GetHTTPError(http.StatusInternalServerError,
+				err, fmt.Sprintf("failed to persist user %s", authUser.User.Email))
+			httpError.Send(w)
+			return
+		}
+	}
+
 	err = authn.SetUserSession(w, r, authUser)
 	if err != nil {
 		httpError := views.GetHTTPError(http.StatusInternalServerError,
@@ -89,7 +119,7 @@ func (g *Globals) CompleteAuth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sendMainPage(w, "en", authUser.Name)
+	sendMainPage(w, user.Lang, user.Name)
 
 	return
 }

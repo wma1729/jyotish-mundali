@@ -1,5 +1,5 @@
 services:
-  init-postgres:
+  database:
     image: postgres:latest
     ports:
       - 4321:5432

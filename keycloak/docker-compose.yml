@@ -1,5 +1,5 @@
 services:
-  keycloak-customized:
+  idp-server:
     image: keycloak-customized:latest
     build:
       context: ./

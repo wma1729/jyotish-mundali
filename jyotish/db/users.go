@@ -52,7 +52,7 @@ func UserExists(db *sql.DB, email string) bool {
 
 func UserInsert(db *sql.DB, email, name string) (*models.User, error) {
 	query := `INSERT INTO users (Email, Name) VALUES ($1, $2)
-		RETURNING Email, Name, Language, Description, Astrologer, Public`
+		RETURNING Email, Name, Lang, Description, Astrologer, Public`
 
 	log.Printf("sql - %s", query)
 
@@ -62,7 +62,7 @@ func UserInsert(db *sql.DB, email, name string) (*models.User, error) {
 	err := row.Scan(
 		&user.Email,
 		&user.Name,
-		&user.Language,
+		&user.Lang,
 		&user.Description,
 		&user.Astrologer,
 		&user.Public)
@@ -75,7 +75,7 @@ func UserInsert(db *sql.DB, email, name string) (*models.User, error) {
 }
 
 func UserGet(db *sql.DB, email string) (*models.User, error) {
-	query := `SELECT Email, Name, Language, Description, Astrologer, Public
+	query := `SELECT Email, Name, Lang, Description, Astrologer, Public
 		FROM users WHERE Email = $1`
 
 	log.Printf("sql - %s", query)
@@ -86,7 +86,7 @@ func UserGet(db *sql.DB, email string) (*models.User, error) {
 	err := row.Scan(
 		&user.Email,
 		&user.Name,
-		&user.Language,
+		&user.Lang,
 		&user.Description,
 		&user.Astrologer,
 		&user.Public)
