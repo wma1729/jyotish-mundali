@@ -10,13 +10,6 @@ import (
 	"golang.org/x/oauth2"
 )
 
-const (
-	IDP_DOMAIN        = "IDP_DOMAIN"
-	IDP_CLIENT_ID     = "IDP_CLIENT_ID"
-	IDP_CLIENT_SECRET = "IDP_CLIENT_SECRET"
-	IDP_REDIRECT_URL  = "IDP_REDIRECT_URL"
-)
-
 //
 // The main oauth2/oidc authenticator.
 //

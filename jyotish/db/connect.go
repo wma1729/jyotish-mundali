@@ -10,13 +10,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-const (
-	DB_USER     = "DB_USER"
-	DB_PASSWORD = "DB_PASSWORD"
-	DB_HOST     = "DB_HOST"
-	DB_PORT     = "DB_PORT"
-)
-
 func ConnectToDB(config *config.Config) *sql.DB {
 	sb := strings.Builder{}
 
