@@ -1,0 +1,11 @@
+{
+    "name": "नाम",
+    "description": "वर्णन",
+    "language": "भाषा",
+    "english": "अंग्रेज़ी",
+    "hindi": "हिन्दी",
+    "astrologer": "ज्योतिषी",
+    "public": "सार्वजनिक",
+    "yes": "हाँ",
+    "no": "नहीं"
+}

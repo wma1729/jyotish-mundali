@@ -16,6 +16,11 @@ import (
 func (g *Globals) BeginAuth(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request URL - %s\n", r.URL)
 
+	if r.URL.Path != "/" {
+		http.Error(w, fmt.Sprintf("path %s not found", r.URL.Path), http.StatusNotFound)
+		return
+	}
+
 	authUser, err := authn.GetUserSession(r)
 	if err == nil {
 		log.Println("already authenticated user")
@@ -28,7 +33,7 @@ func (g *Globals) BeginAuth(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		sendMainPage(w, user.Lang, user.Name)
+		sendMainPage(w, user)
 		return
 	}
 
@@ -119,13 +124,14 @@ func (g *Globals) CompleteAuth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sendMainPage(w, user.Lang, user.Name)
+	sendMainPage(w, user)
 
 	return
 }
 
 func (g *Globals) EndAuth(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Request URL - %s\n", r.URL)
+
 	user, err := authn.GetUserSession(r)
 	if err != nil {
 		httpError := views.GetHTTPError(http.StatusUnauthorized,
@@ -164,8 +170,8 @@ func (g *Globals) EndAuth(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, logoutURL.String(), http.StatusTemporaryRedirect)
 }
 
-func sendMainPage(w http.ResponseWriter, lang, userName string) {
-	page, err := views.GetMainPage(lang, userName)
+func sendMainPage(w http.ResponseWriter, user *models.User) {
+	page, err := views.GetMainPage(user)
 	if err != nil {
 		httpError := views.GetHTTPError(http.StatusInternalServerError,
 			err, "failed to load the main page details")

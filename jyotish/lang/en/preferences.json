@@ -1,0 +1,11 @@
+{
+    "name": "Name",
+    "description": "Description",
+    "language": "Language",
+    "english": "English",
+    "hindi": "Hindi",
+    "astrologer": "Astrologer",
+    "public": "Public",
+    "yes": "Yes",
+    "no": "No"
+}

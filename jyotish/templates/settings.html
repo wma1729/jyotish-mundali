@@ -1,0 +1,42 @@
+i{{ define "settings" }}
+<form action="/preferences" method="post">
+    <fieldset>
+        <legend>{{ .Preferences }}</legend>
+        <ul>
+            <li>
+                <label for="name" class="preference-label">{{ .Name }}:</label>
+                <input type="text" id="name" name="name" class="main-input" placeholder="{{ .User.Name }}" required></input>
+            </li>
+            <li>
+                <label for="desc" class="preference-label">{{ .Description }}:</label>
+                <textarea id="desc" name="desc" class="main-input" placeholder="{{ .User.Description }}"></textarea>
+            </li>
+            <li>
+                <label for="lang" class="preference-label">{{ .Language }}:</label>
+                <input type="radio" id="en" name="language" value="en" {{ IsStringChecked .User.Lang "en" }}>
+                <label for="en">{{ .English }}</label>
+                <input type="radio" id="hi" name="language" value="hi" {{ IsStringChecked .User.Lang "hi" }}>
+                <label for="hi">{{ .Hindi }}</label>
+            </li>
+            <li>
+                <label class="preference-label">{{ .Astrologer }}:</label>
+                <input type="radio" id="astrologer" name="astrologer" value="1" {{ IsBooleanChecked .User.Astrologer true }}>
+                <label for="astrologer">{{ .Yes }}</label>
+                <input type="radio" id="not-astrologer" name="astrologer" value="0" {{ IsBooleanChecked .User.Astrologer false }}>
+                <label for="not-astrologer">{{ .No }}</label>
+            </li>
+            <li>
+                <label class="preference-label">{{ .Public }}:</label>
+                <input type="radio" id="public-profile" name="public" value="1" {{ IsBooleanChecked .User.Public true }}>
+                <label for="public-profile">{{ .Yes }}</label>
+                <input type="radio" id="private-profile" name="public" value="0" {{ IsBooleanChecked .User.Public false }}>
+                <label for="private-profile">{{ .No }}</label>
+            </li>
+            <li>
+                <button type="submit">Save</button>
+            </li>
+
+        </ul>
+    </fieldset>
+</form>
+{{ end }}

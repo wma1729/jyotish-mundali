@@ -12,4 +12,5 @@ jmserver:
 	go build -o $@
 
 clean:
+	go clean
 	rm -rf jmserver

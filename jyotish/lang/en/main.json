@@ -3,5 +3,7 @@
     "profiles": "Profiles",
     "knowledgebase": "KnowledgeBase",
     "faqs": "FAQs",
+    "preferences": "Preferences",
+    "logout": "Logout",
     "siteadmin": "rakesh.didwania@gmail.com"
 }

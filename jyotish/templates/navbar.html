@@ -1,23 +1,23 @@
 {{ define "navbar" }}
 <nav>
     <div>
-    <a href="/">{{ .Home }}</a>
+        <a href="/">{{ .Home }}</a>
     </div>
-    <div>
-    <a href="#">{{ .Profiles }}</a>
+    <div class="profiles">
+        <a href="#">{{ .Profiles }}</a>
     </div>
-    <div>
-    <a href="/knowledge-base">{{ .KnowledgeBase }}</a>
+    <div class="knowledge-base">
+        <a href="/knowledge-base">{{ .KnowledgeBase }}</a>
     </div>
-    <div>
-    <a href="/faqs">{{ .FAQs }}</a>
+    <div class="faqs">
+        <a href="/faqs">{{ .FAQs }}</a>
     </div>
-    <div>
-    <a href="#">{{ .UserName }}</a>
-    <menu>
-        <li><a href="/settings">Settings</a></li>
-        <li><a href="/logout">Logout</a></li>
-    </menu>
+    <div class="account">
+        <a href="#">{{ .User.Name }}</a>
+        <menu class="account-menu">
+            <li><a href="/preferences">{{ .Preferences }}</a></li>
+            <li><a href="/logout">{{ .Logout }}</a></li>
+        </menu>
     </div>
 </nav>
 {{ end }}
