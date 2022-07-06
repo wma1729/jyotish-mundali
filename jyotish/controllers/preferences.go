@@ -33,6 +33,7 @@ func (g *Globals) HandlePreferences(w http.ResponseWriter, r *http.Request) {
 		getPreferences(w, r, g, user)
 
 	case "POST":
+		setPreferences(w, r, g, user)
 	}
 }
 
@@ -45,7 +46,51 @@ func getPreferences(w http.ResponseWriter, r *http.Request, g *Globals, user *mo
 		return
 	}
 
-	log.Print(page)
+	page.Send(w)
+}
+
+func setPreferences(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User) {
+	r.ParseForm()
+
+	for key, values := range r.Form {
+		for _, value := range values {
+			log.Printf("%s = %s", key, value)
+		}
+	}
+
+	user.Name = r.FormValue("name")
+	user.Description = r.FormValue("description")
+	user.Lang = r.FormValue("lang")
+
+	if r.FormValue("astrologer") == "1" {
+		user.Astrologer = true
+	} else {
+		user.Astrologer = false
+	}
+
+	if r.FormValue("public") == "1" {
+		user.Public = true
+	} else {
+		user.Public = false
+	}
+
+	log.Print(user)
+
+	err := db.UserUpdate(g.DB, user)
+	if err != nil {
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to update the user in the database")
+		httpError.Send(w)
+		return
+	}
+
+	page, err := views.GetPreferencesPage(user)
+	if err != nil {
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to get preferences page")
+		httpError.Send(w)
+		return
+	}
 
 	page.Send(w)
 }

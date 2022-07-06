@@ -2,6 +2,8 @@ package db
 
 import (
 	"database/sql"
+	"errors"
+	"fmt"
 	"jyotish/models"
 	"log"
 	"strings"
@@ -51,8 +53,8 @@ func UserExists(db *sql.DB, email string) bool {
 }
 
 func UserInsert(db *sql.DB, email, name string) (*models.User, error) {
-	query := `INSERT INTO users (Email, Name) VALUES ($1, $2)
-		RETURNING Email, Name, Lang, Description, Astrologer, Public`
+	query := `INSERT INTO users (email, name) VALUES ($1, $2)
+		RETURNING email, name, description, lang, astrologer, public`
 
 	log.Printf("sql - %s", query)
 
@@ -62,8 +64,8 @@ func UserInsert(db *sql.DB, email, name string) (*models.User, error) {
 	err := row.Scan(
 		&user.Email,
 		&user.Name,
-		&user.Lang,
 		&user.Description,
+		&user.Lang,
 		&user.Astrologer,
 		&user.Public)
 	if err != nil {
@@ -75,8 +77,8 @@ func UserInsert(db *sql.DB, email, name string) (*models.User, error) {
 }
 
 func UserGet(db *sql.DB, email string) (*models.User, error) {
-	query := `SELECT Email, Name, Lang, Description, Astrologer, Public
-		FROM users WHERE Email = $1`
+	query := `SELECT email, name, description, lang, astrologer, public
+		FROM users WHERE email = $1`
 
 	log.Printf("sql - %s", query)
 
@@ -86,8 +88,8 @@ func UserGet(db *sql.DB, email string) (*models.User, error) {
 	err := row.Scan(
 		&user.Email,
 		&user.Name,
-		&user.Lang,
 		&user.Description,
+		&user.Lang,
 		&user.Astrologer,
 		&user.Public)
 	if err != nil {
@@ -96,4 +98,37 @@ func UserGet(db *sql.DB, email string) (*models.User, error) {
 	}
 
 	return &user, nil
+}
+
+func UserUpdate(db *sql.DB, user *models.User) error {
+	query := `UPDATE users SET name = $2, description = $3, lang = $4,
+		astrologer = $5, public = $6 WHERE email = $1`
+
+	log.Printf("sql - %s", query)
+
+	result, err := db.Exec(query,
+		user.Email,
+		user.Name,
+		user.Description,
+		user.Lang,
+		user.Astrologer,
+		user.Public)
+	if err != nil {
+		log.Printf("unable to update %s: %s", user.Email, err)
+		return err
+	}
+
+	rowsUpdated, err := result.RowsAffected()
+	if err != nil {
+		log.Printf("unable to update %s: %s", user.Email, err)
+		return err
+	}
+
+	if rowsUpdated != 1 {
+		err := errors.New(fmt.Sprintf("updated %d rows", rowsUpdated))
+		log.Printf("unable to update %s: %s", user.Email, err)
+		return err
+	}
+
+	return nil
 }

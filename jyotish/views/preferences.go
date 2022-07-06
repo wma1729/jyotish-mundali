@@ -21,6 +21,7 @@ type PreferencesPage struct {
 	Public              string `json:"public"`
 	Yes                 string `json:"yes"`
 	No                  string `json:"no"`
+	Save                string `json:"save"`
 	CurrentDescription  string
 	CurrentLanguage     string
 	CurrentlyAstrologer bool

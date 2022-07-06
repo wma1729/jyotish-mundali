@@ -18,3 +18,9 @@ services:
         source: ./script
         target: /docker-entrypoint-initdb.d
         read_only: true
+    networks:
+      - back-end
+
+networks:
+  back-end:
+    driver: bridge

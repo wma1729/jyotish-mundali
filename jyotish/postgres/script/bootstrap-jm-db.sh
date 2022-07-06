@@ -13,8 +13,8 @@ psql -v ON_ERROR_STOP=1 --username "${JYOTISH_USER}" --dbname "${JYOTISH_DB}" <<
 	CREATE TABLE users (
 		email text PRIMARY KEY,
 		name text NOT NULL,
-		lang language DEFAULT 'en',
 		description text NOT NULL DEFAULT '',
+		lang language DEFAULT 'en',
 		astrologer boolean DEFAULT false,
 		public boolean DEFAULT true
 	);

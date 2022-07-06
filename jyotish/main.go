@@ -74,16 +74,17 @@ func main() {
 
 	defaultTransport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 
-	env, err := controllers.InitGlobals(&config)
+	globals, err := controllers.InitGlobals(&config)
 	if err != nil {
 		log.Printf("failed to initialize environment: %s", err)
 		return
 	}
 
 	http.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("./static"))))
-	http.HandleFunc("/", env.BeginAuth)
-	http.HandleFunc("/auth/callback", env.CompleteAuth)
-	http.HandleFunc("/logout", env.EndAuth)
+	http.HandleFunc("/", globals.BeginAuth)
+	http.HandleFunc("/auth/callback", globals.CompleteAuth)
+	http.HandleFunc("/logout", globals.EndAuth)
+	http.HandleFunc("/preferences", globals.HandlePreferences)
 
 	log.Fatal(http.ListenAndServe("localhost:5000", nil))
 }

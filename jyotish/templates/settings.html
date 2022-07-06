@@ -5,17 +5,17 @@ i{{ define "settings" }}
         <ul>
             <li>
                 <label for="name" class="preference-label">{{ .Name }}:</label>
-                <input type="text" id="name" name="name" class="main-input" placeholder="{{ .User.Name }}" required></input>
+                <input type="text" id="name" name="name" class="main-input" value="{{ .User.Name }}" required></input>
             </li>
             <li>
                 <label for="desc" class="preference-label">{{ .Description }}:</label>
-                <textarea id="desc" name="desc" class="main-input" placeholder="{{ .User.Description }}"></textarea>
+                <textarea id="desc" name="description" class="main-input">{{ .User.Description }}</textarea>
             </li>
             <li>
                 <label for="lang" class="preference-label">{{ .Language }}:</label>
-                <input type="radio" id="en" name="language" value="en" {{ IsStringChecked .User.Lang "en" }}>
+                <input type="radio" id="en" name="lang" value="en" {{ IsStringChecked .User.Lang "en" }}>
                 <label for="en">{{ .English }}</label>
-                <input type="radio" id="hi" name="language" value="hi" {{ IsStringChecked .User.Lang "hi" }}>
+                <input type="radio" id="hi" name="lang" value="hi" {{ IsStringChecked .User.Lang "hi" }}>
                 <label for="hi">{{ .Hindi }}</label>
             </li>
             <li>
@@ -33,7 +33,7 @@ i{{ define "settings" }}
                 <label for="private-profile">{{ .No }}</label>
             </li>
             <li>
-                <button type="submit">Save</button>
+                <button type="submit">{{ .Save }}</button>
             </li>
 
         </ul>

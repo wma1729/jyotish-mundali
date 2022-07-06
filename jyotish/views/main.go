@@ -18,6 +18,7 @@ type MainPage struct {
 	SiteAdmin     string `json:"siteadmin"`
 	Preferences   string `json:"preferences"`
 	Logout        string `json:"logout"`
+	Contact       string `json:"contact"`
 	User          *models.User
 }
 
