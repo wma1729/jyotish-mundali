@@ -1,0 +1,114 @@
+/* div for input fields */
+.text-fields, .radio-buttons, .planets {
+    display: grid;
+    gap: 1rem;
+}
+
+/* layout for text fields */
+.text-fields {
+    grid-template-columns: 1fr 2fr;
+}
+
+/* layout for radio buttons */
+.radio-buttons {
+    grid-template-columns: 1fr 0.2fr 0.8fr 0.2fr 0.8fr;
+}
+
+/* layout for radio buttons */
+.planets {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* div for submit button */
+.submit-button {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* div margins */
+.text-fields, .radio-buttons, .planets {
+    margin: 1rem;
+}
+
+.submit-button {
+    margin: 2rem;
+}
+
+/* border for fieldset */
+fieldset {
+    border-color: rgb(119, 174, 175);
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+fieldset:nth-of-type(1) {
+    margin-top: 10%;
+}
+
+fieldset:nth-of-type(2) {
+    margin-top: 2%;
+}
+
+/* field label */
+.field-label {
+    text-align: right;
+}
+
+/* style text inputs */
+input[type="text"],
+input[type="datetime-local"],
+input[type="number"],
+textarea {
+    background: transparent;
+
+    border: 2px solid rgb(119, 174, 175);
+    border-radius: 5px;
+
+    box-sizing: border-box;
+    font: inherit;
+}
+
+/* no system box on focus */
+input[type="text"]:focus,
+input[type="datetime-local"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    outline: 0;
+}
+
+/* custom radio button */
+input[type="radio"] {
+    appearance: none;
+
+    border: 2px solid rgb(119, 174, 175);
+    border-radius: 50%;
+
+    height: 16px;
+    width: 16px;
+
+    transition: 0.1s all linear;
+}
+
+/* radio button when checked */
+input[type="radio"]:checked {
+    border: 5px solid rgb(119, 174, 175);
+}
+
+/* save button */
+button {
+    background-color: rgb(119, 174, 175);
+    color: white;
+
+    border: 0;
+    border-radius: 6px;
+
+    font: inherit;
+
+    height: 2.5rem;
+    width: 20%;
+}
+
+/* draw box shadow on hover */
+button:hover {
+    box-shadow: 5px 5px 5px rgb(25, 71, 71);
+}

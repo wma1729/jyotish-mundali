@@ -1,42 +1,40 @@
-i{{ define "settings" }}
+{{ define "settings" }}
 <form action="/preferences" method="post">
     <fieldset>
         <legend>{{ .Preferences }}</legend>
-        <ul>
-            <li>
-                <label for="name" class="preference-label">{{ .Name }}:</label>
-                <input type="text" id="name" name="name" class="main-input" value="{{ .User.Name }}" required></input>
-            </li>
-            <li>
-                <label for="desc" class="preference-label">{{ .Description }}:</label>
-                <textarea id="desc" name="description" class="main-input">{{ .User.Description }}</textarea>
-            </li>
-            <li>
-                <label for="lang" class="preference-label">{{ .Language }}:</label>
-                <input type="radio" id="en" name="lang" value="en" {{ IsStringChecked .User.Lang "en" }}>
-                <label for="en">{{ .English }}</label>
-                <input type="radio" id="hi" name="lang" value="hi" {{ IsStringChecked .User.Lang "hi" }}>
-                <label for="hi">{{ .Hindi }}</label>
-            </li>
-            <li>
-                <label class="preference-label">{{ .Astrologer }}:</label>
-                <input type="radio" id="astrologer" name="astrologer" value="1" {{ IsBooleanChecked .User.Astrologer true }}>
-                <label for="astrologer">{{ .Yes }}</label>
-                <input type="radio" id="not-astrologer" name="astrologer" value="0" {{ IsBooleanChecked .User.Astrologer false }}>
-                <label for="not-astrologer">{{ .No }}</label>
-            </li>
-            <li>
-                <label class="preference-label">{{ .Public }}:</label>
-                <input type="radio" id="public-profile" name="public" value="1" {{ IsBooleanChecked .User.Public true }}>
-                <label for="public-profile">{{ .Yes }}</label>
-                <input type="radio" id="private-profile" name="public" value="0" {{ IsBooleanChecked .User.Public false }}>
-                <label for="private-profile">{{ .No }}</label>
-            </li>
-            <li>
-                <button type="submit">{{ .Save }}</button>
-            </li>
-
-        </ul>
+        <div class="text-fields">
+            <label for="name" class="field-label">{{ .Name }}:</label>
+            <input type="text" id="name" name="name" class="main-input" value="{{ .User.Name }}" required></input>
+        </div>
+        <div class="text-fields">
+            <label for="desc" class="field-label">{{ .Description }}:</label>
+            <textarea id="desc" name="description" rows="3" class="main-input">{{ .User.Description }}</textarea>
+        </div>
+        <div class="radio-buttons">
+            <label for="lang" class="field-label">{{ .Language }}:</label>
+            <input type="radio" id="en" name="lang" value="en" {{ IsStringChecked .User.Lang "en" }}>
+            <label for="en">{{ .English }}</label>
+            <input type="radio" id="hi" name="lang" value="hi" {{ IsStringChecked .User.Lang "hi" }}>
+            <label for="hi">{{ .Hindi }}</label>
+        </div>
+        <div class="radio-buttons">
+            <label class="field-label">{{ .Astrologer }}:</label>
+            <input type="radio" id="astrologer" name="astrologer" value="1" {{ IsBooleanChecked .User.Astrologer true }}>
+            <label for="astrologer">{{ .Yes }}</label>
+            <input type="radio" id="not-astrologer" name="astrologer" value="0" {{ IsBooleanChecked .User.Astrologer false }}>
+            <label for="not-astrologer">{{ .No }}</label>
+        </div>
+        <div class="radio-buttons">
+            <label class="field-label">{{ .Public }}:</label>
+            <input type="radio" id="public-profile" name="public" value="1" {{ IsBooleanChecked .User.Public true }}>
+            <label for="public-profile">{{ .Yes }}</label>
+            <input type="radio" id="private-profile" name="public" value="0" {{ IsBooleanChecked .User.Public false }}>
+            <label for="private-profile">{{ .No }}</label>
+        </div>
+        <div class="submit-button">
+            <button type="submit">{{ .Save }}</button>
+        </div>
     </fieldset>
 </form>
 {{ end }}
+
