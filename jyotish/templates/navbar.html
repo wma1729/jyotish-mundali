@@ -3,8 +3,8 @@
     <div>
         <a href="/">{{ .Home }}</a>
     </div>
-    <div class="profiles">
-        <a href="#">{{ .Profiles }}</a>
+    <div class="dropdown-div">
+        <a href="/profiles">{{ .Profiles }}</a>
     </div>
     <div class="knowledge-base">
         <a href="/knowledge-base">{{ .KnowledgeBase }}</a>
@@ -12,9 +12,9 @@
     <div class="faqs">
         <a href="/faqs">{{ .FAQs }}</a>
     </div>
-    <div class="account">
+    <div class="dropdown-div">
         <a href="#">{{ .User.Name }}</a>
-        <menu class="account-menu">
+        <menu class="dropdown-menu">
             <li><a href="/preferences">{{ .Preferences }}</a></li>
             <li><a href="/logout">{{ .Logout }}</a></li>
         </menu>

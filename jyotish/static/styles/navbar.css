@@ -4,6 +4,11 @@ body {
     font-size: large;
 }
 
+/* no decorations for anchor */
+a {
+    text-decoration: none;
+}
+
 /* navigation bar at the top */
 nav {
     display: flex;
@@ -25,7 +30,6 @@ nav div {
 /* top level navigation items - undecorated anchor */
 nav div a {
     color: black;
-    text-decoration: none;
 }
 
 /* change the anchor color on hover */
@@ -61,7 +65,7 @@ menu li a:hover {
 }
 
 /* display dropdown menu */
-.account:hover .account-menu {
+.dropdown-div:hover .dropdown-menu {
     display: block;
     z-index: 2;
 }
@@ -93,7 +97,6 @@ footer {
 /* footer - undecorated anchor */
 footer a {
     color: black;
-    text-decoration: none;
 }
 
 /* footer - change anchor color when hovered */

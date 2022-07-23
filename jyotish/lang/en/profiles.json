@@ -1,0 +1,20 @@
+{
+    "birthdetails": "Birth Details",
+    "name": "Name",
+    "dob": "Date of birth",
+    "city": "City",
+    "state": "State/Province",
+    "country": "Country",
+    "chartdetails": "Chart Details",
+    "lagna": "Ascendent",
+    "sun": "Sun",
+    "moon": "Moon",
+    "mars": "Mars",
+    "jupiter": "Jupiter",
+    "mercury": "Mercury",
+    "venus": "Venus",
+    "saturn": "Saturn",
+    "rahu": "Rahu",
+    "ketu": "Ketu",
+    "save": "Save"
+}
