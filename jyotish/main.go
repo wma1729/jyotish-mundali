@@ -85,6 +85,7 @@ func main() {
 	http.HandleFunc("/auth/callback", globals.CompleteAuth)
 	http.HandleFunc("/logout", globals.EndAuth)
 	http.HandleFunc("/preferences", globals.HandlePreferences)
+	http.HandleFunc("/profiles", globals.HandleProfiles)
 
 	log.Fatal(http.ListenAndServe("localhost:5000", nil))
 }

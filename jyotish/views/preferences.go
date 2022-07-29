@@ -86,7 +86,6 @@ func (page *PreferencesPage) Send(w http.ResponseWriter) error {
 		"templates/preferences.html",
 		"templates/header.html",
 		"templates/navbar.html",
-		"templates/settings.html",
 		"templates/footer.html"))
 	return tmpl.ExecuteTemplate(w, tmplName, page)
 }

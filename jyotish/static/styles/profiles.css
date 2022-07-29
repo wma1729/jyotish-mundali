@@ -1,0 +1,71 @@
+/* material icons are gray by default */
+.material-icons-outlined {
+    color: gray;
+}
+
+/* turn to blue (like anchors) when hovered over */
+.material-icons-outlined:hover {
+    color: blue;
+}
+
+/* profiles container: create-profile + list-profiles */
+.profile-container {
+    display: grid;
+    position: absolute;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 0;
+    row-gap: 2rem;
+    top: 8%;
+}
+
+/* create profile row */
+.create-profile {
+    grid-column: 5;
+    grid-row: 1;
+}
+
+/* list profiles row */
+.list-profiles {
+    grid-column: 2 / 6; 
+    grid-row: 2;
+}
+
+/* create profile button - not a real button */
+.create-profile-button {
+    background: rgb(119, 174, 175);
+    color: white;
+    border-radius: 6px;
+    font: inherit;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    padding: 0.75rem;
+}
+
+caption {
+    text-align: left;
+    color: rgb(119, 174, 175);
+    font: inherit;
+    font-weight: bold;
+    padding-bottom: 1rem;
+}
+
+table {
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th, td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: rgb(119, 174, 175, 0.1);
+}
+
+tbody tr:nth-child(even) {
+    background-color: white;
+}

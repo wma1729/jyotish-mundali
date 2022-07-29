@@ -1,0 +1,49 @@
+{{ define "list-profiles" }}
+<!DOCTYPE html>
+<html>
+    {{ template "header" . }}
+    <body>
+        {{ template "navbar" . }}
+        <section>
+            <div class="profile-container">
+                <div class="create-profile">
+                    <a class="create-profile-button" href="/create-profile">{{ .CreateProfile }}</a>
+                </div>
+                <div class="list-profiles">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>{{ .Name }}</th>
+                                <th>{{ .DateOfBirth }}</th>
+                                <th>{{ .PlaceOfBirth }}</th>
+                                <th>{{ .Action }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ range .UserProfiles}}
+                            <tr>
+                                <td>{{ .Name }}</td>
+                                <td>{{ .DateOfBirth }}</td>
+                                <td>{{ .City }}, {{ .State }}, {{ .Country }}</td>
+                                <td>
+                                    <a href="#">
+                                        <span class="material-icons-outlined">edit</span>
+                                    </a>
+                                    <a href="#">
+                                        <span class="material-icons-outlined">delete</span>
+                                    </a>
+                                    <a href="#">
+                                        <span class="material-icons-outlined">lightbulb</span>
+                                    </a>
+                                </td>
+                            </tr>
+                            {{ end }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    	{{ template "footer" . }}
+    </body>
+</html>
+{{ end }}

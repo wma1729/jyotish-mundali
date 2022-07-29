@@ -1,0 +1,99 @@
+{{ define "edit-profile" }}
+<form>
+    <fieldset>
+        <legend>Birth details</legend>
+        <div class="text-fields">
+            <label for="name" class="field-label">Name:</label>
+            <input type="text" id="name" name="profile-name" placeholder="Profile Name">
+        </div>
+
+        <div class="text-fields">
+            <label for="dob" class="field-label">Date of birth:</label>
+            <input type="datetime-local" id="dob" name="profile-dob">
+        </div>
+
+        <div class="text-fields">
+            <label for="city" class="field-label">City:</label>
+            <input type="text" id="city" name="profile-city" placeholder="City of birth">
+        </div>
+
+        <div class="text-fields">
+            <label for="state" class="field-label">State:</label>
+            <input type="text" id="state" name="profile-state" placeholder="State/Province of birth">
+        </div>
+
+        <div class="text-fields">
+            <label for="country" class="field-label">Country:</label>
+            <input type="text" id="country" name="profile-country" placeholder="County of birth">
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Chart details</legend>
+
+        <div class="planets">
+            <label for="lagna" class="field-label">Lagna:</label>
+            <input type="number" id="lagna" name="rashi" min="1" max="12" placeholder="Rashi Number">
+            <input type="number" id="lagna" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
+        </div>
+
+        <div class="planets">
+            <label for="sun" class="field-label">Sun:</label>
+            <input type="number" id="sun" name="rashi" min="1" max="12" placeholder="Rashi Number">
+            <input type="number" id="sun" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
+        </div>
+
+        <div class="planets">
+            <label for="moon" class="field-label">Moon:</label>
+            <input type="number" id="moon" name="rashi" min="1" max="12" placeholder="Rashi Number">
+            <input type="number" id="moon" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
+        </div>
+
+        <div class="planets">
+            <label for="mars" class="field-label">Mars:</label>
+            <input type="number" id="mars" name="rashi" min="1" max="12" placeholder="Rashi Number">
+            <input type="number" id="mars" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
+        </div>
+
+        <div class="planets">
+            <label for="jupiter" class="field-label">Jupiter:</label>
+            <input type="number" id="jupiter" name="rashi" min="1" max="12" placeholder="Rashi Number">
+            <input type="number" id="jupiter" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
+        </div>
+
+        <div class="planets">
+            <label for="mercury" class="field-label">Mercury:</label>
+            <input type="number" id="mercury" name="rashi" min="1" max="12" placeholder="Rashi Number">
+            <input type="number" id="mercury" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
+        </div>
+
+        <div class="planets">
+            <label for="venus" class="field-label">Venus:</label>
+            <input type="number" id="venus" name="rashi" min="1" max="12" placeholder="Rashi Number">
+            <input type="number" id="venus" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
+        </div>
+
+        <div class="planets">
+            <label for="saturn" class="field-label">Saturn:</label>
+            <input type="number" id="saturn" name="rashi" min="1" max="12" placeholder="Rashi Number">
+            <input type="number" id="saturn" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
+        </div>
+
+        <div class="planets">
+            <label for="rahu" class="field-label">Rahu:</label>
+            <input type="number" id="rahu" name="rashi" min="1" max="12" placeholder="Rashi Number">
+            <input type="number" id="rahu" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
+        </div>
+
+        <div class="planets">
+            <label for="ketu" class="field-label">Ketu:</label>
+            <input type="number" id="ketu" name="rashi" min="1" max="12" placeholder="Rashi Number">
+            <input type="number" id="ketu" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
+        </div>
+    </fieldset>
+
+    <div class="submit-button">
+        <button type="submit">Save</button>
+    </div>
+</form>
+{{ end }}
