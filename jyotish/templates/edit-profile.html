@@ -1,99 +1,179 @@
 {{ define "edit-profile" }}
-<form>
-    <fieldset>
-        <legend>Birth details</legend>
-        <div class="text-fields">
-            <label for="name" class="field-label">Name:</label>
-            <input type="text" id="name" name="profile-name" placeholder="Profile Name">
-        </div>
+<!DOCTYPE html>
+<html>
+    {{ template "header" . }}
+    <body>
+        {{ template "navbar" . }}
+        <section>
+            <form>
+                <fieldset>
+                    <legend>{{ .BirthDetails }}</legend>
+                    <div class="text-fields">
+                        <label for="name" class="field-label">{{ .Name }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="text" id="name" name="profile-name" value="{{ .UserProfile.Name }}" required>
+                        {{ else }}
+                            <input type="text" id="name" name="profile-name" required>
+                        {{ end }}
+                    </div>
 
-        <div class="text-fields">
-            <label for="dob" class="field-label">Date of birth:</label>
-            <input type="datetime-local" id="dob" name="profile-dob">
-        </div>
+                    <div class="text-fields">
+                        <label for="dob" class="field-label">{{ .DateOfBirth }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="datetime-local" id="dob" name="profile-dob" value="{{ .UserProfile.DateOfBirth }}" required>
+                        {{ else }}
+                            <input type="datetime-local" id="dob" name="profile-dob" required>
+                        {{ end }}
+                    </div>
 
-        <div class="text-fields">
-            <label for="city" class="field-label">City:</label>
-            <input type="text" id="city" name="profile-city" placeholder="City of birth">
-        </div>
+                    <div class="text-fields">
+                        <label for="city" class="field-label">{{ .City }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="text" id="city" name="profile-city" value="{{ .UserProfile.City }}" required>
+                        {{ else }}
+                            <input type="text" id="city" name="profile-city" required>
+                        {{ end }}
+                    </div>
 
-        <div class="text-fields">
-            <label for="state" class="field-label">State:</label>
-            <input type="text" id="state" name="profile-state" placeholder="State/Province of birth">
-        </div>
+                    <div class="text-fields">
+                        <label for="state" class="field-label">{{ .State }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="text" id="state" name="profile-state" value="{{ .UserProfile.State }}" required>
+                        {{ else }}
+                            <input type="text" id="state" name="profile-state" required>
+                        {{ end }}
+                    </div>
 
-        <div class="text-fields">
-            <label for="country" class="field-label">Country:</label>
-            <input type="text" id="country" name="profile-country" placeholder="County of birth">
-        </div>
-    </fieldset>
+                    <div class="text-fields">
+                        <label for="country" class="field-label">{{ .Country }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="text" id="country" name="profile-country" value="{{ .UserProfile.Country }}" required>
+                        {{ else }}
+                            <input type="text" id="country" name="profile-country" required>
+                        {{ end }}
+                    </div>
+                </fieldset>
 
-    <fieldset>
-        <legend>Chart details</legend>
+                <fieldset>
+                    <legend>{{ .ChartDetails }}</legend>
 
-        <div class="planets">
-            <label for="lagna" class="field-label">Lagna:</label>
-            <input type="number" id="lagna" name="rashi" min="1" max="12" placeholder="Rashi Number">
-            <input type="number" id="lagna" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
-        </div>
+                    <div class="planets">
+                        <label for="lagna" class="field-label">{{ .Lagna }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="number" id="lagna" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "lagna" }} required>
+                            <input type="number" id="lagna" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeINRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "lagna" }} required>
+                        {{ else }}
+                            <input type="number" id="lagna" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
+                            <input type="number" id="lagna" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                        {{ end }}
+                    </div>
 
-        <div class="planets">
-            <label for="sun" class="field-label">Sun:</label>
-            <input type="number" id="sun" name="rashi" min="1" max="12" placeholder="Rashi Number">
-            <input type="number" id="sun" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
-        </div>
+                    <div class="planets">
+                        <label for="sun" class="field-label">{{ .Sun }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="number" id="sun" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "sun" }} required>
+                            <input type="number" id="sun" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "sun" }} required>
+                        {{ else }}
+                            <input type="number" id="sun" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
+                            <input type="number" id="sun" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                        {{ end }}
+                    </div>
 
-        <div class="planets">
-            <label for="moon" class="field-label">Moon:</label>
-            <input type="number" id="moon" name="rashi" min="1" max="12" placeholder="Rashi Number">
-            <input type="number" id="moon" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
-        </div>
+                    <div class="planets">
+                        <label for="moon" class="field-label">{{ .Moon }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="number" id="moon" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "moon" }} required>
+                            <input type="number" id="moon" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "moon" }} required>
+                        {{ else }}
+                            <input type="number" id="moon" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
+                            <input type="number" id="moon" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                        {{ end }}
+                    </div>
 
-        <div class="planets">
-            <label for="mars" class="field-label">Mars:</label>
-            <input type="number" id="mars" name="rashi" min="1" max="12" placeholder="Rashi Number">
-            <input type="number" id="mars" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
-        </div>
+                    <div class="planets">
+                        <label for="mars" class="field-label">{{ .Mars }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="number" id="mars" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "mars" }} required>
+                            <input type="number" id="mars" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "mars" }} required>
+                        {{ else }}
+                            <input type="number" id="mars" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
+                            <input type="number" id="mars" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                        {{ end }}
+                    </div>
 
-        <div class="planets">
-            <label for="jupiter" class="field-label">Jupiter:</label>
-            <input type="number" id="jupiter" name="rashi" min="1" max="12" placeholder="Rashi Number">
-            <input type="number" id="jupiter" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
-        </div>
+                    <div class="planets">
+                        <label for="jupiter" class="field-label">{{ .Jupiter }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="number" id="jupiter" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "jupiter" }} required>
+                            <input type="number" id="jupiter" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "jupiter" }} required>
+                        {{ else }}
+                            <input type="number" id="jupiter" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
+                            <input type="number" id="jupiter" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                        {{ end }}
+                    </div>
 
-        <div class="planets">
-            <label for="mercury" class="field-label">Mercury:</label>
-            <input type="number" id="mercury" name="rashi" min="1" max="12" placeholder="Rashi Number">
-            <input type="number" id="mercury" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
-        </div>
+                    <div class="planets">
+                        <label for="mercury" class="field-label">{{ .Mercury }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="number" id="mercury" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "mercury" }} required>
+                            <input type="number" id="mercury" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "mercury" }} required>
+                        {{ else }}
+                            <input type="number" id="mercury" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
+                            <input type="number" id="mercury" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                        {{ end }}
+                    </div>
 
-        <div class="planets">
-            <label for="venus" class="field-label">Venus:</label>
-            <input type="number" id="venus" name="rashi" min="1" max="12" placeholder="Rashi Number">
-            <input type="number" id="venus" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
-        </div>
+                    <div class="planets">
+                        <label for="venus" class="field-label">{{ .Venus }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="number" id="venus" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "venus" }} required>
+                            <input type="number" id="venus" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "venus" }} required>
+                        {{ else }}
+                            <input type="number" id="venus" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
+                            <input type="number" id="venus" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                        {{ end }}
+                    </div>
 
-        <div class="planets">
-            <label for="saturn" class="field-label">Saturn:</label>
-            <input type="number" id="saturn" name="rashi" min="1" max="12" placeholder="Rashi Number">
-            <input type="number" id="saturn" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
-        </div>
+                    <div class="planets">
+                        <label for="saturn" class="field-label">{{ .Saturn }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="number" id="saturn" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "saturn" }} required>
+                            <input type="number" id="saturn" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "saturn" }} required>
+                        {{ else }}
+                            <input type="number" id="saturn" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
+                            <input type="number" id="saturn" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                        {{ end }}
+                    </div>
 
-        <div class="planets">
-            <label for="rahu" class="field-label">Rahu:</label>
-            <input type="number" id="rahu" name="rashi" min="1" max="12" placeholder="Rashi Number">
-            <input type="number" id="rahu" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
-        </div>
+                    <div class="planets">
+                        <label for="rahu" class="field-label">{{ .Rahu }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="number" id="rahu" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "rahu" }} required>
+                            <input type="number" id="rahu" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "rahu" }} required>
+                        {{ else }}
+                            <input type="number" id="rahu" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
+                            <input type="number" id="rahu" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                        {{ end }}
+                    </div>
 
-        <div class="planets">
-            <label for="ketu" class="field-label">Ketu:</label>
-            <input type="number" id="ketu" name="rashi" min="1" max="12" placeholder="Rashi Number">
-            <input type="number" id="ketu" name="degree" min="0.00" max="30.00" placeholder="Degree In Rashi">
-        </div>
-    </fieldset>
+                    <div class="planets">
+                        <label for="ketu" class="field-label">{{ .Ketu }}:</label>
+                        {{ if .UserProfile }}
+                            <input type="number" id="ketu" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "ketu" }} required>
+                            <input type="number" id="ketu" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "ketu" }} required>
+                        {{ else }}
+                            <input type="number" id="ketu" name="rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
+                            <input type="number" id="ketu" name="degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                        {{ end }}
+                    </div>
+                </fieldset>
 
-    <div class="submit-button">
-        <button type="submit">Save</button>
-    </div>
-</form>
+                <div class="submit-button">
+                    <button type="submit">{{ .Save }}</button>
+                </div>
+            </form>
+        </section>
+    	{{ template "footer" . }}
+    </body>
+</html>
 {{ end }}

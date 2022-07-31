@@ -7,7 +7,7 @@
         <section>
             <div class="profile-container">
                 <div class="create-profile">
-                    <a class="create-profile-button" href="/create-profile">{{ .CreateProfile }}</a>
+                    <a class="create-profile-button" href="/profiles/edit">{{ .CreateProfile }}</a>
                 </div>
                 <div class="list-profiles">
                     <table>
@@ -26,7 +26,7 @@
                                 <td>{{ .DateOfBirth }}</td>
                                 <td>{{ .City }}, {{ .State }}, {{ .Country }}</td>
                                 <td>
-                                    <a href="#">
+                                    <a href="/profiles/edit/{{ .ID }}">
                                         <span class="material-icons-outlined">edit</span>
                                     </a>
                                     <a href="#">
