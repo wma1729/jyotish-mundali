@@ -11,7 +11,7 @@ import (
 type PlanetPosition struct {
 	Name     string  `json:"name"`
 	RashiNum int     `json:"rashi"`
-	Degrees  float32 `json:"degrees"`
+	Degree   float32 `json:"degrees"`
 }
 
 type Chart struct {

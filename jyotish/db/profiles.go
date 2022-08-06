@@ -54,7 +54,7 @@ func ProfilesList(db *sql.DB, email string) ([]models.Profile, error) {
 }
 
 func ProfileInsert(db *sql.DB, email string, profile *models.Profile) error {
-	query := `INSERT INTO users (email, name, dob, city, state, country, details) VALUES
+	query := `INSERT INTO profiles (email, name, dob, city, state, country, details) VALUES
 		($1, $2, $3, $4, $5, $6, $7) RETURNING id`
 
 	log.Printf("sql - %s", query)

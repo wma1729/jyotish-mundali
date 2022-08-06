@@ -47,7 +47,7 @@ func GetRashiNumber(chart models.Chart, planet string) int {
 func GetDegreeInRashi(chart models.Chart, planet string) float32 {
 	for _, p := range chart.Planets {
 		if p.Name == planet {
-			return p.Degrees
+			return p.Degree
 		}
 	}
 	return -1.00

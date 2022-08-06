@@ -1,6 +1,9 @@
 package controllers
 
-import "strings"
+import (
+	"strconv"
+	"strings"
+)
 
 func SplitPath(path string) []string {
 	components := strings.Split(path, "/")
@@ -9,4 +12,9 @@ func SplitPath(path string) []string {
 	} else {
 		return components[1:]
 	}
+}
+
+func StringToFloat32(value string) float32 {
+	f64, _ := strconv.ParseFloat(value, 32)
+	return float32(f64)
 }

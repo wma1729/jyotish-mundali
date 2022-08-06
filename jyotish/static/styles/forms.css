@@ -1,3 +1,10 @@
+/* form */
+form {
+    position: absolute;
+    top: 8%;
+    width: 60%;
+}
+
 /* div for input fields */
 .text-fields, .radio-buttons, .planets {
     display: grid;
@@ -6,17 +13,17 @@
 
 /* layout for text fields */
 .text-fields {
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 0.5fr 2fr;
 }
 
 /* layout for radio buttons */
 .radio-buttons {
-    grid-template-columns: 1fr 0.2fr 0.8fr 0.2fr 0.8fr;
+    grid-template-columns: 0.5fr 0.2fr 0.8fr 0.2fr 0.8fr;
 }
 
 /* layout for radio buttons */
 .planets {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 1fr;
 }
 
 /* div for submit button */
@@ -37,12 +44,6 @@
 /* border for fieldset */
 fieldset {
     border-color: rgb(119, 174, 175);
-    margin-left: 20%;
-    margin-right: 20%;
-}
-
-fieldset:nth-of-type(1) {
-    margin-top: 10%;
 }
 
 fieldset:nth-of-type(2) {
@@ -105,7 +106,8 @@ button {
     font: inherit;
 
     height: 2.5rem;
-    width: 20%;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 /* draw box shadow on hover */

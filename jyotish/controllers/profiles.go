@@ -8,6 +8,8 @@ import (
 	"jyotish/views"
 	"log"
 	"net/http"
+	"strconv"
+	"time"
 )
 
 /*
@@ -93,7 +95,39 @@ func getProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 }
 
 func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User) {
+	r.ParseForm()
 
+	for key, values := range r.Form {
+		for _, value := range values {
+			log.Printf("%s = %s", key, value)
+		}
+	}
+
+	profile := &models.Profile{}
+	profile.Name = r.FormValue("profile-name")
+	profile.DateOfBirth, _ = time.Parse("2006-01-02T15:04", r.FormValue("profile-dob"))
+	profile.City = r.FormValue("profile-city")
+	profile.State = r.FormValue("profile-state")
+	profile.Country = r.FormValue("profile-country")
+
+	planets := []string{"lagna", "sun", "moon", "mars", "jupiter", "mercury", "jupiter", "saturn", "rahu", "ketu"}
+	for _, p := range planets {
+		planet := models.PlanetPosition{}
+		planet.Name = p
+		planet.RashiNum, _ = strconv.Atoi(r.FormValue(p + "-rashi"))
+		planet.Degree = StringToFloat32((r.FormValue(p + "-degree")))
+		profile.Details.Planets = append(profile.Details.Planets, planet)
+	}
+
+	err := db.ProfileInsert(g.DB, user.Email, profile)
+	if err != nil {
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, fmt.Sprintf("failed to insert profile in the database for %s: %v", user.Email, profile))
+		httpError.Send(w)
+		return
+	}
+
+	http.Redirect(w, r, "/profiles", http.StatusTemporaryRedirect)
 }
 
 func deleteProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User, id string) {

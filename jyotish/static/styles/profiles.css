@@ -12,21 +12,22 @@
 .profile-container {
     display: grid;
     position: absolute;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     column-gap: 0;
-    row-gap: 2rem;
+    row-gap: 4rem;
     top: 8%;
 }
 
 /* create profile row */
 .create-profile {
-    grid-column: 5;
+    grid-column: 4;
     grid-row: 1;
+    justify-self: end;
 }
 
 /* list profiles row */
 .list-profiles {
-    grid-column: 2 / 6; 
+    grid-column: 1 / 5; 
     grid-row: 2;
 }
 
