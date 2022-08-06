@@ -91,7 +91,6 @@ func getAllProfiles(w http.ResponseWriter, r *http.Request, g *Globals, user *mo
 }
 
 func getProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User, id string) {
-
 }
 
 func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User) {
@@ -104,13 +103,14 @@ func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 	}
 
 	profile := &models.Profile{}
+	profile.ID = r.FormValue("profile-id")
 	profile.Name = r.FormValue("profile-name")
 	profile.DateOfBirth, _ = time.Parse("2006-01-02T15:04", r.FormValue("profile-dob"))
 	profile.City = r.FormValue("profile-city")
 	profile.State = r.FormValue("profile-state")
 	profile.Country = r.FormValue("profile-country")
 
-	planets := []string{"lagna", "sun", "moon", "mars", "jupiter", "mercury", "jupiter", "saturn", "rahu", "ketu"}
+	planets := []string{"lagna", "sun", "moon", "mars", "jupiter", "mercury", "jupiter", "venus", "saturn", "rahu", "ketu"}
 	for _, p := range planets {
 		planet := models.PlanetPosition{}
 		planet.Name = p
@@ -119,10 +119,16 @@ func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 		profile.Details.Planets = append(profile.Details.Planets, planet)
 	}
 
-	err := db.ProfileInsert(g.DB, user.Email, profile)
+	var err error
+	if profile.ID == "" {
+		err = db.ProfileInsert(g.DB, user.Email, profile)
+	} else {
+		err = db.ProfileUpdate(g.DB, profile)
+	}
+
 	if err != nil {
 		httpError := views.GetHTTPError(http.StatusInternalServerError,
-			err, fmt.Sprintf("failed to insert profile in the database for %s: %v", user.Email, profile))
+			err, fmt.Sprintf("failed to insert/update profile in the database for %s: %v", user.Email, profile))
 		httpError.Send(w)
 		return
 	}
@@ -147,5 +153,23 @@ func getCreateProfilePage(w http.ResponseWriter, r *http.Request, g *Globals, us
 }
 
 func getEditProfilePage(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User, id string) {
+	profile, err := db.ProfileGet(g.DB, id)
+	if err != nil {
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to get profile")
+		httpError.Send(w)
+		return
+	}
 
+	log.Print(profile)
+
+	page, err := views.GetEditProfilePage(user, profile)
+	if err != nil {
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to get edit profile page")
+		httpError.Send(w)
+		return
+	}
+
+	page.Send(w)
 }

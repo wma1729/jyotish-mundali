@@ -6,8 +6,12 @@
         {{ template "navbar" . }}
         <section>
             <form action="/profiles/edit" method="post">
-                <fieldset>
+                <fieldset class="birth-details">
                     <legend>{{ .BirthDetails }}</legend>
+                    {{ if .UserProfile }}
+                    <input type="hidden" name="profile-id" value="{{ .UserProfile.ID }}">
+                    {{ end }}
+
                     <div class="text-fields">
                         <label for="name" class="field-label">{{ .Name }}:</label>
                         {{ if .UserProfile }}
@@ -20,7 +24,7 @@
                     <div class="text-fields">
                         <label for="dob" class="field-label">{{ .DateOfBirth }}:</label>
                         {{ if .UserProfile }}
-                            <input type="datetime-local" id="dob" name="profile-dob" value="{{ .UserProfile.DateOfBirth }}" required>
+                            <input type="datetime-local" id="dob" name="profile-dob" value={{ .UserProfile.DateOfBirth.Format "2006-01-02T15:04" }} required>
                         {{ else }}
                             <input type="datetime-local" id="dob" name="profile-dob" required>
                         {{ end }}
@@ -60,8 +64,8 @@
                     <div class="planets">
                         <label for="lagna" class="field-label">{{ .Lagna }}:</label>
                         {{ if .UserProfile }}
-                            <input type="number" id="lagna" name="lagna-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "lagna" }} required>
-                            <input type="number" id="lagna" name="lagna-degree" min="0.00" max="30.00" placeholder="{{ .DegreeINRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "lagna" }} required>
+                            <input type="number" id="lagna" name="lagna-rashi" min="1" max="12" value={{ GetRashiNumber .UserProfile.Details "lagna" }} required>
+                            <input type="number" id="lagna" name="lagna-degree" min="0.00" max="30.00" value={{ GetDegreeInRashi .UserProfile.Details "lagna" }} required>
                         {{ else }}
                             <input type="number" id="lagna" name="lagna-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
                             <input type="number" id="lagna" name="lagna-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>

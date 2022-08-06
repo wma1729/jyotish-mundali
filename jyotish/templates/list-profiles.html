@@ -23,7 +23,7 @@
                             {{ range .UserProfiles}}
                             <tr>
                                 <td>{{ .Name }}</td>
-                                <td>{{ .DateOfBirth.Format "2006-01-02 15:05 PM" }}</td>
+                                <td>{{ .DateOfBirth.Format "2006-01-02 15:04 PM" }}</td>
                                 <td>{{ .City }}, {{ .State }}, {{ .Country }}</td>
                                 <td>
                                     <a href="/profiles/edit/{{ .ID }}">

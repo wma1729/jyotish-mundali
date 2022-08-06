@@ -75,7 +75,7 @@ func ProfileInsert(db *sql.DB, email string, profile *models.Profile) error {
 }
 
 func ProfileGet(db *sql.DB, id string) (*models.Profile, error) {
-	query := `SELECT name, dob, city, state, country FROM profiles
+	query := `SELECT id, name, dob, city, state, country, details FROM profiles
 		WHERE id = $1`
 
 	log.Printf("sql - %s", query)
