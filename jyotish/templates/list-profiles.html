@@ -29,9 +29,7 @@
                                     <a href="/profiles/edit/{{ .ID }}">
                                         <span class="material-icons-outlined">edit</span>
                                     </a>
-                                    <a href="#">
-                                        <span class="material-icons-outlined">delete</span>
-                                    </a>
+                                    <span class="material-icons-outlined" onclick="deleteProfile(this, '{{ .ID }}')">delete</span>
                                     <a href="#">
                                         <span class="material-icons-outlined">lightbulb</span>
                                     </a>

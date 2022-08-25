@@ -123,7 +123,7 @@ func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 	if profile.ID == "" {
 		err = db.ProfileInsert(g.DB, user.Email, profile)
 	} else {
-		err = db.ProfileUpdate(g.DB, profile)
+		err = db.ProfileUpdate(g.DB, user.Email, profile)
 	}
 
 	if err != nil {
@@ -137,7 +137,15 @@ func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 }
 
 func deleteProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User, id string) {
+	err := db.ProfileDelete(g.DB, user.Email, id)
+	if err != nil {
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, fmt.Sprintf("failed to delete profile %s in the database for %s", id, user.Email))
+		httpError.Send(w)
+		return
+	}
 
+	w.WriteHeader(http.StatusOK)
 }
 
 func getCreateProfilePage(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User) {
@@ -153,7 +161,7 @@ func getCreateProfilePage(w http.ResponseWriter, r *http.Request, g *Globals, us
 }
 
 func getEditProfilePage(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User, id string) {
-	profile, err := db.ProfileGet(g.DB, id)
+	profile, err := db.ProfileGet(g.DB, user.Email, id)
 	if err != nil {
 		httpError := views.GetHTTPError(http.StatusInternalServerError,
 			err, "failed to get profile")

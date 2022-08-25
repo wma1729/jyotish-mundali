@@ -74,13 +74,13 @@ func ProfileInsert(db *sql.DB, email string, profile *models.Profile) error {
 	return nil
 }
 
-func ProfileGet(db *sql.DB, id string) (*models.Profile, error) {
+func ProfileGet(db *sql.DB, email, id string) (*models.Profile, error) {
 	query := `SELECT id, name, dob, city, state, country, details FROM profiles
-		WHERE id = $1`
+		WHERE email = $1 AND id = $2`
 
 	log.Printf("sql - %s", query)
 
-	row := db.QueryRow(query, id)
+	row := db.QueryRow(query, email, id)
 
 	var p models.Profile
 	err := row.Scan(
@@ -99,13 +99,14 @@ func ProfileGet(db *sql.DB, id string) (*models.Profile, error) {
 	return &p, nil
 }
 
-func ProfileUpdate(db *sql.DB, profile *models.Profile) error {
-	query := `UPDATE profiles SET name = $2, dob = $3, city = $4,
-		state = $5, country = $6, details = $7 WHERE id = $1`
+func ProfileUpdate(db *sql.DB, email string, profile *models.Profile) error {
+	query := `UPDATE profiles SET name = $3, dob = $4, city = $5,
+		state = $6, country = $7, details = $8 WHERE email = $1 AND id = $2`
 
 	log.Printf("sql - %s", query)
 
 	result, err := db.Exec(query,
+		email,
 		profile.ID,
 		profile.Name,
 		profile.DateOfBirth,
@@ -133,26 +134,26 @@ func ProfileUpdate(db *sql.DB, profile *models.Profile) error {
 	return nil
 }
 
-func ProfileDelete(db *sql.DB, id string) error {
-	query := `DELETE FROM profiles WHERE id = $1`
+func ProfileDelete(db *sql.DB, email, id string) error {
+	query := `DELETE FROM profiles WHERE email = $1 AND id = $2`
 
 	log.Printf("sql - %s", query)
 
-	result, err := db.Exec(query, id)
+	result, err := db.Exec(query, email, id)
 	if err != nil {
-		log.Printf("unable to update %s: %s", id, err)
+		log.Printf("unable to delete %s: %s", id, err)
 		return err
 	}
 
 	rowsDeleted, err := result.RowsAffected()
 	if err != nil {
-		log.Printf("unable to update %s: %s", id, err)
+		log.Printf("unable to delete %s: %s", id, err)
 		return err
 	}
 
 	if rowsDeleted != 1 {
 		err := errors.New(fmt.Sprintf("deleted %d rows", rowsDeleted))
-		log.Printf("unable to update %s: %s", id, err)
+		log.Printf("unable to delete %s: %s", id, err)
 		return err
 	}
 
