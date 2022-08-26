@@ -64,9 +64,8 @@ func (a *Authenticator) Init(config *config.Config) {
 		log.Fatalf("failed to get IdP details - %s", err)
 	}
 
-	log.Printf("Idp Auth URL - %s, Token URL - %s\n",
-		a.Provider.Endpoint().AuthURL,
-		a.Provider.Endpoint().TokenURL)
+	log.Printf("Idp Auth URL - %s", a.Provider.Endpoint().AuthURL)
+	log.Printf("Token URL - %s", a.Provider.Endpoint().TokenURL)
 
 	a.Config = &oauth2.Config{
 		ClientID:     config.Idp.ClientID,

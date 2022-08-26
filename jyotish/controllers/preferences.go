@@ -10,8 +10,6 @@ import (
 )
 
 func (g *Globals) HandlePreferences(w http.ResponseWriter, r *http.Request) {
-	log.Printf("Request URL - %s\n", r.URL)
-
 	authUser, err := authn.GetUserSession(r)
 	if err != nil {
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
@@ -52,9 +50,10 @@ func getPreferences(w http.ResponseWriter, r *http.Request, g *Globals, user *mo
 func setPreferences(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User) {
 	r.ParseForm()
 
+	log.Print("Form values:")
 	for key, values := range r.Form {
 		for _, value := range values {
-			log.Printf("%s = %s", key, value)
+			log.Printf("  %s = %s", key, value)
 		}
 	}
 
@@ -73,8 +72,6 @@ func setPreferences(w http.ResponseWriter, r *http.Request, g *Globals, user *mo
 	} else {
 		user.Public = false
 	}
-
-	log.Print(user)
 
 	err := db.UserUpdate(g.DB, user)
 	if err != nil {

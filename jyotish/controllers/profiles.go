@@ -15,14 +15,11 @@ import (
 /*
  * GET    /profiles           - Get all profiles.
  * POST   /profiles           - Create/edit a specific profile.
- * GET    /profiles/{id}      - Get a specific profile.
  * DELETE /profiles/{id}      - Delete a specific profile.
  * GET    /profiles/edit      - Get the page to create a new profile.
  * GET    /profiles/edit/{id} - Get the page to edit a specific profile.
  */
 func (g *Globals) HandleProfiles(w http.ResponseWriter, r *http.Request) {
-	log.Printf("Request URL - %s\n", r.URL)
-
 	authUser, err := authn.GetUserSession(r)
 	if err != nil {
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
@@ -57,9 +54,6 @@ func (g *Globals) HandleProfiles(w http.ResponseWriter, r *http.Request) {
 				/* GET /profiles/edit/{id} */
 				getEditProfilePage(w, r, g, user, pathSegments[2])
 			}
-		} else {
-			/* GET /profiles/{id} */
-			getProfile(w, r, g, user, pathSegments[1])
 		}
 
 	case "POST":
@@ -88,9 +82,6 @@ func getAllProfiles(w http.ResponseWriter, r *http.Request, g *Globals, user *mo
 	}
 
 	page.Send(w)
-}
-
-func getProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User, id string) {
 }
 
 func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User) {

@@ -87,5 +87,17 @@ func main() {
 	http.HandleFunc("/preferences", globals.HandlePreferences)
 	http.HandleFunc("/profiles/", globals.HandleProfiles)
 
-	log.Fatal(http.ListenAndServe("localhost:5000", nil))
+	log.Fatal(http.ListenAndServe("localhost:5000", logRequest(http.DefaultServeMux)))
+}
+
+func logRequest(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("Request %s %s", r.Method, r.URL.Path)
+		for key, values := range r.URL.Query() {
+			for _, value := range values {
+				log.Printf("  %s: %s", key, value)
+			}
+		}
+		handler.ServeHTTP(w, r)
+	})
 }

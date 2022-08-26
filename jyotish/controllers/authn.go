@@ -14,8 +14,6 @@ import (
 )
 
 func (g *Globals) BeginAuth(w http.ResponseWriter, r *http.Request) {
-	log.Printf("Request URL - %s\n", r.URL)
-
 	if r.URL.Path != "/" {
 		http.Error(w, fmt.Sprintf("path %s not found", r.URL.Path), http.StatusNotFound)
 		return
@@ -62,8 +60,6 @@ func (g *Globals) BeginAuth(w http.ResponseWriter, r *http.Request) {
 }
 
 func (g *Globals) CompleteAuth(w http.ResponseWriter, r *http.Request) {
-	log.Printf("Request URL - %s\n", r.URL)
-
 	if err := authn.ValidateState(r); err != nil {
 		httpError := views.GetHTTPError(http.StatusInternalServerError,
 			err, "failed to validate state")
@@ -130,8 +126,6 @@ func (g *Globals) CompleteAuth(w http.ResponseWriter, r *http.Request) {
 }
 
 func (g *Globals) EndAuth(w http.ResponseWriter, r *http.Request) {
-	log.Printf("Request URL - %s\n", r.URL)
-
 	user, err := authn.GetUserSession(r)
 	if err != nil {
 		httpError := views.GetHTTPError(http.StatusUnauthorized,

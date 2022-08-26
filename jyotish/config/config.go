@@ -33,7 +33,7 @@ func (config *Config) Validate() {
 	if config.Idp.ClientSecret == "" {
 		log.Fatalf("config.Idp.ClientSecret is not set")
 	} else {
-		log.Printf("config.Idp.ClientSecret = %s", "***")
+		log.Printf("config.Idp.ClientSecret = %s", "********")
 	}
 
 	if config.Idp.RedirectURL == "" {
@@ -63,6 +63,6 @@ func (config *Config) Validate() {
 	if config.Database.Password == "" {
 		log.Fatalf("config.Database.Password is not set")
 	} else {
-		log.Printf("config.Database.Password = %s", "***")
+		log.Printf("config.Database.Password = %s", "********")
 	}
 }
