@@ -73,12 +73,12 @@ menu li a:hover {
 
 /* section */
 section {
-	display: flex;
+    display: flex;
     position: absolute;
     justify-content: space-evenly;
-	top: 3%;
+    top: 3%;
     height: 94%;
-	width: 100%;
+    width: 100%;
     z-index: 0;
 }
 

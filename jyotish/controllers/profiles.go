@@ -13,11 +13,12 @@ import (
 )
 
 /*
- * GET    /profiles           - Get all profiles.
- * POST   /profiles           - Create/edit a specific profile.
- * DELETE /profiles/{id}      - Delete a specific profile.
- * GET    /profiles/edit      - Get the page to create a new profile.
- * GET    /profiles/edit/{id} - Get the page to edit a specific profile.
+ * GET    /profiles               - Get all profiles.
+ * POST   /profiles               - Create/edit a specific profile.
+ * DELETE /profiles/{id}          - Delete a specific profile.
+ * GET    /profiles/edit          - Get the page to create a new profile.
+ * GET    /profiles/edit/{id}     - Get the page to edit a specific profile.
+ * GET    /profiles/analysis/{id} - Get the analysis page.
  */
 func (g *Globals) HandleProfiles(w http.ResponseWriter, r *http.Request) {
 	authUser, err := authn.GetUserSession(r)
@@ -53,6 +54,11 @@ func (g *Globals) HandleProfiles(w http.ResponseWriter, r *http.Request) {
 			} else {
 				/* GET /profiles/edit/{id} */
 				getEditProfilePage(w, r, g, user, pathSegments[2])
+			}
+		} else if pathSegments[1] == "analysis" {
+			if numOfSegments == 3 {
+				/* GET /profiles/analysis/{id} */
+				getAnalysisPage(w, r, g, user, pathSegments[2])
 			}
 		}
 
@@ -101,13 +107,31 @@ func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 	profile.State = r.FormValue("profile-state")
 	profile.Country = r.FormValue("profile-country")
 
-	planets := []string{"lagna", "sun", "moon", "mars", "jupiter", "mercury", "jupiter", "venus", "saturn", "rahu", "ketu"}
-	for _, p := range planets {
-		planet := models.PlanetPosition{}
-		planet.Name = p
-		planet.RashiNum, _ = strconv.Atoi(r.FormValue(p + "-rashi"))
-		planet.Degree = StringToFloat32((r.FormValue(p + "-degree")))
-		profile.Details.Planets = append(profile.Details.Planets, planet)
+	grahas := []string{
+		models.LAGNA,
+		models.SUN,
+		models.MOON,
+		models.MARS,
+		models.MERCURY,
+		models.JUPITER,
+		models.VENUS,
+		models.SATURN,
+		models.RAHU,
+		models.KETU,
+	}
+
+	for _, p := range grahas {
+		graha := models.Graha{}
+		graha.Name = p
+		graha.RashiNum, _ = strconv.Atoi(r.FormValue(p + "-rashi"))
+		graha.Degree = StringToFloat32((r.FormValue(p + "-degree")))
+		retrograde, _ := strconv.Atoi(r.FormValue(p + "-retrograde"))
+		if retrograde == 1 {
+			graha.Retrograde = true
+		} else {
+			graha.Retrograde = false
+		}
+		profile.Details.Grahas = append(profile.Details.Grahas, graha)
 	}
 
 	var err error
@@ -166,6 +190,32 @@ func getEditProfilePage(w http.ResponseWriter, r *http.Request, g *Globals, user
 	if err != nil {
 		httpError := views.GetHTTPError(http.StatusInternalServerError,
 			err, "failed to get edit profile page")
+		httpError.Send(w)
+		return
+	}
+
+	page.Send(w)
+}
+
+func getAnalysisPage(w http.ResponseWriter, r *http.Request, g *Globals, user *models.User, id string) {
+	profile, err := db.ProfileGet(g.DB, user.Email, id)
+	if err != nil {
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to get profile")
+		httpError.Send(w)
+		return
+	}
+
+	log.Print(profile)
+
+	bhavas := models.GetBhavasFromChart(profile.Details)
+
+	log.Print(bhavas)
+
+	page, err := views.GetAnalysisPage(user, bhavas[:])
+	if err != nil {
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to get analysis page")
 		httpError.Send(w)
 		return
 	}

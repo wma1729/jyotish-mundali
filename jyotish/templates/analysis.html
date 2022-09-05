@@ -1,0 +1,29 @@
+{{ define "analysis" }}
+<!DOCTYPE html>
+<html>
+    {{ template "header" . }}
+    <body>
+        {{ template "navbar" . }}
+        <section>
+            <section class="lagna-chart">
+            {{ range .Bhavas }}
+                <section class="bhava-{{ .Number }}-wrapper">
+                    <div class="bhava-{{ .Number }}" style="background-color: var(--{{ .RashiLord }}-color)">
+                        <p id="graha">
+                        {{ range .Grahas }}
+                            {{ .Name }}<sup>{{ .Degree }}</sup>
+                            {{ if .Retrograde }}
+                                (R)
+                            {{ end }}
+                        {{ end }}
+                        </p>
+                        <p id="rashi-num">{{ .RashiNum }}</p>
+                    </div>
+                </section>
+            {{ end }}
+            </section>
+        </section>
+    	{{ template "footer" . }}
+    </body>
+</html>
+{{ end }}

@@ -8,21 +8,15 @@ import (
 	"time"
 )
 
-type PlanetPosition struct {
-	Name     string  `json:"name"`
-	RashiNum int     `json:"rashi"`
-	Degree   float32 `json:"degrees"`
+type GrahaDetails struct {
+	Grahas []Graha
 }
 
-type Chart struct {
-	Planets []PlanetPosition
-}
-
-func (chart Chart) Value() (driver.Value, error) {
+func (chart GrahaDetails) Value() (driver.Value, error) {
 	return json.Marshal(chart)
 }
 
-func (chart *Chart) Scan(value interface{}) error {
+func (chart *GrahaDetails) Scan(value interface{}) error {
 	b, ok := value.([]byte)
 	if !ok {
 		return errors.New(fmt.Sprintf("unexpected value type: expected []byte, found %T", value))
@@ -38,5 +32,5 @@ type Profile struct {
 	City        string
 	State       string
 	Country     string
-	Details     Chart
+	Details     GrahaDetails
 }

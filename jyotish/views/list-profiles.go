@@ -60,7 +60,6 @@ func (page *ListProfilesPage) Send(w http.ResponseWriter) error {
 	tmplName := "list-profiles"
 	tmpl := template.Must(template.New(tmplName).ParseFiles(
 		"templates/list-profiles.html",
-		"templates/main.html",
 		"templates/header.html",
 		"templates/navbar.html",
 		"templates/footer.html"))

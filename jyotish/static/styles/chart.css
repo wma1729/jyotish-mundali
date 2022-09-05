@@ -1,0 +1,336 @@
+.lagna-chart
+{
+    position: absolute;
+    top: 8%;
+    width: 50vw;
+    height: 50vw;
+    border: 2px solid black;
+    margin: 0;
+    padding: 0;
+}
+
+.bhava-1-wrapper, .bhava-1,
+.bhava-2-wrapper, .bhava-2,
+.bhava-3-wrapper, .bhava-3,
+.bhava-4-wrapper, .bhava-4,
+.bhava-5-wrapper, .bhava-5,
+.bhava-6-wrapper, .bhava-6,
+.bhava-7-wrapper, .bhava-7,
+.bhava-8-wrapper, .bhava-8,
+.bhava-9-wrapper, .bhava-9, 
+.bhava-10-wrapper, .bhava-10,
+.bhava-11-wrapper, .bhava-11,
+.bhava-12-wrapper, .bhava-12
+{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: inherit;
+    height: inherit;
+}
+
+.bhava-1-wrapper,
+.bhava-2-wrapper,
+.bhava-3-wrapper,
+.bhava-4-wrapper,
+.bhava-5-wrapper,
+.bhava-6-wrapper,
+.bhava-7-wrapper,
+.bhava-8-wrapper,
+.bhava-9-wrapper,
+.bhava-10-wrapper,
+.bhava-11-wrapper,
+.bhava-12-wrapper
+{
+    pointer-events: none;
+}
+
+.bhava-1,
+.bhava-2,
+.bhava-3,
+.bhava-4,
+.bhava-5,
+.bhava-6,
+.bhava-7,
+.bhava-8,
+.bhava-9,
+.bhava-10,
+.bhava-11,
+.bhava-12
+{
+    pointer-events: auto;
+    text-align: center;
+}
+
+:root
+{
+    --sun-color: rgb(252, 196, 76, 0.8);
+    --moon-color: white;
+    --mars-color: rgb(190, 64, 39);
+    --mercury-color: lightgreen;
+    --jupiter-color: lightyellow;
+    --venus-color: whitesmoke;
+    --saturn-color: lightslategray;
+}
+
+.bhava-1
+{
+    clip-path: polygon(50% 0%, 25% 25%, 50% 50%, 75% 25%);
+}
+
+.bhava-2
+{
+    clip-path: polygon(0% 0%, 25% 25%, 50% 0%);
+}
+
+.bhava-3
+{
+    clip-path: polygon(0% 0%, 25% 25%, 0% 50%);
+}
+
+.bhava-4
+{
+    clip-path: polygon(0% 50%, 25% 25%, 50% 50%, 25% 75%);
+}
+
+.bhava-5
+{
+    clip-path: polygon(0% 50%, 25% 75%, 0% 100%);
+}
+
+.bhava-6
+{
+    clip-path: polygon(0% 100%, 25% 75%, 50% 100%);
+}
+
+.bhava-7
+{
+    clip-path: polygon(50% 50%, 25% 75%, 50% 100%, 75% 75%);
+}
+
+.bhava-8
+{
+    clip-path: polygon(50% 100%, 75% 75%, 100% 100%);
+}
+
+.bhava-9
+{
+    clip-path: polygon(75% 75%, 100% 50%, 100% 100%);
+}
+
+.bhava-10
+{
+    clip-path: polygon(50% 50%, 75% 25%, 100% 50%, 75% 75%);
+}
+
+.bhava-11
+{
+    clip-path: polygon(75% 25%, 100% 0%, 100% 50%);
+}
+
+.bhava-12
+{
+    clip-path: polygon(50% 0%, 75% 25%, 100% 0%);
+}
+
+.bhava-1-wrapper:hover,
+.bhava-2-wrapper:hover,
+.bhava-12-wrapper:hover,
+.bhava-9-wrapper:hover,
+.bhava-10-wrapper:hover,
+.bhava-11-wrapper:hover
+{
+    filter: drop-shadow(8px -8px 8px gray);
+}
+
+.bhava-3-wrapper:hover,
+.bhava-4-wrapper:hover,
+.bhava-5-wrapper:hover,
+.bhava-6-wrapper:hover,
+.bhava-7-wrapper:hover,
+.bhava-8-wrapper:hover
+{
+    filter: drop-shadow(-8px 8px 8px gray);
+}
+
+#graha, #rashi-num
+{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+}
+
+.bhava-1 #rashi-num,
+.bhava-7 #rashi-num
+{
+    left: 49%;
+}
+
+.bhava-1 #rashi-num
+{
+    top: 45%;
+}
+
+.bhava-2 #rashi-num,
+.bhava-12 #rashi-num
+{
+    top: 20%;
+}
+
+
+.bhava-2 #rashi-num,
+.bhava-6 #rashi-num
+{
+    left: 24%;
+}
+
+.bhava-3 #rashi-num,
+.bhava-11 #rashi-num
+{
+    top: 24%;
+}
+
+.bhava-3 #rashi-num,
+.bhava-5 #rashi-num
+{
+    left: 20%;
+}
+
+.bhava-4 #rashi-num,
+.bhava-10 #rashi-num
+{
+    top: 49%;
+}
+
+.bhava-4 #rashi-num
+{
+    left: 45%;
+}
+
+.bhava-5 #rashi-num,
+.bhava-9 #rashi-num
+{
+    top: 74%;
+}
+
+.bhava-6 #rashi-num,
+.bhava-8 #rashi-num
+{
+    top: 77%;
+}
+
+.bhava-7 #rashi-num
+{
+    top: 52%;
+}
+
+.bhava-8 #rashi-num,
+.bhava-12 #rashi-num
+{
+    left: 74%;
+}
+
+.bhava-9 #rashi-num,
+.bhava-11 #rashi-num
+{
+    left: 77%;
+}
+
+
+.bhava-10 #rashi-num
+{
+    left: 52%;
+}
+
+.bhava-1 #graha,
+.bhava-2 #graha,
+.bhava-4 #graha,
+.bhava-6 #graha,
+.bhava-7 #graha,
+.bhava-8 #graha,
+.bhava-10 #graha,
+.bhava-12 #graha
+{
+    width: 25%;
+}
+
+.bhava-3 #graha,
+.bhava-5 #graha,
+.bhava-9 #graha,
+.bhava-11 #graha
+{
+    width: 15%;
+}
+
+.bhava-1 #graha,
+.bhava-7 #graha
+{
+    left: 37.5%;
+}
+
+.bhava-2 #graha,
+.bhava-4 #graha,
+.bhava-6 #graha
+{
+    left: 12.5%;
+}
+
+.bhava-3 #graha,
+.bhava-5 #graha
+{
+    left: 1%;
+}
+
+.bhava-8 #graha,
+.bhava-10 #graha,
+.bhava-12 #graha
+{
+    left: 62.5%;
+}
+
+.bhava-9 #graha,
+.bhava-11 #graha
+{
+    left: 84%;
+
+}
+
+.bhava-1 #graha
+{
+    top: 20%;
+}
+
+.bhava-2 #graha,
+.bhava-12 #graha
+{
+    top: 5%;
+}
+
+.bhava-3 #graha,
+.bhava-11 #graha
+{
+    top: 17.5%;
+}
+
+.bhava-4 #graha,
+.bhava-10 #graha
+{
+    top: 45%;
+}
+
+.bhava-5 #graha,
+.bhava-9 #graha
+{
+    top: 67.5%;
+}
+
+.bhava-6 #graha,
+.bhava-8 #graha
+{
+    top: 87.5%;
+}
+
+.bhava-7 #graha
+{
+    top: 70%;
+}

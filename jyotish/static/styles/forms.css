@@ -21,9 +21,9 @@ form {
     grid-template-columns: 0.5fr 0.2fr 0.8fr 0.2fr 0.8fr;
 }
 
-/* layout for radio buttons */
+/* layout for planets*/
 .planets {
-    grid-template-columns: 0.5fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 /* div for submit button */

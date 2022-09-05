@@ -22,6 +22,7 @@ type EditProfilePage struct {
 	Lagna         string `json:"lagna"`
 	RashiNumber   string `json:"rashi-number"`
 	DegreeInRashi string `json:"degree-in-rashi"`
+	Retrograde    string `json:"retrograde"`
 	Sun           string `json:"sun"`
 	Moon          string `json:"moon"`
 	Mars          string `json:"mars"`
@@ -35,22 +36,35 @@ type EditProfilePage struct {
 	UserProfile   *models.Profile
 }
 
-func GetRashiNumber(chart models.Chart, planet string) int {
-	for _, p := range chart.Planets {
-		if p.Name == planet {
+func GetRashiNumber(chart models.GrahaDetails, graha string) int {
+	for _, p := range chart.Grahas {
+		if p.Name == graha {
 			return p.RashiNum
 		}
 	}
 	return -1
 }
 
-func GetDegreeInRashi(chart models.Chart, planet string) float32 {
-	for _, p := range chart.Planets {
-		if p.Name == planet {
+func GetDegreeInRashi(chart models.GrahaDetails, graha string) float32 {
+	for _, p := range chart.Grahas {
+		if p.Name == graha {
 			return p.Degree
 		}
 	}
 	return -1.00
+}
+
+func GetRetrogradeStatus(chart models.GrahaDetails, graha string) string {
+	for _, p := range chart.Grahas {
+		if p.Name == graha {
+			if p.Retrograde {
+				return "1"
+			} else {
+				return "0"
+			}
+		}
+	}
+	return "0"
 }
 
 func GetEditProfilePage(user *models.User, profile *models.Profile) (*EditProfilePage, error) {
@@ -93,11 +107,11 @@ func (page *EditProfilePage) Send(w http.ResponseWriter) error {
 	tmplName := "edit-profile"
 	tmpl := template.Must(template.New(tmplName).Funcs(
 		template.FuncMap{
-			"GetRashiNumber":   GetRashiNumber,
-			"GetDegreeInRashi": GetDegreeInRashi,
+			"GetRashiNumber":      GetRashiNumber,
+			"GetDegreeInRashi":    GetDegreeInRashi,
+			"GetRetrogradeStatus": GetRetrogradeStatus,
 		}).ParseFiles(
 		"templates/edit-profile.html",
-		"templates/main.html",
 		"templates/header.html",
 		"templates/navbar.html",
 		"templates/footer.html"))

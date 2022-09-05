@@ -66,9 +66,11 @@
                         {{ if .UserProfile }}
                             <input type="number" id="lagna" name="lagna-rashi" min="1" max="12" value={{ GetRashiNumber .UserProfile.Details "lagna" }} required>
                             <input type="number" id="lagna" name="lagna-degree" min="0.00" max="30.00" value={{ GetDegreeInRashi .UserProfile.Details "lagna" }} required>
+                            <input type="number" id="lagna" name="lagna-retrograde" min="0" max="1" value="0" required>
                         {{ else }}
                             <input type="number" id="lagna" name="lagna-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
                             <input type="number" id="lagna" name="lagna-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="lagna" name="lagna-retrograde" min="0" max="1" value="0" required>
                         {{ end }}
                     </div>
 
@@ -77,9 +79,11 @@
                         {{ if .UserProfile }}
                             <input type="number" id="sun" name="sun-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "sun" }} required>
                             <input type="number" id="sun" name="sun-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "sun" }} required>
+                            <input type="number" id="sun" name="sun-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "sun" }} required>
                         {{ else }}
                             <input type="number" id="sun" name="sun-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
                             <input type="number" id="sun" name="sun-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="sun" name="sun-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
                         {{ end }}
                     </div>
 
@@ -88,9 +92,11 @@
                         {{ if .UserProfile }}
                             <input type="number" id="moon" name="moon-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "moon" }} required>
                             <input type="number" id="moon" name="moon-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "moon" }} required>
+                            <input type="number" id="moon" name="moon-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "moon" }} required>
                         {{ else }}
                             <input type="number" id="moon" name="moon-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
                             <input type="number" id="moon" name="moon-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="moon" name="moon-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
                         {{ end }}
                     </div>
 
@@ -99,9 +105,11 @@
                         {{ if .UserProfile }}
                             <input type="number" id="mars" name="mars-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "mars" }} required>
                             <input type="number" id="mars" name="mars-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "mars" }} required>
+                            <input type="number" id="mars" name="mars-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "mars" }} required>
                         {{ else }}
                             <input type="number" id="mars" name="mars-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
                             <input type="number" id="mars" name="mars-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="mars" name="mars-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
                         {{ end }}
                     </div>
 
@@ -110,9 +118,11 @@
                         {{ if .UserProfile }}
                             <input type="number" id="jupiter" name="jupiter-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "jupiter" }} required>
                             <input type="number" id="jupiter" name="jupiter-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "jupiter" }} required>
+                            <input type="number" id="jupiter" name="jupiter-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "jupiter" }} required>
                         {{ else }}
                             <input type="number" id="jupiter" name="jupiter-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
                             <input type="number" id="jupiter" name="jupiter-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="jupiter" name="jupiter-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
                         {{ end }}
                     </div>
 
@@ -121,9 +131,11 @@
                         {{ if .UserProfile }}
                             <input type="number" id="mercury" name="mercury-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "mercury" }} required>
                             <input type="number" id="mercury" name="mercury-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "mercury" }} required>
+                            <input type="number" id="mercury" name="mercury-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "mercury" }} required>
                         {{ else }}
                             <input type="number" id="mercury" name="mercury-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
                             <input type="number" id="mercury" name="mercury-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="mercury" name="mercury-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
                         {{ end }}
                     </div>
 
@@ -132,9 +144,11 @@
                         {{ if .UserProfile }}
                             <input type="number" id="venus" name="venus-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "venus" }} required>
                             <input type="number" id="venus" name="venus-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "venus" }} required>
+                            <input type="number" id="venus" name="venus-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "venus" }} required>
                         {{ else }}
                             <input type="number" id="venus" name="venus-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
                             <input type="number" id="venus" name="venus-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="venus" name="venus-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
                         {{ end }}
                     </div>
 
@@ -143,9 +157,11 @@
                         {{ if .UserProfile }}
                             <input type="number" id="saturn" name="saturn-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "saturn" }} required>
                             <input type="number" id="saturn" name="saturn-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "saturn" }} required>
+                            <input type="number" id="saturn" name="saturn-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "saturn" }} required>
                         {{ else }}
                             <input type="number" id="saturn" name="saturn-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
                             <input type="number" id="saturn" name="saturn-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="saturn" name="saturn-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
                         {{ end }}
                     </div>
 
@@ -154,9 +170,11 @@
                         {{ if .UserProfile }}
                             <input type="number" id="rahu" name="rahu-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "rahu" }} required>
                             <input type="number" id="rahu" name="rahu-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "rahu" }} required>
+                            <input type="number" id="rahu" name="rahu-retrograde" min="0" max="1" value="1" required>
                         {{ else }}
                             <input type="number" id="rahu" name="rahu-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
                             <input type="number" id="rahu" name="rahu-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="rahu" name="rahu-retrograde" min="0" max="1" value="1" required>
                         {{ end }}
                     </div>
 
@@ -165,9 +183,11 @@
                         {{ if .UserProfile }}
                             <input type="number" id="ketu" name="ketu-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "ketu" }} required>
                             <input type="number" id="ketu" name="ketu-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "ketu" }} required>
+                            <input type="number" id="ketu" name="ketu-retrograde" min="0" max="1" value="1" required>
                         {{ else }}
                             <input type="number" id="ketu" name="ketu-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
                             <input type="number" id="ketu" name="ketu-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="ketu" name="ketu-retrograde" min="0" max="1" value="1" required>
                         {{ end }}
                     </div>
                 </fieldset>
