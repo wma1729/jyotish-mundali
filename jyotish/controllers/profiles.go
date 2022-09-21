@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"jyotish/analysis"
 	"jyotish/authn"
 	"jyotish/db"
 	"jyotish/models"
@@ -108,20 +109,20 @@ func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 	profile.Country = r.FormValue("profile-country")
 
 	grahas := []string{
-		models.LAGNA,
-		models.SUN,
-		models.MOON,
-		models.MARS,
-		models.MERCURY,
-		models.JUPITER,
-		models.VENUS,
-		models.SATURN,
-		models.RAHU,
-		models.KETU,
+		analysis.LAGNA,
+		analysis.SUN,
+		analysis.MOON,
+		analysis.MARS,
+		analysis.MERCURY,
+		analysis.JUPITER,
+		analysis.VENUS,
+		analysis.SATURN,
+		analysis.RAHU,
+		analysis.KETU,
 	}
 
 	for _, p := range grahas {
-		graha := models.Graha{}
+		graha := analysis.Graha{}
 		graha.Name = p
 		graha.RashiNum, _ = strconv.Atoi(r.FormValue(p + "-rashi"))
 		graha.Degree = StringToFloat32((r.FormValue(p + "-degree")))
@@ -208,11 +209,19 @@ func getAnalysisPage(w http.ResponseWriter, r *http.Request, g *Globals, user *m
 
 	log.Print(profile)
 
-	bhavas := models.GetBhavasFromChart(profile.Details)
+	chart := analysis.GetChart(profile.Details)
+	chart.GrahasAttr = make([]analysis.GrahaAttributes, 9)
+	chart.GrahasAttr[0].Init(analysis.SUN, &chart)
+	chart.GrahasAttr[1].Init(analysis.MOON, &chart)
+	chart.GrahasAttr[2].Init(analysis.MARS, &chart)
+	chart.GrahasAttr[3].Init(analysis.MERCURY, &chart)
+	chart.GrahasAttr[4].Init(analysis.JUPITER, &chart)
+	chart.GrahasAttr[5].Init(analysis.VENUS, &chart)
+	chart.GrahasAttr[6].Init(analysis.SATURN, &chart)
+	chart.GrahasAttr[7].Init(analysis.RAHU, &chart)
+	chart.GrahasAttr[8].Init(analysis.KETU, &chart)
 
-	log.Print(bhavas)
-
-	page, err := views.GetAnalysisPage(user, bhavas[:])
+	page, err := views.GetAnalysisPage(user, chart)
 	if err != nil {
 		httpError := views.GetHTTPError(http.StatusInternalServerError,
 			err, "failed to get analysis page")

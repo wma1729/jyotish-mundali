@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"html/template"
 	"io/ioutil"
+	"jyotish/analysis"
 	"jyotish/models"
 	"log"
 	"net/http"
@@ -36,7 +37,7 @@ type EditProfilePage struct {
 	UserProfile   *models.Profile
 }
 
-func GetRashiNumber(chart models.GrahaDetails, graha string) int {
+func GetRashiNumber(chart analysis.GrahaDetais, graha string) int {
 	for _, p := range chart.Grahas {
 		if p.Name == graha {
 			return p.RashiNum
@@ -45,7 +46,7 @@ func GetRashiNumber(chart models.GrahaDetails, graha string) int {
 	return -1
 }
 
-func GetDegreeInRashi(chart models.GrahaDetails, graha string) float32 {
+func GetDegreeInRashi(chart analysis.GrahaDetais, graha string) float32 {
 	for _, p := range chart.Grahas {
 		if p.Name == graha {
 			return p.Degree
@@ -54,7 +55,7 @@ func GetDegreeInRashi(chart models.GrahaDetails, graha string) float32 {
 	return -1.00
 }
 
-func GetRetrogradeStatus(chart models.GrahaDetails, graha string) string {
+func GetRetrogradeStatus(chart analysis.GrahaDetais, graha string) string {
 	for _, p := range chart.Grahas {
 		if p.Name == graha {
 			if p.Retrograde {

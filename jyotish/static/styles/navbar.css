@@ -2,6 +2,8 @@
 body {
     font-family: sans-serif;
     font-size: large;
+    margin: 0;
+    padding: 0;
 }
 
 /* no decorations for anchor */
@@ -75,7 +77,8 @@ menu li a:hover {
 section {
     display: flex;
     position: absolute;
-    justify-content: space-evenly;
+    flex-direction: column;
+    overflow-y: scroll;
     top: 3%;
     height: 94%;
     width: 100%;

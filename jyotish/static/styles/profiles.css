@@ -16,6 +16,7 @@
     column-gap: 0;
     row-gap: 4rem;
     top: 8%;
+    left: 25%;
 }
 
 /* create profile row */
@@ -54,6 +55,9 @@ caption {
 table {
     border-collapse: collapse;
     text-align: center;
+    white-space: nowrap;
+    overflow-x: scroll;
+    margin-bottom: 0.5rem;
 }
 
 th, td {
@@ -73,4 +77,23 @@ tbody tr:nth-child(even) {
 
 tbody tr span:hover {
     cursor: pointer;
+}
+
+.graha-attr {
+    position: relative;
+    top: calc(50vw + 13%);
+    left: 10%;
+    right: 10%;
+    width: 80%;
+    margin-bottom: 3%;
+    overflow-y: visible;
+    overflow-x: scroll;
+}
+
+.fixed-column {
+    position: sticky;
+    left: 0;
+    background-color: rgb(119, 174, 175);
+    color: white;
+    z-index: 2;
 }
