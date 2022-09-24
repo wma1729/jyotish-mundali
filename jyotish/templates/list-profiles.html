@@ -7,16 +7,16 @@
         <section>
             <div class="profile-container">
                 <div class="create-profile">
-                    <a class="create-profile-button" href="/profiles/edit">{{ .CreateProfile }}</a>
+                    <a class="create-profile-button" href="/profiles/edit">{{ .Vocab.CreateProfile }}</a>
                 </div>
                 <div class="list-profiles">
                     <table>
                         <thead>
                             <tr>
-                                <th>{{ .Name }}</th>
-                                <th>{{ .DateOfBirth }}</th>
-                                <th>{{ .PlaceOfBirth }}</th>
-                                <th>{{ .Action }}</th>
+                                <th>{{ .Vocab.Name }}</th>
+                                <th>{{ .Vocab.DateOfBirth }}</th>
+                                <th>{{ .Vocab.PlaceOfBirth }}</th>
+                                <th>{{ .Vocab.Action }}</th>
                             </tr>
                         </thead>
                         <tbody>

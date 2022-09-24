@@ -72,6 +72,17 @@ func GetChart(gd GrahaDetais) Chart {
 	var chart Chart
 	chart.Bhavas = bhavas[:]
 
+	chart.GrahasAttr = make([]GrahaAttributes, 9)
+	chart.GrahasAttr[0].Init(SUN, &chart)
+	chart.GrahasAttr[1].Init(MOON, &chart)
+	chart.GrahasAttr[2].Init(MARS, &chart)
+	chart.GrahasAttr[3].Init(MERCURY, &chart)
+	chart.GrahasAttr[4].Init(JUPITER, &chart)
+	chart.GrahasAttr[5].Init(VENUS, &chart)
+	chart.GrahasAttr[6].Init(SATURN, &chart)
+	chart.GrahasAttr[7].Init(RAHU, &chart)
+	chart.GrahasAttr[8].Init(KETU, &chart)
+
 	return chart
 }
 

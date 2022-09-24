@@ -1,27 +1,13 @@
 package views
 
 import (
-	"encoding/json"
-	"fmt"
 	"html/template"
-	"io/ioutil"
 	"jyotish/models"
-	"log"
 	"net/http"
 )
 
 type PreferencesPage struct {
 	MainPage
-	Name                string `json:"name"`
-	Description         string `json:"description"`
-	Language            string `json:"language"`
-	English             string `json:"english"`
-	Hindi               string `json:"hindi"`
-	Astrologer          string `json:"astrologer"`
-	Public              string `json:"public"`
-	Yes                 string `json:"yes"`
-	No                  string `json:"no"`
-	Save                string `json:"save"`
 	CurrentDescription  string
 	CurrentLanguage     string
 	CurrentlyAstrologer bool
@@ -43,32 +29,12 @@ func IsBooleanChecked(b1, b2 bool) string {
 }
 
 func GetPreferencesPage(user *models.User) (*PreferencesPage, error) {
-	fileName := fmt.Sprintf("lang/%s/main.json", user.Lang)
-	fileContent, err := ioutil.ReadFile(fileName)
-	if err != nil {
-		log.Printf("failed to open %s", fileName)
-		return nil, err
-	}
-
 	var page PreferencesPage
 
-	err = json.Unmarshal(fileContent, &page)
-	if err != nil {
-		log.Printf("failed to unmarshal contents of %s", fileName)
-		return nil, err
-	}
-
-	fileName = fmt.Sprintf("lang/%s/preferences.json", user.Lang)
-	fileContent, err = ioutil.ReadFile(fileName)
-	if err != nil {
-		log.Printf("failed to open %s", fileName)
-		return nil, err
-	}
-
-	err = json.Unmarshal(fileContent, &page)
-	if err != nil {
-		log.Printf("failed to unmarshal contents of %s", fileName)
-		return nil, err
+	if user.Lang == "en" {
+		page.Vocab = &models.EnglishVocab
+	} else {
+		page.Vocab = &models.HindiVocab
 	}
 
 	page.User = user

@@ -210,16 +210,6 @@ func getAnalysisPage(w http.ResponseWriter, r *http.Request, g *Globals, user *m
 	log.Print(profile)
 
 	chart := analysis.GetChart(profile.Details)
-	chart.GrahasAttr = make([]analysis.GrahaAttributes, 9)
-	chart.GrahasAttr[0].Init(analysis.SUN, &chart)
-	chart.GrahasAttr[1].Init(analysis.MOON, &chart)
-	chart.GrahasAttr[2].Init(analysis.MARS, &chart)
-	chart.GrahasAttr[3].Init(analysis.MERCURY, &chart)
-	chart.GrahasAttr[4].Init(analysis.JUPITER, &chart)
-	chart.GrahasAttr[5].Init(analysis.VENUS, &chart)
-	chart.GrahasAttr[6].Init(analysis.SATURN, &chart)
-	chart.GrahasAttr[7].Init(analysis.RAHU, &chart)
-	chart.GrahasAttr[8].Init(analysis.KETU, &chart)
 
 	page, err := views.GetAnalysisPage(user, chart)
 	if err != nil {

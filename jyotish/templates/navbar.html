@@ -1,22 +1,22 @@
 {{ define "navbar" }}
 <nav>
     <div>
-        <a href="/">{{ .Home }}</a>
+        <a href="/">{{ .Vocab.Home }}</a>
     </div>
     <div class="dropdown-div">
-        <a href="/profiles">{{ .Profiles }}</a>
+        <a href="/profiles">{{ .Vocab.Profiles }}</a>
     </div>
     <div class="knowledge-base">
-        <a href="/knowledge-base">{{ .KnowledgeBase }}</a>
+        <a href="/knowledge-base">{{ .Vocab.KnowledgeBase }}</a>
     </div>
     <div class="faqs">
-        <a href="/faqs">{{ .FAQs }}</a>
+        <a href="/faqs">{{ .Vocab.FAQs }}</a>
     </div>
     <div class="dropdown-div">
         <a href="#">{{ .User.Name }}</a>
         <menu class="dropdown-menu">
-            <li><a href="/preferences">{{ .Preferences }}</a></li>
-            <li><a href="/logout">{{ .Logout }}</a></li>
+            <li><a href="/preferences">{{ .Vocab.Preferences }}</a></li>
+            <li><a href="/logout">{{ .Vocab.Logout }}</a></li>
         </menu>
     </div>
 </nav>

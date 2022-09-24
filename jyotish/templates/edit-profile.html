@@ -7,13 +7,13 @@
         <section>
             <form action="/profiles/edit" method="post">
                 <fieldset class="birth-details">
-                    <legend>{{ .BirthDetails }}</legend>
+                    <legend>{{ .Vocab.BirthDetails }}</legend>
                     {{ if .UserProfile }}
                     <input type="hidden" name="profile-id" value="{{ .UserProfile.ID }}">
                     {{ end }}
 
                     <div class="text-fields">
-                        <label for="name" class="field-label">{{ .Name }}:</label>
+                        <label for="name" class="field-label">{{ .Vocab.Name }}:</label>
                         {{ if .UserProfile }}
                             <input type="text" id="name" name="profile-name" value="{{ .UserProfile.Name }}" required>
                         {{ else }}
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="text-fields">
-                        <label for="dob" class="field-label">{{ .DateOfBirth }}:</label>
+                        <label for="dob" class="field-label">{{ .Vocab.DateOfBirth }}:</label>
                         {{ if .UserProfile }}
                             <input type="datetime-local" id="dob" name="profile-dob" value={{ .UserProfile.DateOfBirth.Format "2006-01-02T15:04" }} required>
                         {{ else }}
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="text-fields">
-                        <label for="city" class="field-label">{{ .City }}:</label>
+                        <label for="city" class="field-label">{{ .Vocab.City }}:</label>
                         {{ if .UserProfile }}
                             <input type="text" id="city" name="profile-city" value="{{ .UserProfile.City }}" required>
                         {{ else }}
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="text-fields">
-                        <label for="state" class="field-label">{{ .State }}:</label>
+                        <label for="state" class="field-label">{{ .Vocab.State }}:</label>
                         {{ if .UserProfile }}
                             <input type="text" id="state" name="profile-state" value="{{ .UserProfile.State }}" required>
                         {{ else }}
@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="text-fields">
-                        <label for="country" class="field-label">{{ .Country }}:</label>
+                        <label for="country" class="field-label">{{ .Vocab.Country }}:</label>
                         {{ if .UserProfile }}
                             <input type="text" id="country" name="profile-country" value="{{ .UserProfile.Country }}" required>
                         {{ else }}
@@ -59,141 +59,141 @@
                 </fieldset>
 
                 <fieldset>
-                    <legend>{{ .ChartDetails }}</legend>
+                    <legend>{{ .Vocab.ChartDetails }}</legend>
 
                     <div class="planets">
-                        <label for="lagna" class="field-label">{{ .Lagna }}:</label>
+                        <label for="lagna" class="field-label">{{ .Vocab.Lagna }}:</label>
                         {{ if .UserProfile }}
                             <input type="number" id="lagna" name="lagna-rashi" min="1" max="12" value={{ GetRashiNumber .UserProfile.Details "lagna" }} required>
                             <input type="number" id="lagna" name="lagna-degree" min="0.00" max="30.00" value={{ GetDegreeInRashi .UserProfile.Details "lagna" }} required>
                             <input type="number" id="lagna" name="lagna-retrograde" min="0" max="1" value="0" required>
                         {{ else }}
-                            <input type="number" id="lagna" name="lagna-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
-                            <input type="number" id="lagna" name="lagna-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="lagna" name="lagna-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" required>
+                            <input type="number" id="lagna" name="lagna-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" required>
                             <input type="number" id="lagna" name="lagna-retrograde" min="0" max="1" value="0" required>
                         {{ end }}
                     </div>
 
                     <div class="planets">
-                        <label for="sun" class="field-label">{{ .Sun }}:</label>
+                        <label for="sun" class="field-label">{{ .Vocab.Sun }}:</label>
                         {{ if .UserProfile }}
-                            <input type="number" id="sun" name="sun-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "sun" }} required>
-                            <input type="number" id="sun" name="sun-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "sun" }} required>
-                            <input type="number" id="sun" name="sun-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "sun" }} required>
+                            <input type="number" id="sun" name="sun-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "sun" }} required>
+                            <input type="number" id="sun" name="sun-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "sun" }} required>
+                            <input type="number" id="sun" name="sun-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "sun" }} required>
                         {{ else }}
-                            <input type="number" id="sun" name="sun-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
-                            <input type="number" id="sun" name="sun-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
-                            <input type="number" id="sun" name="sun-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
+                            <input type="number" id="sun" name="sun-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" required>
+                            <input type="number" id="sun" name="sun-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" required>
+                            <input type="number" id="sun" name="sun-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" required>
                         {{ end }}
                     </div>
 
                     <div class="planets">
-                        <label for="moon" class="field-label">{{ .Moon }}:</label>
+                        <label for="moon" class="field-label">{{ .Vocab.Moon }}:</label>
                         {{ if .UserProfile }}
-                            <input type="number" id="moon" name="moon-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "moon" }} required>
-                            <input type="number" id="moon" name="moon-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "moon" }} required>
-                            <input type="number" id="moon" name="moon-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "moon" }} required>
+                            <input type="number" id="moon" name="moon-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "moon" }} required>
+                            <input type="number" id="moon" name="moon-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "moon" }} required>
+                            <input type="number" id="moon" name="moon-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "moon" }} required>
                         {{ else }}
-                            <input type="number" id="moon" name="moon-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
-                            <input type="number" id="moon" name="moon-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
-                            <input type="number" id="moon" name="moon-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
+                            <input type="number" id="moon" name="moon-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" required>
+                            <input type="number" id="moon" name="moon-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" required>
+                            <input type="number" id="moon" name="moon-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" required>
                         {{ end }}
                     </div>
 
                     <div class="planets">
-                        <label for="mars" class="field-label">{{ .Mars }}:</label>
+                        <label for="mars" class="field-label">{{ .Vocab.Mars }}:</label>
                         {{ if .UserProfile }}
-                            <input type="number" id="mars" name="mars-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "mars" }} required>
-                            <input type="number" id="mars" name="mars-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "mars" }} required>
-                            <input type="number" id="mars" name="mars-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "mars" }} required>
+                            <input type="number" id="mars" name="mars-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "mars" }} required>
+                            <input type="number" id="mars" name="mars-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "mars" }} required>
+                            <input type="number" id="mars" name="mars-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "mars" }} required>
                         {{ else }}
-                            <input type="number" id="mars" name="mars-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
-                            <input type="number" id="mars" name="mars-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
-                            <input type="number" id="mars" name="mars-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
+                            <input type="number" id="mars" name="mars-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" required>
+                            <input type="number" id="mars" name="mars-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" required>
+                            <input type="number" id="mars" name="mars-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" required>
                         {{ end }}
                     </div>
 
                     <div class="planets">
-                        <label for="jupiter" class="field-label">{{ .Jupiter }}:</label>
+                        <label for="jupiter" class="field-label">{{ .Vocab.Jupiter }}:</label>
                         {{ if .UserProfile }}
-                            <input type="number" id="jupiter" name="jupiter-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "jupiter" }} required>
-                            <input type="number" id="jupiter" name="jupiter-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "jupiter" }} required>
-                            <input type="number" id="jupiter" name="jupiter-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "jupiter" }} required>
+                            <input type="number" id="jupiter" name="jupiter-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "jupiter" }} required>
+                            <input type="number" id="jupiter" name="jupiter-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "jupiter" }} required>
+                            <input type="number" id="jupiter" name="jupiter-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "jupiter" }} required>
                         {{ else }}
-                            <input type="number" id="jupiter" name="jupiter-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
-                            <input type="number" id="jupiter" name="jupiter-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
-                            <input type="number" id="jupiter" name="jupiter-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
+                            <input type="number" id="jupiter" name="jupiter-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" required>
+                            <input type="number" id="jupiter" name="jupiter-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" required>
+                            <input type="number" id="jupiter" name="jupiter-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" required>
                         {{ end }}
                     </div>
 
                     <div class="planets">
-                        <label for="mercury" class="field-label">{{ .Mercury }}:</label>
+                        <label for="mercury" class="field-label">{{ .Vocab.Mercury }}:</label>
                         {{ if .UserProfile }}
-                            <input type="number" id="mercury" name="mercury-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "mercury" }} required>
-                            <input type="number" id="mercury" name="mercury-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "mercury" }} required>
-                            <input type="number" id="mercury" name="mercury-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "mercury" }} required>
+                            <input type="number" id="mercury" name="mercury-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "mercury" }} required>
+                            <input type="number" id="mercury" name="mercury-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "mercury" }} required>
+                            <input type="number" id="mercury" name="mercury-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "mercury" }} required>
                         {{ else }}
-                            <input type="number" id="mercury" name="mercury-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
-                            <input type="number" id="mercury" name="mercury-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
-                            <input type="number" id="mercury" name="mercury-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
+                            <input type="number" id="mercury" name="mercury-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" required>
+                            <input type="number" id="mercury" name="mercury-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" required>
+                            <input type="number" id="mercury" name="mercury-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" required>
                         {{ end }}
                     </div>
 
                     <div class="planets">
-                        <label for="venus" class="field-label">{{ .Venus }}:</label>
+                        <label for="venus" class="field-label">{{ .Vocab.Venus }}:</label>
                         {{ if .UserProfile }}
-                            <input type="number" id="venus" name="venus-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "venus" }} required>
-                            <input type="number" id="venus" name="venus-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "venus" }} required>
-                            <input type="number" id="venus" name="venus-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "venus" }} required>
+                            <input type="number" id="venus" name="venus-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "venus" }} required>
+                            <input type="number" id="venus" name="venus-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "venus" }} required>
+                            <input type="number" id="venus" name="venus-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "venus" }} required>
                         {{ else }}
-                            <input type="number" id="venus" name="venus-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
-                            <input type="number" id="venus" name="venus-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
-                            <input type="number" id="venus" name="venus-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
+                            <input type="number" id="venus" name="venus-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" required>
+                            <input type="number" id="venus" name="venus-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" required>
+                            <input type="number" id="venus" name="venus-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" required>
                         {{ end }}
                     </div>
 
                     <div class="planets">
-                        <label for="saturn" class="field-label">{{ .Saturn }}:</label>
+                        <label for="saturn" class="field-label">{{ .Vocab.Saturn }}:</label>
                         {{ if .UserProfile }}
-                            <input type="number" id="saturn" name="saturn-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "saturn" }} required>
-                            <input type="number" id="saturn" name="saturn-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "saturn" }} required>
-                            <input type="number" id="saturn" name="saturn-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "saturn" }} required>
+                            <input type="number" id="saturn" name="saturn-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "saturn" }} required>
+                            <input type="number" id="saturn" name="saturn-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "saturn" }} required>
+                            <input type="number" id="saturn" name="saturn-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" value={{ GetRetrogradeStatus .UserProfile.Details "saturn" }} required>
                         {{ else }}
-                            <input type="number" id="saturn" name="saturn-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
-                            <input type="number" id="saturn" name="saturn-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
-                            <input type="number" id="saturn" name="saturn-retrograde" min="0" max="1" placeholder="{{ .Retrograde }}" required>
+                            <input type="number" id="saturn" name="saturn-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" required>
+                            <input type="number" id="saturn" name="saturn-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" required>
+                            <input type="number" id="saturn" name="saturn-retrograde" min="0" max="1" placeholder="{{ .Vocab.Retrograde }}" required>
                         {{ end }}
                     </div>
 
                     <div class="planets">
-                        <label for="rahu" class="field-label">{{ .Rahu }}:</label>
+                        <label for="rahu" class="field-label">{{ .Vocab.Rahu }}:</label>
                         {{ if .UserProfile }}
-                            <input type="number" id="rahu" name="rahu-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "rahu" }} required>
-                            <input type="number" id="rahu" name="rahu-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "rahu" }} required>
+                            <input type="number" id="rahu" name="rahu-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "rahu" }} required>
+                            <input type="number" id="rahu" name="rahu-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "rahu" }} required>
                             <input type="number" id="rahu" name="rahu-retrograde" min="0" max="1" value="1" required>
                         {{ else }}
-                            <input type="number" id="rahu" name="rahu-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
-                            <input type="number" id="rahu" name="rahu-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="rahu" name="rahu-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" required>
+                            <input type="number" id="rahu" name="rahu-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" required>
                             <input type="number" id="rahu" name="rahu-retrograde" min="0" max="1" value="1" required>
                         {{ end }}
                     </div>
 
                     <div class="planets">
-                        <label for="ketu" class="field-label">{{ .Ketu }}:</label>
+                        <label for="ketu" class="field-label">{{ .Vocab.Ketu }}:</label>
                         {{ if .UserProfile }}
-                            <input type="number" id="ketu" name="ketu-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "ketu" }} required>
-                            <input type="number" id="ketu" name="ketu-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "ketu" }} required>
+                            <input type="number" id="ketu" name="ketu-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" value={{ GetRashiNumber .UserProfile.Details "ketu" }} required>
+                            <input type="number" id="ketu" name="ketu-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" value={{ GetDegreeInRashi .UserProfile.Details "ketu" }} required>
                             <input type="number" id="ketu" name="ketu-retrograde" min="0" max="1" value="1" required>
                         {{ else }}
-                            <input type="number" id="ketu" name="ketu-rashi" min="1" max="12" placeholder="{{ .RashiNumber }}" required>
-                            <input type="number" id="ketu" name="ketu-degree" min="0.00" max="30.00" placeholder="{{ .DegreeInRashi }}" required>
+                            <input type="number" id="ketu" name="ketu-rashi" min="1" max="12" placeholder="{{ .Vocab.RashiNumber }}" required>
+                            <input type="number" id="ketu" name="ketu-degree" min="0.00" max="30.00" placeholder="{{ .Vocab.DegreeInRashi }}" required>
                             <input type="number" id="ketu" name="ketu-retrograde" min="0" max="1" value="1" required>
                         {{ end }}
                     </div>
                 </fieldset>
 
                 <div class="submit-button">
-                    <button type="submit">{{ .Save }}</button>
+                    <button type="submit">{{ .Vocab.Save }}</button>
                 </div>
             </form>
         </section>

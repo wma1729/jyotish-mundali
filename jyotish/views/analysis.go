@@ -1,59 +1,39 @@
 package views
 
 import (
-	"encoding/json"
-	"fmt"
 	"html/template"
-	"io/ioutil"
 	"jyotish/analysis"
 	"jyotish/models"
-	"log"
 	"net/http"
+	"strings"
 )
 
 type AnalysisPage struct {
 	MainPage
-	Name      string `json:"name"`
-	Natural   string `json:"natural"`
-	Temporary string `json:"temporary"`
-	Effective string `json:"effective"`
-	Friends   string `json:"friends"`
-	Neutrals  string `json:"neutrals"`
-	Enemies   string `json:"enemies"`
-	Nature    string `json:"nature"`
-	Chart     analysis.Chart
+	Chart analysis.Chart
+}
+
+func GrahasName(grahas []string, lang string) string {
+	sb := strings.Builder{}
+	first := true
+	for _, g := range grahas {
+		if !first {
+			sb.WriteString(", ")
+		}
+		sb.WriteString(models.GrahaName(g, lang))
+		first = false
+	}
+	return sb.String()
 }
 
 func GetAnalysisPage(user *models.User, chart analysis.Chart) (*AnalysisPage, error) {
-	fileName := fmt.Sprintf("lang/%s/main.json", user.Lang)
-	fileContent, err := ioutil.ReadFile(fileName)
-	if err != nil {
-		log.Printf("failed to open %s", fileName)
-		return nil, err
-	}
-
 	var page AnalysisPage
 
-	err = json.Unmarshal(fileContent, &page)
-	if err != nil {
-		log.Printf("failed to unmarshal contents of %s", fileName)
-		return nil, err
+	if user.Lang == "en" {
+		page.Vocab = &models.EnglishVocab
+	} else {
+		page.Vocab = &models.HindiVocab
 	}
-
-	fileName = fmt.Sprintf("lang/%s/analysis.json", user.Lang)
-	fileContent, err = ioutil.ReadFile(fileName)
-	if err != nil {
-		log.Printf("failed to open %s", fileName)
-		return nil, err
-	}
-
-	err = json.Unmarshal(fileContent, &page)
-	if err != nil {
-		log.Printf("failed to unmarshal contents of %s", fileName)
-		return nil, err
-	}
-
-	log.Print(page)
 
 	page.User = user
 	page.Chart = chart
@@ -64,7 +44,12 @@ func GetAnalysisPage(user *models.User, chart analysis.Chart) (*AnalysisPage, er
 
 func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 	tmplName := "analysis"
-	tmpl := template.Must(template.New(tmplName).ParseFiles(
+	tmpl := template.Must(template.New(tmplName).Funcs(
+		template.FuncMap{
+			"GrahaName":   models.GrahaName,
+			"GrahasName":  GrahasName,
+			"GrahaNature": models.GrahaNature,
+		}).ParseFiles(
 		"templates/analysis.html",
 		"templates/header.html",
 		"templates/navbar.html",

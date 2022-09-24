@@ -1,41 +1,23 @@
 package views
 
 import (
-	"encoding/json"
-	"fmt"
 	"html/template"
-	"io/ioutil"
 	"jyotish/models"
-	"log"
 	"net/http"
 )
 
 type MainPage struct {
-	Home          string `json:"home"`
-	Profiles      string `json:"profiles"`
-	KnowledgeBase string `json:"knowledgebase"`
-	FAQs          string `json:"faqs"`
-	SiteAdmin     string `json:"siteadmin"`
-	Preferences   string `json:"preferences"`
-	Logout        string `json:"logout"`
-	Contact       string `json:"contact"`
-	User          *models.User
+	Vocab *models.Language
+	User  *models.User
 }
 
 func GetMainPage(user *models.User) (*MainPage, error) {
-	fileName := fmt.Sprintf("lang/%s/main.json", user.Lang)
-	fileContent, err := ioutil.ReadFile(fileName)
-	if err != nil {
-		log.Printf("failed to open %s", fileName)
-		return nil, err
-	}
-
 	var page MainPage
 
-	err = json.Unmarshal(fileContent, &page)
-	if err != nil {
-		log.Printf("failed to unmarshal contents of %s", fileName)
-		return nil, err
+	if user.Lang == "en" {
+		page.Vocab = &models.EnglishVocab
+	} else {
+		page.Vocab = &models.HindiVocab
 	}
 
 	page.User = user

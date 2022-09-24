@@ -5,16 +5,14 @@
     <body>
         {{ template "navbar" . }}
         <section>
+            {{ $lang := .User.Lang }}
             <section class="lagna-chart">
             {{ range .Chart.Bhavas }}
                 <section class="bhava-{{ .Number }}-wrapper">
                     <div class="bhava-{{ .Number }}" style="background-color: var(--{{ .RashiLord }}-color)">
                         <p id="graha">
                         {{ range .Grahas }}
-                            {{ .Name }}<sup>{{ .Degree }}</sup>
-                            {{ if .Retrograde }}
-                                (R)
-                            {{ end }}
+                            {{ GrahaName .Name $lang }}<sup>{{ .Degree }}</sup>
                         {{ end }}
                         </p>
                         <p id="rashi-num">{{ .RashiNum }}</p>
@@ -24,34 +22,34 @@
             </section>
             <div class="graha-attr">
                 <table>
-                    <caption>Graha Attributes</caption>
+                    <caption>{{ .Vocab.Graha}} {{ .Vocab.Attributes }}</caption>
                     <thead>
                         <tr>
-                            <th class="fixed-column">{{ .Name }}</th>
-                            <th>{{ .Natural }} {{ .Friends }}</th>
-                            <th>{{ .Natural }} {{ .Neutrals }}</th>
-                            <th>{{ .Natural }} {{ .Enemies }}</th>
-                            <th>{{ .Temporary }} {{ .Friends }}</th>
-                            <th>{{ .Temporary }} {{ .Enemies }}</th>
-                            <th>{{ .Effective }} {{ .Friends }}</th>
-                            <th>{{ .Effective }} {{ .Neutrals }}</th>
-                            <th>{{ .Effective }} {{ .Enemies }}</th>
-                            <th>{{ .Nature }}</th>
+                            <th class="fixed-column">{{ .Vocab.Name }}</th>
+                            <th>{{ .Vocab.Natural }} {{ .Vocab.Friends }}</th>
+                            <th>{{ .Vocab.Natural }} {{ .Vocab.Neutrals }}</th>
+                            <th>{{ .Vocab.Natural }} {{ .Vocab.Enemies }}</th>
+                            <th>{{ .Vocab.Temporary }} {{ .Vocab.Friends }}</th>
+                            <th>{{ .Vocab.Temporary }} {{ .Vocab.Enemies }}</th>
+                            <th>{{ .Vocab.Effective }} {{ .Vocab.Friends }}</th>
+                            <th>{{ .Vocab.Effective }} {{ .Vocab.Neutrals }}</th>
+                            <th>{{ .Vocab.Effective }} {{ .Vocab.Enemies }}</th>
+                            <th>{{ .Vocab.Nature }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{ range .Chart.GrahasAttr }}
                         <tr>
-                            <th class="fixed-column">{{ .Name }}</th>
-                            <td>{{ .NaturalFriends }}</td>
-                            <td>{{ .NaturalNeutrals }}</td>
-                            <td>{{ .NaturalEnemies }}</td>
-                            <td>{{ .TemporaryFriends }}</td>
-                            <td>{{ .TemporaryEnemies }}</td>
-                            <td>{{ .EffectiveFriends }}</td>
-                            <td>{{ .EffectiveNeutrals }}</td>
-                            <td>{{ .EffectiveEnemies }}</td>
-                            <td>{{ .Nature }}</td>
+                            <th class="fixed-column">{{ GrahaName .Name $lang }}</th>
+                            <td>{{ GrahasName .NaturalFriends $lang }}</td>
+                            <td>{{ GrahasName .NaturalNeutrals $lang }}</td>
+                            <td>{{ GrahasName .NaturalEnemies $lang }}</td>
+                            <td>{{ GrahasName .TemporaryFriends $lang }}</td>
+                            <td>{{ GrahasName .TemporaryEnemies $lang }}</td>
+                            <td>{{ GrahasName .EffectiveFriends $lang }}</td>
+                            <td>{{ GrahasName .EffectiveNeutrals $lang }}</td>
+                            <td>{{ GrahasName .EffectiveEnemies $lang }}</td>
+                            <td>{{ GrahaNature .Nature $lang }}</td>
                         </tr>
                         {{ end }}
                     </tbody>

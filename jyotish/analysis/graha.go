@@ -28,7 +28,7 @@ func has(array []string, element string) bool {
 func addGrahasInNthBhava(grahas map[string]bool, name string, c, n int, chart *Chart) {
 	bhava := chart.GetNthBhava(c, n)
 	for _, g := range bhava.Grahas {
-		if g.Name != RAHU && g.Name != KETU && g.Name != name {
+		if g.Name != RAHU && g.Name != KETU && g.Name != LAGNA && g.Name != name {
 			grahas[g.Name] = true
 		}
 	}
