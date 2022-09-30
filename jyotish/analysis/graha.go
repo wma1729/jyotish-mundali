@@ -12,7 +12,8 @@ type GrahaAttributes struct {
 	EffectiveFriends  []string
 	EffectiveNeutrals []string
 	EffectiveEnemies  []string
-	Nature            string
+	NaturalNature     string
+	Retrograde        bool
 	Combust           bool
 }
 
@@ -93,13 +94,13 @@ func (attr *GrahaAttributes) getEffectiveRelations(name string, chart *Chart) {
 	}
 }
 
-func (attr *GrahaAttributes) getNature(name string, chart *Chart) {
+func (attr *GrahaAttributes) getNaturalNature(name string, chart *Chart) {
 	switch name {
 	case SUN:
-		attr.Nature = MALEFIC
+		attr.NaturalNature = MALEFIC
 
 	case MOON:
-		attr.Nature = MALEFIC
+		attr.NaturalNature = MALEFIC
 
 		i, b := chart.GetGrahaBhava(SUN)
 		sun := b.GrahaByName(SUN)
@@ -107,48 +108,48 @@ func (attr *GrahaAttributes) getNature(name string, chart *Chart) {
 		if chart.NthBhavaContainsGraha(i, 1, MOON) {
 			moon := chart.GetNthBhava(i, 1).GrahaByName(MOON)
 			if moon.Degree > sun.Degree {
-				attr.Nature = BENEFIC
+				attr.NaturalNature = BENEFIC
 			}
 		} else if chart.NthBhavaContainsGraha(i, 7, MOON) {
 			moon := chart.GetNthBhava(i, 7).GrahaByName(MOON)
 			if moon.Degree < sun.Degree {
-				attr.Nature = BENEFIC
+				attr.NaturalNature = BENEFIC
 			}
 		} else {
 			for n := 2; n <= 6; n++ {
 				if chart.NthBhavaContainsGraha(i, n, MOON) {
-					attr.Nature = BENEFIC
+					attr.NaturalNature = BENEFIC
 					break
 				}
 			}
 		}
 
 	case MARS:
-		attr.Nature = MALEFIC
+		attr.NaturalNature = MALEFIC
 
 	case MERCURY:
 		_, b := chart.GetGrahaBhava(MERCURY)
 		if b.ContainsGraha(SUN) || b.ContainsGraha(MARS) || b.ContainsGraha(SATURN) ||
 			b.ContainsGraha(RAHU) || b.ContainsGraha(KETU) {
-			attr.Nature = MALEFIC
+			attr.NaturalNature = MALEFIC
 		} else {
-			attr.Nature = BENEFIC
+			attr.NaturalNature = BENEFIC
 		}
 
 	case JUPITER:
-		attr.Nature = BENEFIC
+		attr.NaturalNature = BENEFIC
 
 	case VENUS:
-		attr.Nature = BENEFIC
+		attr.NaturalNature = BENEFIC
 
 	case SATURN:
-		attr.Nature = MALEFIC
+		attr.NaturalNature = MALEFIC
 
 	case RAHU:
-		attr.Nature = MALEFIC
+		attr.NaturalNature = MALEFIC
 
 	case KETU:
-		attr.Nature = MALEFIC
+		attr.NaturalNature = MALEFIC
 	}
 }
 
@@ -211,6 +212,11 @@ func (attr *GrahaAttributes) Init(name string, chart *Chart) {
 	attr.getNaturalRelations(name)
 	attr.getTemporalRelations(name, chart)
 	attr.getEffectiveRelations(name, chart)
-	attr.getNature(name, chart)
+	attr.getNaturalNature(name, chart)
 	attr.isCombust(name, chart)
+	attr.Retrograde = false
+	_, b := chart.GetGrahaBhava(name)
+	if b != nil {
+		attr.Retrograde = b.IsRetrograde(name)
+	}
 }

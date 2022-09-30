@@ -8,7 +8,7 @@ datadir:
 	mkdir -p $(POSTGRES_BASE)/db
 
 start: datadir
-	sudo docker compose --env-file $(POSTGRES_BASE)/.env up
+	sudo docker compose --env-file $(POSTGRES_BASE)/.env up $(COMPOSE_FLAG)
 
 
 stop:

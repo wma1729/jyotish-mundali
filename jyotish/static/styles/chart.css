@@ -1,13 +1,11 @@
 .lagna-chart
 {
-    position: absolute;
-    top: 8%;
-    width: 50vw;
-    height: 50vw;
+    position: relative;
+    top: 0;
+    width: 40vw;
+    height: 40vw;
     border: 2px solid black;
-    margin: 0;
-    padding: 0;
-    align-self: center;
+    margin: 4%;
 }
 
 .bhava-1-wrapper, .bhava-1,

@@ -31,3 +31,11 @@ func (b *Bhava) GrahaByName(name string) *Graha {
 	}
 	return nil
 }
+
+func (b *Bhava) IsRetrograde(name string) bool {
+	graha := b.GrahaByName(name)
+	if graha != nil {
+		return graha.Retrograde
+	}
+	return false
+}

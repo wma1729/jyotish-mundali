@@ -49,6 +49,8 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 			"GrahaName":   models.GrahaName,
 			"GrahasName":  GrahasName,
 			"GrahaNature": models.GrahaNature,
+			"GrahaMotion": models.GrahaMotion,
+			"YesOrNo":     models.YesOrNo,
 		}).ParseFiles(
 		"templates/analysis.html",
 		"templates/header.html",

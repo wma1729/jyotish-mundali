@@ -9,6 +9,12 @@ body {
 /* no decorations for anchor */
 a {
     text-decoration: none;
+    color: black;
+}
+
+/* change the anchor color on hover */
+a:hover {
+    color: blue;
 }
 
 /* navigation bar at the top */
@@ -27,16 +33,6 @@ nav div {
     position: relative;
     display: inline-block;
     padding-top: 0.5rem;
-}
-
-/* top level navigation items - undecorated anchor */
-nav div a {
-    color: black;
-}
-
-/* change the anchor color on hover */
-nav div a:hover {
-    color: blue;
 }
 
 /* drop down menu */
@@ -77,8 +73,7 @@ menu li a:hover {
 section {
     display: flex;
     position: absolute;
-    flex-direction: column;
-    overflow-y: scroll;
+    flex-flow: row wrap;
     top: 3%;
     height: 94%;
     width: 100%;

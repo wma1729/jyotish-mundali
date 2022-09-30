@@ -15,6 +15,7 @@ type Language struct {
 	BirthDetails  string `json:"birthdetails"`
 	ChartDetails  string `json:"chartdetails"`
 	City          string `json:"city"`
+	Combust       string `json:"combust"`
 	Contact       string `json:"contact"`
 	Country       string `json:"country"`
 	CreateProfile string `json:"create-profile"`
@@ -25,6 +26,7 @@ type Language struct {
 	Enemies       string `json:"enemies"`
 	English       string `json:"english"`
 	FAQs          string `json:"faqs"`
+	Forward       string `json:"forward"`
 	Friends       string `json:"friends"`
 	Graha         string `json:"graha"`
 	Hindi         string `json:"hindi"`
@@ -39,6 +41,7 @@ type Language struct {
 	Mars          string `json:"mars"`
 	Mercury       string `json:"mercury"`
 	Moon          string `json:"moon"`
+	Motion        string `json:"motion"`
 	Name          string `json:"name"`
 	Natural       string `json:"natural"`
 	Nature        string `json:"nature"`
@@ -90,6 +93,8 @@ func GrahaName(graha string, lang string) string {
 	}
 
 	switch graha {
+	case analysis.LAGNA:
+		return vocab.Lagna
 	case analysis.SUN:
 		return vocab.Sun
 	case analysis.MOON:
@@ -130,4 +135,34 @@ func GrahaNature(nature string, lang string) string {
 	}
 
 	return ""
+}
+
+func GrahaMotion(retrograde bool, lang string) string {
+	var vocab *Language
+
+	if lang == "en" {
+		vocab = &EnglishVocab
+	} else {
+		vocab = &HindiVocab
+	}
+
+	if retrograde {
+		return vocab.Retrograde
+	}
+	return vocab.Forward
+}
+
+func YesOrNo(flag bool, lang string) string {
+	var vocab *Language
+
+	if lang == "en" {
+		vocab = &EnglishVocab
+	} else {
+		vocab = &HindiVocab
+	}
+
+	if flag {
+		return vocab.Yes
+	}
+	return vocab.No
 }

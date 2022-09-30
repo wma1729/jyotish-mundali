@@ -113,7 +113,7 @@ var GrahaAttrMap = map[string]GrahaAttr{
 		Exaltation:   RashiRange{LIBRA, 0, 20},
 		Debilitation: RashiRange{ARIES, 0, 20},
 		Trinal:       RashiRange{AQUARIUS, 0, 20},
-		Friends:      []string{MERCURY, SATURN},
+		Friends:      []string{MERCURY, VENUS},
 		Neutrals:     []string{JUPITER},
 		Enemies:      []string{SUN, MOON, MARS},
 	},
