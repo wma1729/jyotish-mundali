@@ -53,6 +53,7 @@ type Language struct {
 	Public        string `json:"public"`
 	Rahu          string `json:"rahu"`
 	RashiNumber   string `json:"rashi-number"`
+	Remarks       string `json:"remarks"`
 	Retrograde    string `json:"retrograde"`
 	Saturn        string `json:"saturn"`
 	Save          string `json:"save"`

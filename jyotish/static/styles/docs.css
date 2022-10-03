@@ -1,0 +1,17 @@
+.doc {
+    margin: 3%;
+}
+
+.topic {
+    font-size: xx-large;
+}
+
+.sub-topic {
+    font-size: x-large;
+}
+
+.topic,
+.sub-topic {
+    font-weight: normal;
+    color: rgb(119, 174, 175);
+}

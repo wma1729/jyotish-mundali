@@ -32,7 +32,7 @@ $(HOST_CERT):
 	$(STEP_CA_BASE)/gen-cert.sh $(KC_HOSTNAME)
 
 start:
-	sudo docker compose --env-file $(KEYCLOAK_BASE)/.env up
+	sudo docker compose --env-file $(KEYCLOAK_BASE)/.env up $(COMPOSE_FLAG)
 
 stop:
 	sudo docker compose --env-file $(KEYCLOAK_BASE)/.env down

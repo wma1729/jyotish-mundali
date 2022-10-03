@@ -86,6 +86,7 @@ func main() {
 	http.HandleFunc("/logout", globals.EndAuth)
 	http.HandleFunc("/preferences", globals.HandlePreferences)
 	http.HandleFunc("/profiles/", globals.HandleProfiles)
+	http.HandleFunc("/knowledge-base", globals.HandleKnowledgeBase)
 
 	log.Fatal(http.ListenAndServe("localhost:5000", logRequest(http.DefaultServeMux)))
 }
