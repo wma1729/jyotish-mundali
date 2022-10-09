@@ -1,0 +1,188 @@
+toc-entry:
+  name: graha-rashi-bal
+  order: 3
+  header: Graha Positional Strength
+section:
+  intro:
+    - Depending on the placenement of a graha in various rashis,
+      it may gain or loose strength.
+  sub-sections:
+    - header: Exaltation-debilitation rashis
+      content:
+        - >-
+          A graha posited in its exalted rashi is at its strongest placement
+          in the horoscope. An exalted graha is extremely powerful. A graha
+          posited in its debilitation rashi is at its weakest placement in
+          the horoscope. A debilitated graha has little to no strength.
+        - Moon is exalted in Taurus and delibilitated in Scorpio.
+        - >-
+          Sun is exalted in Aries and debilitated in Libra whereas Saturn is
+          exalted in Libra and debilitated in Aries.
+        - >-
+          Mars is exalted in Capricorn and debilitated in Cancer whereas
+          Jupiter is exalted in Cancer and debilitated in Capricorn.
+        - >-
+          Mercury is exalted in Virgo and debilitated in Pisces whereas Venus
+          is exalted in Pisces and debilitated in Virgo.
+      pictures: []
+      tables: []
+    - header: Lordship and mool-trikona rashis
+      content:
+        - >-
+          Every graha is given the lordship of one or two rashis.
+          Such rashis are also referred to as the grahas' own rashis.
+        - Sun and Moon are the lords of Leo and Cancer respectively.
+        - Mars is the lord of Aries and Scorpio.
+        - Mercury is the lord of Gemini and Venus.
+        - Jupiter is the lord of Sagittarius and Pisces.
+        - Venus is the lord of Taurus and Libra.
+        - Saturn is the lord of Capricorn and Aquarius.
+        - >-
+          Grahas are strong and auspicious in its own rashi. They always
+          give favorable results in them. They give slightly better results in
+          their positive rashis than their negative rashis. Aries, Gemini,
+          Sagittarius, Libra and Aquarius are positive rashis of Mars, Mercury,
+          Jupiter, Venus and Saturn respectively. Scorpio, Virgo, Pisces,
+          Taurus and Capricorn are negative rashis of Mars, Mercury,
+          Jupiter, Venus and Saturn respectively.
+        - >-
+          A graha gets mool-trikona (trinal) strength if placed in certain
+          degress in their own rashi. A graha is extremely strong in its
+          mool-trikona rashi. This is the next best placement for a graha
+          after exaltation.
+      pictures: []
+      tables:
+        - caption: Graha Positional strength
+          headers:
+            - Graha
+            - Exaltation Rashi
+            - Exaltation Degree
+            - Debilitation Rashi
+            - Debilitation Degree
+            - Mool-trikona Rashi
+            - Mool-trikona Degree
+            - Positive Rashi
+            - Negative Rashi
+          rows:
+            - - Sun
+              - Aries
+              - 0 - 10
+              - Libra
+              - 0 - 10
+              - Leo
+              - 0 - 20
+              - Leo
+              - '-'
+            - - Moon
+              - Taurus
+              - 0 - 3
+              - Scorpio
+              - 0 - 3
+              - Cancer
+              - 4 - 30
+              - Cancer
+              - '-'
+            - - Mars
+              - Capricorn
+              - 0 - 28
+              - Cancer
+              - 0 - 28
+              - Aries
+              - 0 - 12
+              - Aries
+              - Scorpio
+            - - Mercury
+              - Virgo
+              - 0 - 15
+              - Pisces
+              - 0 - 15
+              - Virgo
+              - 16 - 20
+              - Gemini
+              - Virgo
+            - - Jupiter
+              - Cancer
+              - 0 - 5
+              - Capricorn
+              - 0 - 5
+              - Sagittarius
+              - 0 - 10
+              - Sagittarius
+              - Pisces
+            - - Venus
+              - Pisces
+              - 0 - 27
+              - Virgo
+              - 0 - 27
+              - Libra
+              - 0 - 15
+              - Libra
+              - Taurus
+            - - Saturn
+              - Libra
+              - 0 - 20
+              - Aries
+              - 0 - 20
+              - Aquarius
+              - 0 - 20
+              - Aquarius
+              - Capricorn
+    - header: Friendly-inimical rashis
+      content:
+        - >-
+          A friendly rashi of a graha is one whose lord considers the
+          graha a friend. A graha gains strength in its friendly rashi.
+        - >-
+          An inimical rashi of a graha is one whose lord considers the
+          graha an enemy. A graha loses strength it its inimical rashi.
+        - >-
+          A neutral rashi of a graha is one whose lord is neutral to
+          the graha. Placement is a neutral rashi has no impact on
+          graha's strength.
+      pictures: []
+      tables: []
+  remarks:
+    - >-
+      Rahu-Ketu are special. They are not assigned any exaltation-debilitation
+      rashi. Most astrologers agrees that Rahu is exalted in Taurus and
+      debilitated in Scorpio whereas Ketu is exalted in Scorpio and
+      delibilitated in Taurus. Some believes that Rahu is exalted in Gemini
+      and debilitated in Sagittarius whereas Ketu is exalted in Sagittarius
+      and debilitated in Gemini. And then there are some who considers that
+      both Rahu-Ketu are exalted in Scorpio and both are debilitated in Taurus.
+      They believe that Sun-Saturn, Mars-Jupiter, and Mercury-Venus form
+      opposite-pair. Similarly Moon forms the opposite-pair with Rahu-Ketu. 
+    - >-
+      Rahu-Ketu are not given lordship over any rashis though the predominant
+      view is that Rahu and Ketu are lords of Aquarius and Aries respectively.
+    - >-
+      An exalted graha is very strong. Exaltation simply refers to its strength.
+      It need not always give favorable and good results. If it is functional
+      malefic, it can give very bad results.
+    - >-
+      A debilitated graha is not always bad. If the graha is acting as a
+      functional malefic, debilitation takes away its strength to act in an
+      malefic way.
+    - A graha in its own rashi always give favorable results.
+  table:
+    caption: Potential graha strength based on position
+    headers:
+      - Graha Position
+      - Percentage of strength
+    rows:
+      - - Exaltation Rashi
+        - 87.5 - 100 %
+      - - Mool-trikona Rashi
+        - 75 - 87.5 %
+      - - Positive Rashi
+        - 62.5 - 75 %
+      - - Negative Rashi
+        - 50 - 62.5 %
+      - - Friendly Rashi
+        - 37.5 - 50 %
+      - - Neutral Rashi
+        - 25 - 37.5 %
+      - - Inimical Rashi
+        - 12.5 - 25 %
+      - - Debilitation Rashi
+        - 0 - 12.5 %

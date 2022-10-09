@@ -1,54 +1,58 @@
 package docs
 
 import (
-	"encoding/json"
-	"io/ioutil"
 	"log"
 	"os"
 	"sort"
 	"strings"
+
+	"gopkg.in/yaml.v3"
 )
 
 type TOCEntry struct {
-	Name   string `json:"name"`
-	Order  int    `json:"order"`
-	Header string `json:"header"`
+	Name   string `yaml:"name"`
+	Order  int    `yaml:"order"`
+	Header string `yaml:"header"`
 }
 
 type HTMLTable struct {
-	Caption string     `json:"caption"`
-	Headers []string   `json:"headers"`
-	Rows    [][]string `json:"rows"`
+	Caption string     `yaml:"caption"`
+	Headers []string   `yaml:"headers"`
+	Rows    [][]string `yaml:"rows"`
 }
 
 type SubSection struct {
-	Header   string      `json:"header"`
-	Content  []string    `json:"content"`
-	Pictures []string    `json:"pictures"`
-	Tables   []HTMLTable `json:"tables"`
+	Header   string      `yaml:"header"`
+	Content  []string    `yaml:"content"`
+	Pictures []string    `yaml:"pictures"`
+	Tables   []HTMLTable `yaml:"tables"`
 }
 
 type Section struct {
-	Intro       []string     `json:"intro"`
-	SubSections []SubSection `json:"sub-sections"`
-	Remarks     []string     `json:"remarks"`
+	Intro       []string     `yaml:"intro"`
+	SubSections []SubSection `yaml:"sub-sections"`
+	Remarks     []string     `yaml:"remarks"`
+	Table       HTMLTable    `yaml:"table"`
 }
 
 type Content struct {
-	TocEntry TOCEntry `json:"toc-entry"`
-	Section  Section  `json:"section"`
+	TocEntry TOCEntry `yaml:"toc-entry"`
+	Section  Section  `yaml:"section"`
 }
 
 func loadFileContent(fileName string, content *Content) error {
-	fileContent, err := ioutil.ReadFile(fileName)
+	f, err := os.Open(fileName)
 	if err != nil {
-		log.Printf("failed to open %s: %s", fileName, err)
+		log.Println(err)
 		return err
 	}
 
-	err = json.Unmarshal(fileContent, content)
+	defer f.Close()
+
+	decoder := yaml.NewDecoder(f)
+	err = decoder.Decode(content)
 	if err != nil {
-		log.Printf("failed to unmarshal contents of %s: %s", fileName, err)
+		log.Printf("failed to unmarshal %s: %s", fileName, err)
 		return err
 	}
 
@@ -65,7 +69,7 @@ func loadDocumentation(lang string) ([]Content, error) {
 	contents := []Content{}
 
 	for _, f := range files {
-		if strings.HasSuffix(f.Name(), "-"+lang+".json") {
+		if strings.HasSuffix(f.Name(), "-"+lang+".yaml") {
 			var c Content
 			if loadFileContent("./docs/"+f.Name(), &c) == nil {
 				contents = append(contents, c)
