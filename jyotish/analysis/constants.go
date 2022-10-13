@@ -55,6 +55,7 @@ type GrahaAttr struct {
 	Exaltation   RashiRange
 	Debilitation RashiRange
 	Trinal       RashiRange
+	Owner        []int
 	Friends      []string
 	Neutrals     []string
 	Enemies      []string
@@ -65,6 +66,7 @@ var GrahaAttrMap = map[string]GrahaAttr{
 		Exaltation:   RashiRange{ARIES, 0, 10},
 		Debilitation: RashiRange{LIBRA, 0, 10},
 		Trinal:       RashiRange{LEO, 0, 20},
+		Owner:        []int{LEO},
 		Friends:      []string{MOON, MARS, JUPITER},
 		Neutrals:     []string{MERCURY},
 		Enemies:      []string{VENUS, SATURN},
@@ -73,6 +75,7 @@ var GrahaAttrMap = map[string]GrahaAttr{
 		Exaltation:   RashiRange{TAURUS, 0, 3},
 		Debilitation: RashiRange{SCORPIO, 0, 3},
 		Trinal:       RashiRange{TAURUS, 4, 30},
+		Owner:        []int{CANCER},
 		Friends:      []string{SUN, MERCURY},
 		Neutrals:     []string{MARS, JUPITER, VENUS, SATURN},
 		Enemies:      []string{},
@@ -81,6 +84,7 @@ var GrahaAttrMap = map[string]GrahaAttr{
 		Exaltation:   RashiRange{CAPRICORN, 0, 28},
 		Debilitation: RashiRange{CANCER, 0, 28},
 		Trinal:       RashiRange{ARIES, 0, 12},
+		Owner:        []int{ARIES, SCORPIO},
 		Friends:      []string{SUN, MOON, JUPITER},
 		Neutrals:     []string{VENUS, SATURN},
 		Enemies:      []string{MERCURY},
@@ -89,6 +93,7 @@ var GrahaAttrMap = map[string]GrahaAttr{
 		Exaltation:   RashiRange{VIRGO, 0, 15},
 		Debilitation: RashiRange{PISCES, 0, 15},
 		Trinal:       RashiRange{VIRGO, 16, 30},
+		Owner:        []int{GEMINI, VIRGO},
 		Friends:      []string{SUN, VENUS},
 		Neutrals:     []string{MARS, JUPITER, SATURN},
 		Enemies:      []string{MOON},
@@ -97,6 +102,7 @@ var GrahaAttrMap = map[string]GrahaAttr{
 		Exaltation:   RashiRange{CANCER, 0, 5},
 		Debilitation: RashiRange{CAPRICORN, 0, 5},
 		Trinal:       RashiRange{SAGITTARIUS, 0, 10},
+		Owner:        []int{SAGITTARIUS, PISCES},
 		Friends:      []string{SUN, MOON, MARS},
 		Neutrals:     []string{SATURN},
 		Enemies:      []string{MERCURY, VENUS},
@@ -105,6 +111,7 @@ var GrahaAttrMap = map[string]GrahaAttr{
 		Exaltation:   RashiRange{PISCES, 0, 27},
 		Debilitation: RashiRange{VIRGO, 0, 27},
 		Trinal:       RashiRange{LIBRA, 0, 15},
+		Owner:        []int{TAURUS, LIBRA},
 		Friends:      []string{MERCURY, SATURN},
 		Neutrals:     []string{MARS, JUPITER},
 		Enemies:      []string{SUN, MOON},
@@ -113,6 +120,7 @@ var GrahaAttrMap = map[string]GrahaAttr{
 		Exaltation:   RashiRange{LIBRA, 0, 20},
 		Debilitation: RashiRange{ARIES, 0, 20},
 		Trinal:       RashiRange{AQUARIUS, 0, 20},
+		Owner:        []int{CAPRICORN, AQUARIUS},
 		Friends:      []string{MERCURY, VENUS},
 		Neutrals:     []string{JUPITER},
 		Enemies:      []string{SUN, MOON, MARS},
@@ -121,6 +129,7 @@ var GrahaAttrMap = map[string]GrahaAttr{
 		Exaltation:   RashiRange{-1, 0, 0},
 		Debilitation: RashiRange{-1, 0, 0},
 		Trinal:       RashiRange{-1, 0, 0},
+		Owner:        []int{},
 		Friends:      []string{MERCURY, VENUS, SATURN},
 		Neutrals:     []string{MARS},
 		Enemies:      []string{SUN, MOON, JUPITER},
@@ -129,6 +138,7 @@ var GrahaAttrMap = map[string]GrahaAttr{
 		Exaltation:   RashiRange{-1, 0, 0},
 		Debilitation: RashiRange{-1, 0, 0},
 		Trinal:       RashiRange{-1, 0, 0},
+		Owner:        []int{},
 		Friends:      []string{MERCURY, VENUS, SATURN},
 		Neutrals:     []string{MARS},
 		Enemies:      []string{SUN, MOON, JUPITER},
@@ -136,6 +146,13 @@ var GrahaAttrMap = map[string]GrahaAttr{
 }
 
 const (
-	BENEFIC = "benefic"
-	MALEFIC = "malefic"
+	BENEFIC           = "benefic"
+	MALEFIC           = "malefic"
+	RASHI_EXALTED     = "exalted"
+	RASHI_DEBILITATED = "debilitated"
+	RASHI_MOOLTRIKONA = "mool-trikona"
+	RASHI_OWN         = "own-rashi"
+	RASHI_FRIENDLY    = "friendly-rashi"
+	RASHI_NEUTRAL     = "neutral-rashi"
+	RASHI_ENEMY       = "enemy-rashi"
 )

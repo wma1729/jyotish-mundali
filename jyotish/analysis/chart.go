@@ -83,6 +83,16 @@ func GetChart(gd GrahaDetais) Chart {
 	chart.GrahasAttr[7].Init(RAHU, &chart)
 	chart.GrahasAttr[8].Init(KETU, &chart)
 
+	chart.GrahasAttr[0].GetGrahaPosition(SUN, &chart)
+	chart.GrahasAttr[1].GetGrahaPosition(MOON, &chart)
+	chart.GrahasAttr[2].GetGrahaPosition(MARS, &chart)
+	chart.GrahasAttr[3].GetGrahaPosition(MERCURY, &chart)
+	chart.GrahasAttr[4].GetGrahaPosition(JUPITER, &chart)
+	chart.GrahasAttr[5].GetGrahaPosition(VENUS, &chart)
+	chart.GrahasAttr[6].GetGrahaPosition(SATURN, &chart)
+	chart.GrahasAttr[7].GetGrahaPosition(RAHU, &chart)
+	chart.GrahasAttr[8].GetGrahaPosition(KETU, &chart)
+
 	return chart
 }
 
@@ -106,4 +116,31 @@ func (c *Chart) GetNthBhava(i, n int) *Bhava {
 func (c *Chart) NthBhavaContainsGraha(i, n int, graha string) bool {
 	b := c.GetNthBhava(i, n)
 	return b.ContainsGraha(graha)
+}
+
+func (c *Chart) GetEffectiveFriends(name string) []string {
+	for _, ga := range c.GrahasAttr {
+		if ga.Name == name {
+			return ga.EffectiveFriends
+		}
+	}
+	return nil
+}
+
+func (c *Chart) GetEffectiveNeutrals(name string) []string {
+	for _, ga := range c.GrahasAttr {
+		if ga.Name == name {
+			return ga.EffectiveNeutrals
+		}
+	}
+	return nil
+}
+
+func (c *Chart) GetEffectiveEnemies(name string) []string {
+	for _, ga := range c.GrahasAttr {
+		if ga.Name == name {
+			return ga.EffectiveEnemies
+		}
+	}
+	return nil
 }

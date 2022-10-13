@@ -1,6 +1,9 @@
 package analysis
 
-import "math"
+import (
+	"jyotish/misc"
+	"math"
+)
 
 type GrahaAttributes struct {
 	Name              string
@@ -15,15 +18,7 @@ type GrahaAttributes struct {
 	NaturalNature     string
 	Retrograde        bool
 	Combust           bool
-}
-
-func has(array []string, element string) bool {
-	for _, elem := range array {
-		if elem == element {
-			return true
-		}
-	}
-	return false
+	Position          string
 }
 
 func addGrahasInNthBhava(grahas map[string]bool, name string, c, n int, chart *Chart) {
@@ -70,25 +65,25 @@ func (attr *GrahaAttributes) getTemporalRelations(name string, chart *Chart) {
 
 func (attr *GrahaAttributes) getEffectiveRelations(name string, chart *Chart) {
 	for _, g := range attr.NaturalFriends {
-		if has(attr.TemporaryFriends, g) {
+		if misc.StringSliceContains(attr.TemporaryFriends, g) {
 			attr.EffectiveFriends = append(attr.EffectiveFriends, g)
-		} else if has(attr.TemporaryEnemies, g) {
+		} else if misc.StringSliceContains(attr.TemporaryEnemies, g) {
 			attr.EffectiveNeutrals = append(attr.EffectiveNeutrals, g)
 		}
 	}
 
 	for _, g := range attr.NaturalNeutrals {
-		if has(attr.TemporaryFriends, g) {
+		if misc.StringSliceContains(attr.TemporaryFriends, g) {
 			attr.EffectiveFriends = append(attr.EffectiveFriends, g)
-		} else if has(attr.TemporaryEnemies, g) {
+		} else if misc.StringSliceContains(attr.TemporaryEnemies, g) {
 			attr.EffectiveEnemies = append(attr.EffectiveEnemies, g)
 		}
 	}
 
 	for _, g := range attr.NaturalEnemies {
-		if has(attr.TemporaryFriends, g) {
+		if misc.StringSliceContains(attr.TemporaryFriends, g) {
 			attr.EffectiveNeutrals = append(attr.EffectiveNeutrals, g)
-		} else if has(attr.TemporaryEnemies, g) {
+		} else if misc.StringSliceContains(attr.TemporaryEnemies, g) {
 			attr.EffectiveEnemies = append(attr.EffectiveEnemies, g)
 		}
 	}
@@ -203,6 +198,58 @@ func (attr *GrahaAttributes) isCombust(name string, chart *Chart) {
 	case SATURN:
 		if difference <= 15.0 {
 			attr.Combust = true
+		}
+	}
+}
+
+func (attr *GrahaAttributes) GetGrahaPosition(name string, chart *Chart) {
+	_, b := chart.GetGrahaBhava(name)
+	if b == nil {
+		return
+	}
+
+	g := b.GrahaByName(name)
+	if g == nil {
+		return
+	}
+
+	ga := GrahaAttrMap[name]
+
+	// Accurate (take degrees in account)
+	if g.RashiNum == ga.Exaltation.RashiNum &&
+		g.Degree >= float32(ga.Exaltation.Min) &&
+		g.Degree <= float32(ga.Exaltation.Max) {
+		attr.Position = RASHI_EXALTED
+	} else if g.RashiNum == ga.Debilitation.RashiNum &&
+		g.Degree >= float32(ga.Debilitation.Min) &&
+		g.Degree <= float32(ga.Debilitation.Max) {
+		attr.Position = RASHI_DEBILITATED
+	} else if g.RashiNum == ga.Trinal.RashiNum &&
+		g.Degree >= float32(ga.Trinal.Min) &&
+		g.Degree <= float32(ga.Trinal.Max) {
+		attr.Position = RASHI_MOOLTRIKONA
+	}
+
+	// Rough (just look at the rashi as a whole)
+	if attr.Position == "" {
+		if g.RashiNum == ga.Exaltation.RashiNum {
+			attr.Position = RASHI_EXALTED
+		} else if g.RashiNum == ga.Debilitation.RashiNum {
+			attr.Position = RASHI_DEBILITATED
+		} else if misc.IntSliceContains(ga.Owner, g.RashiNum) {
+			attr.Position = RASHI_OWN
+		}
+	}
+
+	// Friendly/neutral/unfriendly
+	if attr.Position == "" {
+		rashiLord := RashiLordMap[g.RashiNum]
+		if misc.StringSliceContains(chart.GetEffectiveFriends(rashiLord), name) {
+			attr.Position = RASHI_FRIENDLY
+		} else if misc.StringSliceContains(chart.GetEffectiveEnemies(rashiLord), name) {
+			attr.Position = RASHI_ENEMY
+		} else {
+			attr.Position = RASHI_NEUTRAL
 		}
 	}
 }

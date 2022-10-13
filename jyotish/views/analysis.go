@@ -46,11 +46,12 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 	tmplName := "analysis"
 	tmpl := template.Must(template.New(tmplName).Funcs(
 		template.FuncMap{
-			"GrahaName":   models.GrahaName,
-			"GrahasName":  GrahasName,
-			"GrahaNature": models.GrahaNature,
-			"GrahaMotion": models.GrahaMotion,
-			"YesOrNo":     models.YesOrNo,
+			"GrahaName":     models.GrahaName,
+			"GrahasName":    GrahasName,
+			"GrahaNature":   models.GrahaNature,
+			"GrahaMotion":   models.GrahaMotion,
+			"YesOrNo":       models.YesOrNo,
+			"GrahaPosition": models.GrahaPosition,
 		}).ParseFiles(
 		"templates/analysis.html",
 		"templates/header.html",

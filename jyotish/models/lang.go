@@ -20,13 +20,17 @@ type Language struct {
 	Country       string `json:"country"`
 	CreateProfile string `json:"create-profile"`
 	DateOfBirth   string `json:"dob"`
+	Debilitated   string `json:"debilitated`
 	DegreeInRashi string `json:"degree-in-rashi"`
 	Description   string `json:"description"`
 	Effective     string `json:"effective"`
 	Enemies       string `json:"enemies"`
+	EnemyRashi    string `json:"enemy-rashi"`
 	English       string `json:"english"`
+	Exalted       string `json:"exalted"`
 	FAQs          string `json:"faqs"`
 	Forward       string `json:"forward"`
+	FriendlyRashi string `json:"friendly-rashi"`
 	Friends       string `json:"friends"`
 	Graha         string `json:"graha"`
 	Hindi         string `json:"hindi"`
@@ -40,14 +44,18 @@ type Language struct {
 	Malefic       string `json:"malefic"`
 	Mars          string `json:"mars"`
 	Mercury       string `json:"mercury"`
+	MoolTrikona   string `json:"mool-trikona"`
 	Moon          string `json:"moon"`
 	Motion        string `json:"motion"`
 	Name          string `json:"name"`
 	Natural       string `json:"natural"`
 	Nature        string `json:"nature"`
+	NeutralRashi  string `json:"neutral-rashi"`
 	Neutrals      string `json:"neutrals"`
 	No            string `json:"no"`
+	OwnRashi      string `json:"own-rashi"`
 	PlaceOfBirth  string `json:"pob"`
+	Position      string `json:"position"`
 	Preferences   string `json:"preferences"`
 	Profiles      string `json:"profiles"`
 	Public        string `json:"public"`
@@ -166,4 +174,33 @@ func YesOrNo(flag bool, lang string) string {
 		return vocab.Yes
 	}
 	return vocab.No
+}
+
+func GrahaPosition(position string, lang string) string {
+	var vocab *Language
+
+	if lang == "en" {
+		vocab = &EnglishVocab
+	} else {
+		vocab = &HindiVocab
+	}
+
+	switch position {
+	case analysis.RASHI_EXALTED:
+		return vocab.Exalted
+	case analysis.RASHI_DEBILITATED:
+		return vocab.Debilitated
+	case analysis.RASHI_MOOLTRIKONA:
+		return vocab.MoolTrikona
+	case analysis.RASHI_OWN:
+		return vocab.OwnRashi
+	case analysis.RASHI_FRIENDLY:
+		return vocab.FriendlyRashi
+	case analysis.RASHI_NEUTRAL:
+		return vocab.NeutralRashi
+	case analysis.RASHI_ENEMY:
+		return vocab.EnemyRashi
+	}
+
+	return "-"
 }
