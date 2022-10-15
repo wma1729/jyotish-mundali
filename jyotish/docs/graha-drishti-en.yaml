@@ -1,0 +1,96 @@
+toc-entry:
+  name: graha-drishti
+  order: 4
+  header: Graha Aspect
+section:
+  intro:
+    - >-
+      A graha not only influences the rashi in which it is posited or if it is the
+      lord of the rashis, but it also affects other rashis that it aspects. The
+      effect can be good or bad. If the aspecting planet is friendly to the lord of
+      the rashi, then it will benefit the rashi. On the other hand, if the aspecting
+      planet considers the rashi lord as an enemy, then there is an adverse effect
+      on the rashi. Not only the rashis it aspects, but the planets located in those
+      rashis are also impacted by the aspecting planet. The aspect of a friendly
+      planet strengthens the  planet, while the aspect of an enemy planet weakens it.
+  sub-sections:
+    - header: Graha Aspect
+      content:
+        - >-
+          Every graha fully aspects the 7th rashi and the graha(s) posited there. Apart from
+          this, Mars, Jupiter, and Saturn fully aspects the 4th and 8th, the 5th and 9th,
+          and the 3rd and 10th rashis respectively.
+        - Every planet aspects 3rd, 4th, 5th, 8th, 9th, and 10th rashi partially.
+      pictures: []
+      tables:
+        - caption: Graha Aspect
+          headers:
+            - Graha
+            - 3rd Rashi
+            - 4th Rashi
+            - 5th Rashi
+            - 7th Rashi
+            - 8th Rashi
+            - 9th Rashi
+            - 10th Rashi
+          rows:
+            - - Sun
+              - 25 %
+              - 75 %
+              - 50 %
+              - 100 %
+              - 75 %
+              - 50 %
+              - 25 %
+            - - Moon
+              - 25 %
+              - 75 %
+              - 50 %
+              - 100 %
+              - 75 %
+              - 50 %
+              - 25 %
+            - - Mars
+              - 25 %
+              - 100 %
+              - 50 %
+              - 100 %
+              - 100 %
+              - 50 %
+              - 25 %
+            - - Mercury
+              - 25 %
+              - 75 %
+              - 50 %
+              - 100 %
+              - 75 %
+              - 50 %
+              - 25 %
+            - - Jupiter
+              - 25 %
+              - 75 %
+              - 100 %
+              - 100 %
+              - 75 %
+              - 100 %
+              - 25 %
+            - - Venus
+              - 25 %
+              - 75 %
+              - 50 %
+              - 100 %
+              - 75 %
+              - 50 %
+              - 25 %
+            - - Saturn
+              - 100 %
+              - 75 %
+              - 50 %
+              - 100 %
+              - 75 %
+              - 50 %
+              - 100 %
+  remarks:
+    - >-
+      Often jyotishis considers only the full aspects of the grahas while
+      evaluating the horoscope.
