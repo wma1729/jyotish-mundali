@@ -72,80 +72,110 @@ section:
             - Other Names
             - Bodily substance / parts
             - Cabinet
+            - Sex
+            - Height
             - Caste
             - Element
             - Natural properties
             - Ayurvedic dosha
+            - Persuasion method
           rows:
             - - Sun
               - 'Ravi, Bhanu'
               - 'Bones / head'
               - King
+              - Male
+              - Average
               - Kshatriya
               - Fire
               - Sattva
               - Pitta
+              - Punishment
             - - Moon
               - 'Chandra, Som, Sashi'
               - 'Blood / face'
               - Queen
+              - Female
+              - Short
               - Vaishya
               - Water
               - Sattva
               - Vaat-kapha
+              - Temptation / Price
             - - Mars
               - Mangal
               - 'Bone marrow and muscle tissues / chest'
               - Commander-in-chief
+              - Male
+              - Short
               - Kshatriya
               - Fire
               - Tamas
               - Pitta
+              - Punishment
             - - Mercury
               - Budh
               - 'Skin / hips'
               - Prince
+              - Neuter
+              - Short
               - Vaishya
               - Earth
               - Rajas
               - Vaat-pitta-kapha
+              - Diplomacy
             - - Jupiter
               - 'Guru, Brihaspati'
               - 'Fat tissues / abdomen'
               - Teacher / advisor
+              - Male
+              - Tall
               - Brahmin
               - Ether
               - Sattva
               - Kapha
+              - Good counsel
             - - Venus
               - 'Shukra'
               - 'Semen and ovum / pelvis and sexual organs'
               - Teacher / advisor
+              - Female
+              - Average
               - Brahmin
               - Water
               - Rajas
               - Vaat-kapha
+              - Good counsel
             - - Saturn
               - Shani
               - 'Nerve tissues / thighs'
               - Servant
+              - Neuter
+              - Tall
               - Shudra
               - Air
               - Tamas
               - Vaat
+              - Diplomacy
             - - Rahu
               - '-'
               - '- / hands'
               - '-'
+              - Female
+              - Tall
               - 'Mleccha'
               - '-'
               - Tamas
+              - '-'
               - '-'
             - - Ketu
               - '-'
               - '- / legs'
               - '-'
+              - Neutar
+              - Tall
               - 'Mleccha'
               - '-'
               - Tamas
+              - '-'
               - '-'
