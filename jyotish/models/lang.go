@@ -12,6 +12,7 @@ type Language struct {
 	Astrologer    string `json:"astrologer"`
 	Attributes    string `json:"attributes"`
 	Benefic       string `json:"benefic"`
+	BestFriends   string `json:"best-friends"`
 	BirthDetails  string `json:"birthdetails"`
 	ChartDetails  string `json:"chartdetails"`
 	City          string `json:"city"`
@@ -20,7 +21,7 @@ type Language struct {
 	Country       string `json:"country"`
 	CreateProfile string `json:"create-profile"`
 	DateOfBirth   string `json:"dob"`
-	Debilitated   string `json:"debilitated`
+	Debilitated   string `json:"debilitated"`
 	DegreeInRashi string `json:"degree-in-rashi"`
 	Description   string `json:"description"`
 	Effective     string `json:"effective"`
@@ -70,6 +71,7 @@ type Language struct {
 	Sun           string `json:"sun"`
 	Temporary     string `json:"temporary"`
 	Venus         string `json:"venus"`
+	WorstEnemies  string `json:"worst-enemies"`
 	Yes           string `json:"yes"`
 }
 

@@ -3,6 +3,7 @@
     "astrologer": "ज्योतिषी",
     "attributes": "लक्षण",
     "benefic": "शुभ",
+    "best-friends": "अधिमित्र",
     "birthdetails": "जन्म विवरण",
     "chartdetails": "पत्री विवरण",
     "city": "शहर",
@@ -14,7 +15,7 @@
     "degree-in-rashi": "राशि में अंश",
     "description": "वर्णन",
     "dob": "जन्म तिथि और समय",
-    "effective": "अन्तय",
+    "effective": "संचयी",
     "english": "अंग्रेज़ी",
     "enemies": "शत्रु",
     "enemy-rashi": "शत्रु राशि",
@@ -61,5 +62,6 @@
     "state": "राज्य",
     "temporary": "तात्कालिक",
     "venus": "शुक्र",
+    "worst-enemies": "अधिशत्रु",
     "yes": "हाँ"
 }

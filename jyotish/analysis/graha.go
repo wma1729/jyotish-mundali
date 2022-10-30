@@ -6,19 +6,21 @@ import (
 )
 
 type GrahaAttributes struct {
-	Name              string
-	NaturalFriends    []string
-	NaturalNeutrals   []string
-	NaturalEnemies    []string
-	TemporaryFriends  []string
-	TemporaryEnemies  []string
-	EffectiveFriends  []string
-	EffectiveNeutrals []string
-	EffectiveEnemies  []string
-	NaturalNature     string
-	Retrograde        bool
-	Combust           bool
-	Position          string
+	Name                  string
+	NaturalFriends        []string
+	NaturalNeutrals       []string
+	NaturalEnemies        []string
+	TemporaryFriends      []string
+	TemporaryEnemies      []string
+	EffectiveBestFriends  []string
+	EffectiveFriends      []string
+	EffectiveNeutrals     []string
+	EffectiveEnemies      []string
+	EffectiveWorstEnemies []string
+	NaturalNature         string
+	Retrograde            bool
+	Combust               bool
+	Position              string
 }
 
 func addGrahasInNthBhava(grahas map[string]bool, name string, c, n int, chart *Chart) {
@@ -66,7 +68,7 @@ func (attr *GrahaAttributes) getTemporalRelations(name string, chart *Chart) {
 func (attr *GrahaAttributes) getEffectiveRelations(name string, chart *Chart) {
 	for _, g := range attr.NaturalFriends {
 		if misc.StringSliceContains(attr.TemporaryFriends, g) {
-			attr.EffectiveFriends = append(attr.EffectiveFriends, g)
+			attr.EffectiveBestFriends = append(attr.EffectiveBestFriends, g)
 		} else if misc.StringSliceContains(attr.TemporaryEnemies, g) {
 			attr.EffectiveNeutrals = append(attr.EffectiveNeutrals, g)
 		}
@@ -84,7 +86,7 @@ func (attr *GrahaAttributes) getEffectiveRelations(name string, chart *Chart) {
 		if misc.StringSliceContains(attr.TemporaryFriends, g) {
 			attr.EffectiveNeutrals = append(attr.EffectiveNeutrals, g)
 		} else if misc.StringSliceContains(attr.TemporaryEnemies, g) {
-			attr.EffectiveEnemies = append(attr.EffectiveEnemies, g)
+			attr.EffectiveWorstEnemies = append(attr.EffectiveWorstEnemies, g)
 		}
 	}
 }

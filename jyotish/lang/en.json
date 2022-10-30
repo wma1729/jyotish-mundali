@@ -3,6 +3,7 @@
     "astrologer": "Astrologer",
     "attributes": "Attributes",
     "benefic": "Benefic",
+    "best-friends": "Best friends",
     "birthdetails": "Birth Details",
     "chartdetails": "Chart Details",
     "city": "City",
@@ -61,5 +62,6 @@
     "sun": "Sun",
     "temporary": "Temporary",
     "venus": "Venus",
+    "worst-enemies": "Worst enemies",
     "yes": "Yes"
 }
