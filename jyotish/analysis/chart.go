@@ -121,7 +121,21 @@ func (c *Chart) NthBhavaContainsGraha(i, n int, graha string) bool {
 func (c *Chart) GetEffectiveFriends(name string) []string {
 	for _, ga := range c.GrahasAttr {
 		if ga.Name == name {
-			return ga.EffectiveFriends
+			friends := make([]string, len(ga.EffectiveBestFriends))
+			m := make(map[string]bool)
+
+			for _, item := range ga.EffectiveBestFriends {
+				m[item] = true
+				friends = append(friends, item)
+			}
+
+			for _, item := range ga.EffectiveFriends {
+				if _, ok := m[item]; !ok {
+					friends = append(friends, item)
+				}
+			}
+
+			return friends
 		}
 	}
 	return nil
@@ -139,7 +153,21 @@ func (c *Chart) GetEffectiveNeutrals(name string) []string {
 func (c *Chart) GetEffectiveEnemies(name string) []string {
 	for _, ga := range c.GrahasAttr {
 		if ga.Name == name {
-			return ga.EffectiveEnemies
+			enemies := make([]string, len(ga.EffectiveWorstEnemies))
+			m := make(map[string]bool)
+
+			for _, item := range ga.EffectiveWorstEnemies {
+				m[item] = true
+				enemies = append(enemies, item)
+			}
+
+			for _, item := range ga.EffectiveEnemies {
+				if _, ok := m[item]; !ok {
+					enemies = append(enemies, item)
+				}
+			}
+
+			return enemies
 		}
 	}
 	return nil
