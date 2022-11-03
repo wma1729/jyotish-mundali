@@ -21,6 +21,10 @@ type GrahaAttributes struct {
 	Retrograde            bool
 	Combust               bool
 	Position              string
+	FullAspect            []string
+	ThreeQuaterAspect     []string
+	HalfAspect            []string
+	QuaterAspect          []string
 }
 
 func addGrahasInNthBhava(grahas map[string]bool, name string, c, n int, chart *Chart) {
@@ -204,6 +208,18 @@ func (attr *GrahaAttributes) isCombust(name string, chart *Chart) {
 	}
 }
 
+func (attr *GrahaAttributes) getAspectedBy(name string, chart *Chart) {
+	_, b := chart.GetGrahaBhava(name)
+	if b == nil {
+		return
+	}
+
+	attr.FullAspect = b.FullAspect
+	attr.ThreeQuaterAspect = b.ThreeQuaterAspect
+	attr.HalfAspect = b.HalfAspect
+	attr.QuaterAspect = b.QuaterAspect
+}
+
 func (attr *GrahaAttributes) GetGrahaPosition(name string, chart *Chart) {
 	_, b := chart.GetGrahaBhava(name)
 	if b == nil {
@@ -268,4 +284,5 @@ func (attr *GrahaAttributes) Init(name string, chart *Chart) {
 	if b != nil {
 		attr.Retrograde = b.IsRetrograde(name)
 	}
+	attr.getAspectedBy(name, chart)
 }

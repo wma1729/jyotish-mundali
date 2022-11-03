@@ -71,6 +71,7 @@ func GetChart(gd GrahaDetais) Chart {
 
 	var chart Chart
 	chart.Bhavas = bhavas[:]
+	chart.EvaluateAspects()
 
 	chart.GrahasAttr = make([]GrahaAttributes, 9)
 	chart.GrahasAttr[0].Init(SUN, &chart)
@@ -171,4 +172,58 @@ func (c *Chart) GetEffectiveEnemies(name string) []string {
 		}
 	}
 	return nil
+}
+
+func (c *Chart) EvaluateAspects() {
+	for i, b := range c.Bhavas {
+		for _, g := range b.Grahas {
+			if g.Name == LAGNA {
+				continue
+			}
+			aspectedBhava := c.GetNthBhava(i, 3)
+			if g.Name == SATURN {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.QuaterAspect = append(aspectedBhava.QuaterAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 4)
+			if g.Name == MARS {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.ThreeQuaterAspect = append(aspectedBhava.ThreeQuaterAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 5)
+			if g.Name == JUPITER {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.HalfAspect = append(aspectedBhava.HalfAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 7)
+			aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+
+			aspectedBhava = c.GetNthBhava(i, 8)
+			if g.Name == MARS {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.ThreeQuaterAspect = append(aspectedBhava.ThreeQuaterAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 9)
+			if g.Name == JUPITER {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.HalfAspect = append(aspectedBhava.HalfAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 10)
+			if g.Name == SATURN {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.QuaterAspect = append(aspectedBhava.QuaterAspect, g.Name)
+			}
+		}
+	}
 }

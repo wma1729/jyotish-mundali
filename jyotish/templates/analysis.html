@@ -88,6 +88,22 @@
                             <th>{{ $vocab.Position }}</th>
                             <td>{{ GrahaPosition .Position $lang }}</td>
                         </tr>
+                        <tr>
+                            <th>{{ $vocab.FullAspect }}</th>
+                            <td>{{ GrahasName .FullAspect $lang }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ $vocab.ThreeQuaterAspect }}</th>
+                            <td>{{ GrahasName .ThreeQuaterAspect $lang }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ $vocab.HalfAspect }}</th>
+                            <td>{{ GrahasName .HalfAspect $lang }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ $vocab.QuaterAspect }}</th>
+                            <td>{{ GrahasName .QuaterAspect $lang }}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

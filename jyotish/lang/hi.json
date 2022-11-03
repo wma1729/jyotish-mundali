@@ -1,5 +1,6 @@
 {
     "action": "क्रिया",
+    "aspect": "दृष्टि",
     "astrologer": "ज्योतिषी",
     "attributes": "लक्षण",
     "benefic": "शुभ",
@@ -24,7 +25,9 @@
     "forward": "मार्गी",
     "friendly-rashi": "मित्र राशि",
     "friends": "मित्र",
+    "full-aspect": "१००% दृष्टि",
     "graha": "ग्रह",
+    "half-aspect": "५०% दृष्टि",
     "hindi": "हिन्दी",
     "home": "मुख्य पृष्ठ",
     "jupiter": "गुरु",
@@ -51,6 +54,7 @@
     "preferences": "पसंद चयन",
     "profiles": "पत्रियां",
     "public": "सार्वजनिक",
+    "quater-aspect": "२५% दृष्टि",
     "rahu": "राहु",
     "rashi-number": "राशि संख्या",
     "remarks": "टिप्पणियां",
@@ -61,6 +65,7 @@
     "siteadmin": "rakesh.didwania@gmail.com",
     "state": "राज्य",
     "temporary": "तात्कालिक",
+    "three-quater-aspect": "७५% दृष्टि",
     "venus": "शुक्र",
     "worst-enemies": "अधिशत्रु",
     "yes": "हाँ"
