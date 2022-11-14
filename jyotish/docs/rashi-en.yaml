@@ -1,0 +1,146 @@
+toc-entry:
+  name: rashi
+  order: 6
+  header: Rashis (loosely zodiac signs)
+section:
+  intro:
+    - >-
+      There are twelve rashis - Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio,
+      Sagittarius, Capricorn, Aquarius, and Pisces numbered from 1 to 12 respectively.
+  sub-sections:
+    - header: Rashis Characteristics
+      content:
+      pictures: []
+      tables:
+        - caption:
+          headers:
+            - Rashi
+            - Symbol
+            - Method of Rising
+            - Disposition
+            - Nature
+            - Sex
+            - Element
+            - Natural properties
+            - Ayurvedic dosha
+          rows:
+            - - Aries
+              - A ram (mountain sheep), quadruped
+              - Back-rising
+              - Movable
+              - Cruel
+              - Masculine
+              - Fire
+              - Rajas
+              - Pitta
+            - - Taurus
+              - A bull, quadruped
+              - Back-rising
+              - Fixed
+              - Gentle
+              - Feminine
+              - Earth
+              - Rajas
+              - Vaat
+            - - Gemini
+              - A couple holding a club and a musical instrument, biped
+              - Head-rising
+              - Dual/Mutable
+              - Cruel
+              - Masculine
+              - Air
+              - Rajas
+              - Vaat-pitta-kapha
+            - - Cancer
+              - A crab, multiped
+              - Back-rising
+              - Movable
+              - Gentle
+              - Feminine
+              - Water
+              - Sattva
+              - Kapha
+            - - Leo
+              - A lion, quadruped
+              - Head-rising
+              - Fixed
+              - Cruel
+              - Masculine
+              - Fire
+              - Sattva
+              - Pitta
+            - - Virgo
+              - A young woman with wheat and fire in hands, biped
+              - Head-rising
+              - Dual/Mutable
+              - Gentle
+              - Feminine
+              - Earth
+              - Tamas
+              - Vaat
+            - - Libra
+              - A man holding a scale, biped
+              - Head-rising
+              - Movable
+              - Cruel
+              - Masculine
+              - Air
+              - Rajas
+              - Vaat-pitta-kapha
+            - - Scorpio
+              - A scorpio, multiped
+              - Head-rising
+              - Fixed
+              - Gentle
+              - Feminine
+              - Water
+              - Tamas
+              - Kapha
+            - - Sagittarius
+              - >-
+                A man, with a horse's body, holding bow and arrow, biped up to
+                15 degrees, the rest is quadruped
+              - Back-rising
+              - Dual/Mutable
+              - Cruel
+              - Masculine
+              - Fire
+              - Sattva
+              - Pitta
+            - - Capricorn
+              - >-
+                A goat with a lower body of fish or a deer with a lower body of
+                crocodile, quaruped up to 15 degrees, the rest is without feet
+              - Back-rising
+              - Movable
+              - Gentle
+              - Feminine
+              - Earth
+              - Tamas
+              - Vaat
+            - - Aquarius
+              - A man holding a pitcher, biped
+              - Head-rising
+              - Fixed
+              - Cruel
+              - Masculine
+              - Air
+              - Tamas
+              - Vaat-pitta-kapha
+            - - Pisces
+              - Two fish swimming in opposite direction, without feet
+              - Both-way-rising
+              - Dual/Mutable
+              - Gentle
+              - Feminine
+              - Water
+              - Sattva
+              - Kapha
+
+  remarks:
+    - As per Phal-Deepika of Mantreshwar, Gemini is also both-way-rising rashi.
+    - >-
+      A natural benefic planet becomes more benefic in a head-rising rashi
+      and loses some of its benefic nature in a back-rising rashi. Likewise,
+      a natural malefic planet becomes more malefic in a back-rising rashi
+      and loses some of its malefic nature in a head-rising rashi.
