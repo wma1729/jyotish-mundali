@@ -16,7 +16,8 @@ section:
           headers:
             - Rashi
             - Symbol
-            - Method of Rising
+            - Body parts
+            - Method of rising
             - Disposition
             - Nature
             - Sex
@@ -26,6 +27,7 @@ section:
           rows:
             - - Aries
               - A ram (mountain sheep), quadruped
+              - The top and back of the head
               - Back-rising
               - Movable
               - Cruel
@@ -35,6 +37,7 @@ section:
               - Pitta
             - - Taurus
               - A bull, quadruped
+              - The face and throat
               - Back-rising
               - Fixed
               - Gentle
@@ -44,6 +47,7 @@ section:
               - Vaat
             - - Gemini
               - A couple holding a club and a musical instrument, biped
+              - The neck, shoulder and hands
               - Head-rising
               - Dual/Mutable
               - Cruel
@@ -53,6 +57,7 @@ section:
               - Vaat-pitta-kapha
             - - Cancer
               - A crab, multiped
+              - The chest and heart
               - Back-rising
               - Movable
               - Gentle
@@ -62,6 +67,7 @@ section:
               - Kapha
             - - Leo
               - A lion, quadruped
+              - The upper portion of the abdomen down to the navel
               - Head-rising
               - Fixed
               - Cruel
@@ -71,6 +77,9 @@ section:
               - Pitta
             - - Virgo
               - A young woman with wheat and fire in hands, biped
+              - >-
+                The middle portion of the abdomen, from the navel to
+                4-5 fingers below it (where the waist belt is worn)
               - Head-rising
               - Dual/Mutable
               - Gentle
@@ -80,6 +89,9 @@ section:
               - Vaat
             - - Libra
               - A man holding a scale, biped
+              - >-
+                The lower portion of the abdomen, 4-5 fingers upi
+                from the private parts
               - Head-rising
               - Movable
               - Cruel
@@ -89,6 +101,7 @@ section:
               - Vaat-pitta-kapha
             - - Scorpio
               - A scorpio, multiped
+              - The private parts (genitals and anus)
               - Head-rising
               - Fixed
               - Gentle
@@ -100,6 +113,7 @@ section:
               - >-
                 A man, with a horse's body, holding bow and arrow, biped up to
                 15 degrees, the rest is quadruped
+              - The thighs and hips
               - Back-rising
               - Dual/Mutable
               - Cruel
@@ -111,6 +125,7 @@ section:
               - >-
                 A goat with a lower body of fish or a deer with a lower body of
                 crocodile, quaruped up to 15 degrees, the rest is without feet
+              - The knees
               - Back-rising
               - Movable
               - Gentle
@@ -120,6 +135,7 @@ section:
               - Vaat
             - - Aquarius
               - A man holding a pitcher, biped
+              - The calves and ankles
               - Head-rising
               - Fixed
               - Cruel
@@ -129,6 +145,7 @@ section:
               - Vaat-pitta-kapha
             - - Pisces
               - Two fish swimming in opposite direction, without feet
+              - The feet (parts below the ankle)
               - Both-way-rising
               - Dual/Mutable
               - Gentle
