@@ -24,6 +24,7 @@ section:
             - Element
             - Natural properties
             - Ayurvedic dosha
+            - Direction
           rows:
             - - Aries
               - A ram (mountain sheep), quadruped
@@ -35,6 +36,7 @@ section:
               - Fire
               - Rajas
               - Pitta
+              - East
             - - Taurus
               - A bull, quadruped
               - The face and throat
@@ -45,6 +47,7 @@ section:
               - Earth
               - Rajas
               - Vaat
+              - South
             - - Gemini
               - A couple holding a club and a musical instrument, biped
               - The neck, shoulder and hands
@@ -55,6 +58,7 @@ section:
               - Air
               - Rajas
               - Vaat-pitta-kapha
+              - West
             - - Cancer
               - A crab, multiped
               - The chest and heart
@@ -65,6 +69,7 @@ section:
               - Water
               - Sattva
               - Kapha
+              - North
             - - Leo
               - A lion, quadruped
               - The upper portion of the abdomen down to the navel
@@ -75,6 +80,7 @@ section:
               - Fire
               - Sattva
               - Pitta
+              - East
             - - Virgo
               - A young woman with wheat and fire in hands, biped
               - >-
@@ -87,6 +93,7 @@ section:
               - Earth
               - Tamas
               - Vaat
+              - South
             - - Libra
               - A man holding a scale, biped
               - >-
@@ -99,6 +106,7 @@ section:
               - Air
               - Rajas
               - Vaat-pitta-kapha
+              - West
             - - Scorpio
               - A scorpio, multiped
               - The private parts (genitals and anus)
@@ -109,6 +117,7 @@ section:
               - Water
               - Tamas
               - Kapha
+              - West
             - - Sagittarius
               - >-
                 A man, with a horse's body, holding bow and arrow, biped up to
@@ -121,7 +130,9 @@ section:
               - Fire
               - Sattva
               - Pitta
+              - East
             - - Capricorn
+              - South
               - >-
                 A goat with a lower body of fish or a deer with a lower body of
                 crocodile, quaruped up to 15 degrees, the rest is without feet
@@ -143,6 +154,7 @@ section:
               - Air
               - Tamas
               - Vaat-pitta-kapha
+              - West
             - - Pisces
               - Two fish swimming in opposite direction, without feet
               - The feet (parts below the ankle)
@@ -153,6 +165,7 @@ section:
               - Water
               - Sattva
               - Kapha
+              - West
 
   remarks:
     - As per Phal-Deepika of Mantreshwar, Gemini is also both-way-rising rashi.
