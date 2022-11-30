@@ -260,6 +260,51 @@ section:
           They lead a happy married life.
       pictures: []
       tables: []
+    - header: Scorpio
+      content:
+        - >-
+          Scorpion natives are natural troublemakers. They are very rigid and do not like
+          to follow normal procedures. They are brave, vindictive, ambitious, and not
+          satisfied with the place where they live. They are inclined towards chemistry,
+          drugs, medicines, and surgery and can become doctors. They like to uncover
+          secrets of others. They have a strong interest in sex and are extremely
+          assertive in their marriages. They tend to submerge their partners' individuality
+          and as a result their marriages suffer. They quarrel with their parents.
+          They have few or no younger siblings.
+      pictures: []
+      tables: []
+    - header: Sagittarius
+      content:
+        - >-
+          Sagittarians are lucky and competitive. They have many enemies and can win over
+          them. Friends become enemies and enemies become friends in their life. They are
+          blunt speakers and not good at managing finances. They are intelligent. They
+          might pursue two careers simultaneously. They are highly interested in
+          spirituality and can derive happiness from spiritual pursuits.
+      pictures: []
+      tables: []
+    - header: Capricorn
+      content:
+        - >-
+          Capricorn natives are highly ambitious however the growth in career is slow and
+          gradual which often frustrates them. The real growth comes later in life. They
+          are sometimes dissatisfied with the family, ancestors and property even though
+          they can make gains from properties. They are money-minded, extremely frugal
+          with their money as they have earned it with great efforts in the first place.
+          They love their children immensely.  Religion is not for them. They have a strong
+          interest in conservative and old things like tradition, history, astrology, etc.
+      pictures: []
+      tables: []
+    - header: Aquarius
+      content:
+        - >-
+          Aquarians like to expand their knowledge all the time. They are more interested
+          in materialistic or scientific pursuits rather than spiritual. The progress in
+          their career is slow. Gains and losses are part of their journeys. They show an
+          indifferent approach towards money. They value friends and societies. They are
+          introverts, idiosyncratic and secretive.
+      pictures: []
+      tables: []
 
 
   remarks:
