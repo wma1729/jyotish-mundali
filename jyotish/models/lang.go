@@ -14,7 +14,9 @@ type Language struct {
 	Attributes        string `json:"attributes"`
 	Benefic           string `json:"benefic"`
 	BestFriends       string `json:"best-friends"`
+	Bhava             string `json:"bhava"`
 	BirthDetails      string `json:"birthdetails"`
+	Chart             string `json:"chart"`
 	ChartDetails      string `json:"chartdetails"`
 	City              string `json:"city"`
 	Combust           string `json:"combust"`

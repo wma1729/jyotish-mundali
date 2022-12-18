@@ -56,6 +56,9 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 		"templates/analysis.html",
 		"templates/header.html",
 		"templates/navbar.html",
+		"templates/charts.html",
+		"templates/grahas.html",
+		"templates/bhavas.html",
 		"templates/footer.html"))
 	return tmpl.ExecuteTemplate(w, tmplName, page)
 }

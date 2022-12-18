@@ -1,9 +1,25 @@
-.lagna-chart
+.chart-container
 {
+    display: flex;
     position: relative;
     top: 0;
-    width: 40vw;
-    height: 40vw;
+}
+
+.chart-title
+{
+    display: inline-block;
+    position: absolute;
+    margin-left: 4%;
+    color: rgb(119, 174, 175);
+    font-weight: bold;
+}
+
+.lagna-chart
+{
+    position: absolute;
+    top: 1vw;
+    width: 30vw;
+    height: 30vw;
     border: 2px solid black;
     margin: 4%;
 }

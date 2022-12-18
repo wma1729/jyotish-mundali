@@ -1,105 +1,53 @@
-#sun-attr {
+.analysis-toc {
+    width: 15vw;
+}
+
+.analysis-toc-area {
+    margin-top: 10vw;
+}
+
+.analysis-toc-link {
+    background-color: rgb(119, 174, 175, 0.5);
+    color: black;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 10vw;
+    padding: 1vw;
+    margin-bottom: 1px;
+}
+
+.analysis-toc-link:hover, .analysis-content:active {
+    background-color: rgb(119, 174, 175);
+    color: blue;
+}
+
+#analysis-charts, #analysis-grahas, #analysis-bhavas {
+    width: 85vw;
+}
+
+#analysis-charts {
+    display: flex;
+}
+
+#analysis-grahas, #analysis-bhavas {
     display: none;
+}
+
+.graha-attr {
     position: relative;
-    height: 40vw;
-    width: fit-content;
+    height: fit-content;
+    width: 75vw;
     margin: 4%;
-    overflow-y: scroll;
-    overflow-x: visible;
+    overflow-y: visible;
+    overflow-x: scroll;
     scrollbar-color: rgb(119, 174, 175) rgb(119, 174, 175, 0.5);
 }
 
-#moon-attr {
-    display: none;
-    position: relative;
-    height: 40vw;
-    width: fit-content;
-    margin: 4%;
-    overflow-y: scroll;
-    overflow-x: visible;
-    scrollbar-color: rgb(119, 174, 175) rgb(119, 174, 175, 0.5);
-}
-
-#mars-attr {
-    display: none;
-    position: relative;
-    height: 40vw;
-    width: fit-content;
-    margin: 4%;
-    overflow-y: scroll;
-    overflow-x: visible;
-    scrollbar-color: rgb(119, 174, 175) rgb(119, 174, 175, 0.5);
-}
-
-#mercury-attr {
-    display: none;
-    position: relative;
-    height: 40vw;
-    width: fit-content;
-    margin: 4%;
-    overflow-y: scroll;
-    overflow-x: visible;
-    scrollbar-color: rgb(119, 174, 175) rgb(119, 174, 175, 0.5);
-}
-
-#jupiter-attr {
-    display: none;
-    position: relative;
-    height: 40vw;
-    width: fit-content;
-    margin: 4%;
-    overflow-y: scroll;
-    overflow-x: visible;
-    scrollbar-color: rgb(119, 174, 175) rgb(119, 174, 175, 0.5);
-}
-
-#venus-attr {
-    display: none;
-    position: relative;
-    height: 40vw;
-    width: fit-content;
-    margin: 4%;
-    overflow-y: scroll;
-    overflow-x: visible;
-    scrollbar-color: rgb(119, 174, 175) rgb(119, 174, 175, 0.5);
-}
-
-#saturn-attr {
-    display: none;
-    position: relative;
-    height: 40vw;
-    width: fit-content;
-    margin: 4%;
-    overflow-y: scroll;
-    overflow-x: visible;
-    scrollbar-color: rgb(119, 174, 175) rgb(119, 174, 175, 0.5);
-}
-
-#rahu-attr {
-    display: none;
-    position: relative;
-    height: 40vw;
-    width: fit-content;
-    margin: 4%;
-    overflow-y: scroll;
-    overflow-x: visible;
-    scrollbar-color: rgb(119, 174, 175) rgb(119, 174, 175, 0.5);
-}
-
-#ketu-attr {
-    display: none;
-    position: relative;
-    height: 40vw;
-    width: fit-content;
-    margin: 4%;
-    overflow-y: scroll;
-    overflow-x: visible;
-    scrollbar-color: rgb(119, 174, 175) rgb(119, 174, 175, 0.5);
-}
-
-.fixed-row {
+.fixed-column {
     position: sticky;
-    top: 0;
+    left: 0;
     background-color: rgb(119, 174, 175);
     color: white;
     z-index: 2;

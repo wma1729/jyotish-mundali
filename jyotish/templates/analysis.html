@@ -5,109 +5,22 @@
     <body>
         {{ template "navbar" . }}
         <section>
-            {{ $lang := .User.Lang }}
-            <section class="lagna-chart">
-            {{ range .Chart.Bhavas }}
-                <section class="bhava-{{ .Number }}-wrapper">
-                    <div class="bhava-{{ .Number }}" style="background-color: var(--{{ .RashiLord }}-color)">
-                        <p id="graha">
-                        {{ range .Grahas }}
-                            <a href="#" onclick="showGraha('{{ .Name }}'); return false;">{{ GrahaName .Name $lang }}<sup>{{ .Degree }}</sup></a>
-                        {{ end }}
-                        </p>
-                        <p id="rashi-num">{{ .RashiNum }}</p>
-                    </div>
-                </section>
-            {{ end }}
-            </section>
-            {{ $vocab := .Vocab }}
-            {{ range .Chart.GrahasAttr }}
-            <div id="{{ .Name }}-attr">
-                <table>
-                    <caption>{{ $vocab.Graha}} {{ $vocab.Attributes }}</caption>
-                    <thead class="fixed-row">
-                        <tr>
-                            <th>{{ $vocab.Name }}</th>
-                            <th>{{ GrahaName .Name $lang }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th>{{ $vocab.Natural }} {{ $vocab.Friends }}</th>
-                            <td>{{ GrahasName .NaturalFriends $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Natural }} {{ $vocab.Neutrals }}</th>
-                            <td>{{ GrahasName .NaturalNeutrals $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Natural }} {{ $vocab.Enemies }}</th>
-                            <td>{{ GrahasName .NaturalEnemies $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Temporary }} {{ $vocab.Friends }}</th>
-                            <td>{{ GrahasName .TemporaryFriends $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Temporary }} {{ $vocab.Enemies }}</th>
-                            <td>{{ GrahasName .TemporaryEnemies $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Effective }} {{ $vocab.BestFriends }}</th>
-                            <td>{{ GrahasName .EffectiveBestFriends $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Effective }} {{ $vocab.Friends }}</th>
-                            <td>{{ GrahasName .EffectiveFriends $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Effective }} {{ $vocab.Neutrals }}</th>
-                            <td>{{ GrahasName .EffectiveNeutrals $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Effective }} {{ $vocab.Enemies }}</th>
-                            <td>{{ GrahasName .EffectiveEnemies $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Effective }} {{ $vocab.WorstEnemies }}</th>
-                            <td>{{ GrahasName .EffectiveWorstEnemies $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Natural }} {{ $vocab.Nature }}</th>
-                            <td>{{ GrahaNature .NaturalNature $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Motion }}</th>
-                            <td>{{ GrahaMotion .Retrograde $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Combust }}</th>
-                            <td>{{ YesOrNo .Combust $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.Position }}</th>
-                            <td>{{ GrahaPosition .Position $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.FullAspect }}</th>
-                            <td>{{ GrahasName .FullAspect $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.ThreeQuaterAspect }}</th>
-                            <td>{{ GrahasName .ThreeQuaterAspect $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.HalfAspect }}</th>
-                            <td>{{ GrahasName .HalfAspect $lang }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{ $vocab.QuaterAspect }}</th>
-                            <td>{{ GrahasName .QuaterAspect $lang }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="analysis-toc">
+                <menu class="analysis-toc-area">
+                    <a class="analysis-toc-link" href="#" onClick="showContent('charts');">{{ .Vocab.Chart }}</a>
+                    <a class="analysis-toc-link" href="#" onClick="showContent('grahas');">{{ .Vocab.Graha }}</a>
+                    <a class="analysis-toc-link" href="#" onClick="showContent('bhavas');">{{ .Vocab.Bhava }}</a>
+                </menu>
             </div>
-            {{ end }}
+            <div id="analysis-charts">
+                {{ template "charts" . }}
+            </div>
+            <div id="analysis-grahas">
+                {{ template "grahas" . }}
+            </div>
+            <div id="analysis-bhavas">
+                {{ template "bhavas" . }}
+            </div>
         </section>
     	{{ template "footer" . }}
     </body>

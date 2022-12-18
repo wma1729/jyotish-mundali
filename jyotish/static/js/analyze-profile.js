@@ -1,20 +1,14 @@
-const grahas = [
-    'sun',
-    'moon',
-    'mars',
-    'mercury',
-    'jupiter',
-    'venus',
-    'saturn',
-    'rahu',
-    'ketu'
+const contents = [
+    'charts',
+    'grahas',
+    'bhavas'
 ];
 
-function showGraha(name) {
-    for (const graha of grahas) {
-        let id = document.getElementById(`${graha}-attr`);
-        if (graha === name) {
-            id.style.display = 'block';
+function showContent(category) {
+    for (let c of contents) {
+        let id = document.getElementById(`analysis-${c}`);
+        if (c === category) {
+            id.style.display = 'flex';
         } else {
             id.style.display = 'none';
         }

@@ -1,0 +1,57 @@
+{{ define "grahas" }}
+    {{ $lang := .User.Lang }}
+    {{ $vocab := .Vocab }}
+    <div class="graha-attr">
+        <table>
+            <caption>{{ $vocab.Graha}} {{ $vocab.Attributes }}</caption>
+            <thead>
+                <tr>
+                    <th class="fixed-column">{{ $vocab.Name }}</th>
+                    <th>{{ $vocab.Natural }} {{ $vocab.Friends }}</th>
+                    <th>{{ $vocab.Natural }} {{ $vocab.Neutrals }}</th>
+                    <th>{{ $vocab.Natural }} {{ $vocab.Enemies }}</th>
+                    <th>{{ $vocab.Temporary }} {{ $vocab.Friends }}</th>
+                    <th>{{ $vocab.Temporary }} {{ $vocab.Enemies }}</th>
+                    <th>{{ $vocab.Effective }} {{ $vocab.BestFriends }}</th>
+                    <th>{{ $vocab.Effective }} {{ $vocab.Friends }}</th>
+                    <th>{{ $vocab.Effective }} {{ $vocab.Neutrals }}</th>
+                    <th>{{ $vocab.Effective }} {{ $vocab.Enemies }}</th>
+                    <th>{{ $vocab.Effective }} {{ $vocab.WorstEnemies }}</th>
+                    <th>{{ $vocab.Natural }} {{ $vocab.Nature }}</th>
+                    <th>{{ $vocab.Motion }}</th>
+                    <th>{{ $vocab.Combust }}</th>
+                    <th>{{ $vocab.Position }}</th>
+                    <th>{{ $vocab.FullAspect }}</th>
+                    <th>{{ $vocab.ThreeQuaterAspect }}</th>
+                    <th>{{ $vocab.HalfAspect }}</th>
+                    <th>{{ $vocab.QuaterAspect }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .Chart.GrahasAttr }}
+                <tr>
+                    <th class="fixed-column">{{ GrahaName .Name $lang }}</th>
+                    <td>{{ GrahasName .NaturalFriends $lang }}</td>
+                    <td>{{ GrahasName .NaturalNeutrals $lang }}</td>
+                    <td>{{ GrahasName .NaturalEnemies $lang }}</td>
+                    <td>{{ GrahasName .TemporaryFriends $lang }}</td>
+                    <td>{{ GrahasName .TemporaryEnemies $lang }}</td>
+                    <td>{{ GrahasName .EffectiveBestFriends $lang }}</td>
+                    <td>{{ GrahasName .EffectiveFriends $lang }}</td>
+                    <td>{{ GrahasName .EffectiveNeutrals $lang }}</td>
+                    <td>{{ GrahasName .EffectiveEnemies $lang }}</td>
+                    <td>{{ GrahasName .EffectiveWorstEnemies $lang }}</td>
+                    <td>{{ GrahaNature .NaturalNature $lang }}</td>
+                    <td>{{ GrahaMotion .Retrograde $lang }}</td>
+                    <td>{{ YesOrNo .Combust $lang }}</td>
+                    <td>{{ GrahaPosition .Position $lang }}</td>
+                    <td>{{ GrahasName .FullAspect $lang }}</td>
+                    <td>{{ GrahasName .ThreeQuaterAspect $lang }}</td>
+                    <td>{{ GrahasName .HalfAspect $lang }}</td>
+                    <td>{{ GrahasName .QuaterAspect $lang }}</td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+{{ end }}
