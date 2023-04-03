@@ -1,0 +1,47 @@
+toc-entry:
+  name: bhava
+  order: 7
+  header: Bhavas (loosely zodiac houses)
+section:
+  intro:
+    - >-
+      There are twelve bhavas (houses) - where each bhava encompasses a rashi.
+  sub-sections:
+    - header: Bhavas
+      content:
+      pictures: []
+      tables:
+        - caption:
+          headers:
+            - Number
+            - Name(s)
+            - Body Parts
+          rows:
+            - - 1
+              - Ascendent, birth
+              - Body (in general), head, appearance, complexion
+            - - 2
+              - Wealth, family
+              - Face, throat, right eye
+            - - 3
+              - Siblings, Courage
+              - Arms, neck, right ear
+            - - 4
+              - Mother, Vehicles
+              - Chest, nose
+            - - 5
+              - Children
+            - - 6
+              - Enemy, Disease
+            - - 7
+              - Wife, Partner
+            - - 8
+              - Deceit, Death
+            - - 9
+              - Dharma, Father
+            - - 10
+              - Karma
+            - - 11
+              - Profit & Income, Improvement
+            - - 12
+              - Expenses
