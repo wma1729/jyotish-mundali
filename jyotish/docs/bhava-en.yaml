@@ -15,33 +15,48 @@ section:
           headers:
             - Number
             - Name(s)
-            - Body Parts
+            - Body parts
+            - Relations
+            - Direct meanings
           rows:
             - - 1
               - Ascendent, birth
-              - Body (in general), head, appearance, complexion
+              - Body (in general), head, appearance, complexion, hair
+              - Self, maternal grandfather, paternal grandmother
+              >-
+                Behavior, personality, nature, happiness or sorrow,
+                strength or weakness of the body, health, dignity, honor,
+                prestige, beginning, present.
             - - 2
               - Wealth, family
               - Face, throat, right eye
             - - 3
-              - Siblings, Courage
+              - Siblings, courage
               - Arms, neck, right ear
             - - 4
-              - Mother, Vehicles
+              - Mother, vehicles
               - Chest, nose
             - - 5
               - Children
+              - Upper abdomen, cheekbones
             - - 6
-              - Enemy, Disease
+              - Enemy, disease
+              - Middle abdomen, beard
             - - 7
-              - Wife, Partner
+              - Wife, partners
+              - Lower abdomen, face
             - - 8
-              - Deceit, Death
+              - Deceit, death
+              - Private parts (genital and anus), beard
             - - 9
-              - Dharma, Father
+              - Dharma, father
+              - Thighs and hips, cheekbones
             - - 10
               - Karma
+              - Knees, nose
             - - 11
               - Profit & Income, Improvement
+              - Calves and ankles, left ear
             - - 12
               - Expenses
+              - Feet, left eye
