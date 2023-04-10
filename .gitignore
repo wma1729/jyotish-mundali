@@ -1,0 +1,5 @@
+/pkg/
+**/.vscode
+**/.env
+keycloak/keystore/
+step-ca/data/
