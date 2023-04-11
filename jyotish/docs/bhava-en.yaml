@@ -18,6 +18,7 @@ section:
             - Body parts
             - Relations
             - Direct meanings
+            - Indicator
           rows:
             - - 1
               - Ascendent, birth
@@ -27,9 +28,16 @@ section:
                 Behavior, personality, nature, happiness or sorrow,
                 strength or weakness of the body, health, dignity, honor,
                 prestige, beginning, present.
+              - Sun
             - - 2
               - Wealth, family
               - Face, throat, right eye
+              - Close family members needing care. 
+              >-
+                Wealth, grains, liquid assets, speech, oral learning often
+                taught by family members, food and drinks, death,
+                jewels and gems.
+              - Jupiter
             - - 3
               - Siblings, courage
               - Arms, neck, right ear
@@ -37,7 +45,7 @@ section:
               - Mother, vehicles
               - Chest, nose
             - - 5
-              - Children
+              - Children, intelligence
               - Upper abdomen, cheekbones
             - - 6
               - Enemy, disease
