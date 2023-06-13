@@ -19,6 +19,7 @@ section:
             - Relations
             - Direct meanings
             - Indicator
+            - Desires/efforts
           rows:
             - - 1
               - Ascendent, birth
@@ -29,6 +30,7 @@ section:
                 strength or weakness of the body, health, vitality,
                 dignity, honor, prestige, beginning, present.
               - Sun
+              - Dharma
             - - 2
               - Wealth, family
               - Face, throat, right eye
@@ -38,6 +40,7 @@ section:
                 taught by family members, food and drinks, clothes,
                 jewels and gems, death.
               - Jupiter
+              - Artha
             - - 3
               - Siblings, courage
               - Arms, neck, right ear
@@ -45,8 +48,9 @@ section:
               - >- 
                 Written communication, valor, physical and mental strength,
                 courage, patience, advice and sermons, entrepreneurship,
-                travel, parents' death.
+                travel, longevity, parents' death.
               - Mars
+              - Kama
             - - 4
               - Mother, vehicles
               - Chest, heart, nose 
@@ -59,6 +63,7 @@ section:
               - >-
                 Moon (mother and emotions), Venus (vehicles), Mercury
                 (education), Mars (property)
+              - Moksha
             - - 5
               - Children, intelligence
               - Upper abdomen, cheekbones
@@ -68,6 +73,7 @@ section:
                 royal comforts, ministerial qualifications, tax, knowledge of spiritual
                 texts, yantras and mantras, creativity, children.
               - Jupiter
+              - Dharma
             - - 6
               - Enemy, disease
               - Middle abdomen, beard
@@ -77,6 +83,7 @@ section:
                 litigiation, service (routine work), quarrel/disagreements with relatives,
                 weapons, theft, sin, cruel and wicked deeds.
               - Mars (accidents, litigation, disease), Saturn (debt, disease)
+              - Artha
             - - 7
               - Wife, partners
               - Lower abdomen, face
@@ -86,6 +93,7 @@ section:
                 business partners, path, journeys, foreign places (far away from birth
                 place), death.
               - Venus
+              - Kama
             - - 8
               - Deceit, death
               - Private parts (genital and anus), beard
@@ -97,6 +105,7 @@ section:
                 impurity, longevity, death, conjugal happiness, spouse's health,
                 occult, mystery, servitude, history of past and future births.
               - Saturn
+              - Moksha
             - - 9
               - Dharma, teacher/advisor
               - Thighs and hips, cheekbones
@@ -106,6 +115,7 @@ section:
                 general), dharma, charity, worship, penance, purity of mind, respect
                 to elders, good company, virtue, spiritual quest, higher education.
               - Jupiter (teacher, education, spiritual quest, fortune), Sun (father)
+              - Dharma
             - - 10
               - Karma
               - Knees, nose
@@ -117,6 +127,7 @@ section:
               - >-
                 Mercury (business, commerce), Sun (government, authority, fame),
                 Saturn (tradition, employment), Jupiter (profession)
+              - Artha
             - - 11
               - Profit & Income, Improvement
               - Calves and ankles, left ear
@@ -126,6 +137,7 @@ section:
                 lost things, success, glory, welfare, appreciation, good news,
                 satisfaction, wishes, relief from difficulties and diseases.
               - Jupiter
+              - Kama
             - - 12
               - Expenses
               - Feet, left eye
@@ -135,3 +147,38 @@ section:
                 expense, bondage, confinement, imprisonment, end of anything, wondering
                 far away from home, salvation.
               - Saturn
+              - Moksha
+
+  remarks:
+    - >-
+      Bhavas 1, 4, 7, and 10 are the kendra (angular) bhavas. Bhavas 5 and 9 are the
+      trikona (trinal) bhavas. Many astrologers considers bhava 1 as the trikona as well.
+      Since bhava 1 is both a kendra and a trikona, it has a special importance.
+    - >-
+      Kendras represents conscious, self directed efforts of the current life. Trikonas
+      represents unconscious actions of the past and the next life.
+    - >-
+      A graha that is the owner of both a kendra and a trikona is called raj yoga karaka
+      and bestows great benefits in its dasha period. If the owner of both a kendra and
+      a trikona are posited in the same house or aspects each other, it is considered a
+      good raj yoga and brings properity in the dasha period of at least one of them.
+    - >-
+      In any horoscope, all the trikonas are owned either by the grahas of the Sun
+      (Sun, Moon, Mars and Jupiter) or the Saturn (Mercury, Venus and Saturn) family.
+    - >-
+      The bhavas next to the kendras (2nd, 5th, 8th, and 11th) are called panaphar. The
+      bhavas next to the panaphars (3rd, 6th, 9th, and 12th) are called Aapovilma/Apoklima.
+      The grahas in kendras, panaphar, and aapovilma/apoklima give results in
+      childhood/youth, middle age, and old age respectively.
+    - >-
+      Bhavas 3, 6, 8 and 12 are called dussthanas. Bhavas 6, 8, and 12 are specially bad
+      and are called Trik.
+    - >-
+      Bhavas 3, 6, 10 and 11 are called upachayas. The grahas posited in these bhavas show
+      gradual improvements and growth.
+    - >-
+      Bhavas 3, 6 and 11 are called trishadaya. The owner of these bhavas never give good
+      results in their dasha periods.
+    - >-
+      Bhavas 2 and 7 are called maraka. Bhava 3 and 8 represents longevity and bhava 2 and 7
+      are 12 bhava (loss of longevity) away from bhava 3 and 8 respectively.
