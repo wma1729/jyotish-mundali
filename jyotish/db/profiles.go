@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"errors"
 	"fmt"
 	"jyotish/models"
 	"log"
@@ -126,7 +125,7 @@ func ProfileUpdate(db *sql.DB, email string, profile *models.Profile) error {
 	}
 
 	if rowsUpdated != 1 {
-		err := errors.New(fmt.Sprintf("updated %d rows", rowsUpdated))
+		err := fmt.Errorf("updated %d rows", rowsUpdated)
 		log.Printf("unable to update %s: %s", profile.ID, err)
 		return err
 	}
@@ -152,7 +151,7 @@ func ProfileDelete(db *sql.DB, email, id string) error {
 	}
 
 	if rowsDeleted != 1 {
-		err := errors.New(fmt.Sprintf("deleted %d rows", rowsDeleted))
+		err := fmt.Errorf("deleted %d rows", rowsDeleted)
 		log.Printf("unable to delete %s: %s", id, err)
 		return err
 	}
