@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"errors"
 	"fmt"
 	"jyotish/models"
 	"log"
@@ -125,7 +124,7 @@ func UserUpdate(db *sql.DB, user *models.User) error {
 	}
 
 	if rowsUpdated != 1 {
-		err := errors.New(fmt.Sprintf("updated %d rows", rowsUpdated))
+		err := fmt.Errorf("updated %d rows", rowsUpdated)
 		log.Printf("unable to update %s: %s", user.Email, err)
 		return err
 	}
