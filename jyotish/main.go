@@ -10,6 +10,34 @@ import (
 )
 
 func main() {
+	config := getConfig()
+
+	defaultTransport, ok := http.DefaultTransport.(*http.Transport)
+	if !ok {
+		log.Print("failed to get default transport")
+		return
+	}
+
+	defaultTransport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+
+	globals, err := controllers.InitGlobals(config)
+	if err != nil {
+		log.Printf("failed to initialize environment: %s", err)
+		return
+	}
+
+	http.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("./static"))))
+	http.HandleFunc("/", globals.BeginAuth)
+	http.HandleFunc("/auth/callback", globals.CompleteAuth)
+	http.HandleFunc("/logout", globals.EndAuth)
+	http.HandleFunc("/preferences", globals.HandlePreferences)
+	http.HandleFunc("/profiles/", globals.HandleProfiles)
+	http.HandleFunc("/knowledge-base", globals.HandleKnowledgeBase)
+
+	log.Fatal(http.ListenAndServe("localhost:5000", logRequest(http.DefaultServeMux)))
+}
+
+func getConfig() *config.Config {
 	var config config.Config
 
 	config.LoadFromEnvironment()
@@ -66,29 +94,7 @@ func main() {
 
 	config.Validate()
 
-	defaultTransport, ok := http.DefaultTransport.(*http.Transport)
-	if !ok {
-		log.Print("failed to get default transport")
-		return
-	}
-
-	defaultTransport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-
-	globals, err := controllers.InitGlobals(&config)
-	if err != nil {
-		log.Printf("failed to initialize environment: %s", err)
-		return
-	}
-
-	http.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("./static"))))
-	http.HandleFunc("/", globals.BeginAuth)
-	http.HandleFunc("/auth/callback", globals.CompleteAuth)
-	http.HandleFunc("/logout", globals.EndAuth)
-	http.HandleFunc("/preferences", globals.HandlePreferences)
-	http.HandleFunc("/profiles/", globals.HandleProfiles)
-	http.HandleFunc("/knowledge-base", globals.HandleKnowledgeBase)
-
-	log.Fatal(http.ListenAndServe("localhost:5000", logRequest(http.DefaultServeMux)))
+	return &config
 }
 
 func logRequest(handler http.Handler) http.Handler {

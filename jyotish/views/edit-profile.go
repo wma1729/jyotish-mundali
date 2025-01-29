@@ -13,7 +13,7 @@ type EditProfilePage struct {
 	UserProfile *models.Profile
 }
 
-func GetRashiNumber(chart analysis.GrahaDetais, graha string) int {
+func GetRashiNumber(chart analysis.GrahaDetails, graha string) int {
 	for _, p := range chart.Grahas {
 		if p.Name == graha {
 			return p.RashiNum
@@ -22,7 +22,7 @@ func GetRashiNumber(chart analysis.GrahaDetais, graha string) int {
 	return -1
 }
 
-func GetDegreeInRashi(chart analysis.GrahaDetais, graha string) float32 {
+func GetDegreeInRashi(chart analysis.GrahaDetails, graha string) float32 {
 	for _, p := range chart.Grahas {
 		if p.Name == graha {
 			return p.Degree
@@ -31,7 +31,7 @@ func GetDegreeInRashi(chart analysis.GrahaDetais, graha string) float32 {
 	return -1.00
 }
 
-func GetRetrogradeStatus(chart analysis.GrahaDetais, graha string) string {
+func GetRetrogradeStatus(chart analysis.GrahaDetails, graha string) string {
 	for _, p := range chart.Grahas {
 		if p.Name == graha {
 			if p.Retrograde {

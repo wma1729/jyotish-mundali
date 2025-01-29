@@ -38,7 +38,7 @@ section:
               - >-
                 Wealth, grains, liquid assets, speech, oral learning often
                 taught by family members, food and drinks, clothes,
-                jewels and gems, death.
+                jewels and gems, longevity, death.
               - Jupiter
               - Artha
             - - 3
@@ -148,37 +148,105 @@ section:
                 far away from home, salvation.
               - Saturn
               - Moksha
+    - header: Kendra, Trikona and Lagna
+      content:
+        - >-
+          Bhavas 4, 7, and 10 are the kendra (angular) bhavas. Bhavas 5 and 9 are the
+          trikona (trinal) bhavas. Some astrologers consider bhava 1 as kendra, some as
+          trikona and some even as both. It is called lagna and has a special importance.
+        - >-
+          Kendras represents conscious, self directed efforts of the current life. Trikonas
+          represents unconscious actions of the past and the next life.
+        - >-
+          A graha that is the owner of both a kendra and a trikona is called raj yoga karaka
+          and bestows great benefits in its dasha period. If the owner of both a kendra and
+          a trikona are posited in the same house or aspects each other, it is considered a
+          good raj yoga and brings properity in the dasha period of at least one of them.
+        - >-
+          In any horoscope, all the trikonas are owned either by the grahas of the Sun
+          (Sun, Moon, Mars and Jupiter) or the Saturn (Mercury, Venus and Saturn) family.
+      pictures: []
+      tables: []
+    - header: Panaphar
+      content:
+        - >-
+          The bhavas next to the kendras (2nd, 5th, 8th, and 11th) are called panaphar. The
+          bhavas next to the panaphars (3rd, 6th, 9th, and 12th) are called Aapovilma/Apoklima.
+          The grahas in kendras, panaphar, and aapovilma/apoklima give results in
+          childhood/youth, middle age, and old age respectively.
+      pictures: []
+      tables: []
+    - header: Dussthana, Trik, Upachaya and Trishadya
+      content:
+        - >-
+          Bhavas 3, 6, 8 and 12 are called dussthanas. Bhavas 6, 8, and 12 are specially bad
+          and are called Trik.
+        - >-
+          Bhavas 3, 6, 10 and 11 are called upachayas. The grahas posited in these bhavas show
+          gradual improvements and growth.
+        - >-
+          Bhavas 3, 6 and 11 are called trishadaya. The owner of these bhavas never give good
+          results in their dasha periods.
+      pictures: []
+      tables: []
+    - header: Maraka
+      content:
+        - >-
+          Bhavas 2 and 7 are called maraka. Bhava 3 and 8 represents longevity and bhava 2 and 7
+          are 12 bhava (loss of longevity) away from bhava 3 and 8 respectively.
+      pictures: []
+      tables: []
+    - header: Harmonics and reflection
+      content:
+        - >-
+          Dharma bhavas (1, 5, 9) have similar meanings with variations in intentions, intensity,
+          and representations. They are harmonics of one another where the higher bhava is an
+          altered image of the lower bhava. The same is true for artha, kama and moksha bhava.
+          For example - dharma bhava 1, 5 and 9 means self, children, and grand-children
+          respectively, artha bhava 6 and 10 represents service and profession respectively,
+          kama bhava 3 and 11 represents younger and elder siblings respectively, and moksha
+          bhava 8 and 12 means loss and end respectively.
+        - >-
+          Because every graha aspects the seventh bhava, the seventh bhava from any bhava is a
+          reflection of that bhava.
+      pictures: []
+      tables:
+        - caption: Bhava reflection
+          headers:
+            - Bhavas
+            - Lower numbered bhava
+            - Higher numbered bhava
+          rows:
+            - - 1 and 7
+              - Self
+              - Spouse (the other half of self)
+            - - 2 and 8
+              - Wealth, asset, death
+              - Loss of wealth, asset.
+            - - 3 and 9
+              - Mental strength, bravery
+              - Wisdom, virtuous actions
+            - - 4 and 10
+              - Land, vehicle
+              - Profession (means to acquire land and vehicle)
+            - - 5 and 11
+              - Children, creativity
+              - Growth and gains
+            - - 6 and 12
+              - Sickness, debt
+              - Hospitalization, isolation, end
+    - header: Numerological Relations
+      content:
+        - >-
+          A bhava which is Nth bhava away from bhava number N has a related and derived
+          meaning of the bhava N. For example, both 5th and 9th (5th bhava from bhava 5)
+          represent children/grandchildren, bhava 6th and 11th (6th from bhava 6) means
+          disease/relief from disease, 8th and 3rd (8th away from bhava 8) indicates
+          longevity.
+        - >-
+          When the lord of a bhava is the same number of bhavas away from the bhava as
+          that bhava is from the lagna, the good or bad things associated with the bhava
+          will occur again and again. This situation is called bhavat bhavam.
+      pictures: []
+      tables:
 
-  remarks:
-    - >-
-      Bhavas 1, 4, 7, and 10 are the kendra (angular) bhavas. Bhavas 5 and 9 are the
-      trikona (trinal) bhavas. Many astrologers considers bhava 1 as the trikona as well.
-      Since bhava 1 is both a kendra and a trikona, it has a special importance.
-    - >-
-      Kendras represents conscious, self directed efforts of the current life. Trikonas
-      represents unconscious actions of the past and the next life.
-    - >-
-      A graha that is the owner of both a kendra and a trikona is called raj yoga karaka
-      and bestows great benefits in its dasha period. If the owner of both a kendra and
-      a trikona are posited in the same house or aspects each other, it is considered a
-      good raj yoga and brings properity in the dasha period of at least one of them.
-    - >-
-      In any horoscope, all the trikonas are owned either by the grahas of the Sun
-      (Sun, Moon, Mars and Jupiter) or the Saturn (Mercury, Venus and Saturn) family.
-    - >-
-      The bhavas next to the kendras (2nd, 5th, 8th, and 11th) are called panaphar. The
-      bhavas next to the panaphars (3rd, 6th, 9th, and 12th) are called Aapovilma/Apoklima.
-      The grahas in kendras, panaphar, and aapovilma/apoklima give results in
-      childhood/youth, middle age, and old age respectively.
-    - >-
-      Bhavas 3, 6, 8 and 12 are called dussthanas. Bhavas 6, 8, and 12 are specially bad
-      and are called Trik.
-    - >-
-      Bhavas 3, 6, 10 and 11 are called upachayas. The grahas posited in these bhavas show
-      gradual improvements and growth.
-    - >-
-      Bhavas 3, 6 and 11 are called trishadaya. The owner of these bhavas never give good
-      results in their dasha periods.
-    - >-
-      Bhavas 2 and 7 are called maraka. Bhava 3 and 8 represents longevity and bhava 2 and 7
-      are 12 bhava (loss of longevity) away from bhava 3 and 8 respectively.

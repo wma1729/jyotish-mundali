@@ -235,16 +235,16 @@ func (attr *GrahaAttributes) GetGrahaPosition(name string, chart *Chart) {
 
 	// Accurate (take degrees in account)
 	if g.RashiNum == ga.Exaltation.RashiNum &&
-		g.Degree >= float32(ga.Exaltation.Min) &&
-		g.Degree <= float32(ga.Exaltation.Max) {
+		g.Degree >= float32(ga.Exaltation.MinDegree) &&
+		g.Degree <= float32(ga.Exaltation.MaxDegree) {
 		attr.Position = RASHI_EXALTED
 	} else if g.RashiNum == ga.Debilitation.RashiNum &&
-		g.Degree >= float32(ga.Debilitation.Min) &&
-		g.Degree <= float32(ga.Debilitation.Max) {
+		g.Degree >= float32(ga.Debilitation.MinDegree) &&
+		g.Degree <= float32(ga.Debilitation.MaxDegree) {
 		attr.Position = RASHI_DEBILITATED
 	} else if g.RashiNum == ga.Trinal.RashiNum &&
-		g.Degree >= float32(ga.Trinal.Min) &&
-		g.Degree <= float32(ga.Trinal.Max) {
+		g.Degree >= float32(ga.Trinal.MinDegree) &&
+		g.Degree <= float32(ga.Trinal.MaxDegree) {
 		attr.Position = RASHI_MOOLTRIKONA
 	}
 

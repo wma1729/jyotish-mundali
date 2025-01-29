@@ -38,7 +38,7 @@
 .graha-attr {
     position: relative;
     height: fit-content;
-    width: 75vw;
+    /* width: 75vw; */
     margin: 4%;
     overflow-y: visible;
     overflow-x: scroll;

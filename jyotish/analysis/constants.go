@@ -45,16 +45,16 @@ var RashiLordMap = map[int]string{
 	PISCES:      JUPITER,
 }
 
-type RashiRange struct {
-	RashiNum int
-	Min      int
-	Max      int
+type RangeInRashi struct {
+	RashiNum  int
+	MinDegree int
+	MaxDegree int
 }
 
 type GrahaAttr struct {
-	Exaltation   RashiRange
-	Debilitation RashiRange
-	Trinal       RashiRange
+	Exaltation   RangeInRashi
+	Debilitation RangeInRashi
+	Trinal       RangeInRashi
 	Owner        []int
 	Friends      []string
 	Neutrals     []string
@@ -63,81 +63,81 @@ type GrahaAttr struct {
 
 var GrahaAttrMap = map[string]GrahaAttr{
 	SUN: {
-		Exaltation:   RashiRange{ARIES, 0, 10},
-		Debilitation: RashiRange{LIBRA, 0, 10},
-		Trinal:       RashiRange{LEO, 0, 20},
+		Exaltation:   RangeInRashi{ARIES, 0, 10},
+		Debilitation: RangeInRashi{LIBRA, 0, 10},
+		Trinal:       RangeInRashi{LEO, 0, 20},
 		Owner:        []int{LEO},
 		Friends:      []string{MOON, MARS, JUPITER},
 		Neutrals:     []string{MERCURY},
 		Enemies:      []string{VENUS, SATURN},
 	},
 	MOON: {
-		Exaltation:   RashiRange{TAURUS, 0, 3},
-		Debilitation: RashiRange{SCORPIO, 0, 3},
-		Trinal:       RashiRange{TAURUS, 4, 30},
+		Exaltation:   RangeInRashi{TAURUS, 0, 3},
+		Debilitation: RangeInRashi{SCORPIO, 0, 3},
+		Trinal:       RangeInRashi{TAURUS, 4, 30},
 		Owner:        []int{CANCER},
 		Friends:      []string{SUN, MERCURY},
 		Neutrals:     []string{MARS, JUPITER, VENUS, SATURN},
 		Enemies:      []string{},
 	},
 	MARS: {
-		Exaltation:   RashiRange{CAPRICORN, 0, 28},
-		Debilitation: RashiRange{CANCER, 0, 28},
-		Trinal:       RashiRange{ARIES, 0, 12},
+		Exaltation:   RangeInRashi{CAPRICORN, 0, 28},
+		Debilitation: RangeInRashi{CANCER, 0, 28},
+		Trinal:       RangeInRashi{ARIES, 0, 12},
 		Owner:        []int{ARIES, SCORPIO},
 		Friends:      []string{SUN, MOON, JUPITER},
 		Neutrals:     []string{VENUS, SATURN},
 		Enemies:      []string{MERCURY},
 	},
 	MERCURY: {
-		Exaltation:   RashiRange{VIRGO, 0, 15},
-		Debilitation: RashiRange{PISCES, 0, 15},
-		Trinal:       RashiRange{VIRGO, 16, 30},
+		Exaltation:   RangeInRashi{VIRGO, 0, 15},
+		Debilitation: RangeInRashi{PISCES, 0, 15},
+		Trinal:       RangeInRashi{VIRGO, 16, 30},
 		Owner:        []int{GEMINI, VIRGO},
 		Friends:      []string{SUN, VENUS},
 		Neutrals:     []string{MARS, JUPITER, SATURN},
 		Enemies:      []string{MOON},
 	},
 	JUPITER: {
-		Exaltation:   RashiRange{CANCER, 0, 5},
-		Debilitation: RashiRange{CAPRICORN, 0, 5},
-		Trinal:       RashiRange{SAGITTARIUS, 0, 10},
+		Exaltation:   RangeInRashi{CANCER, 0, 5},
+		Debilitation: RangeInRashi{CAPRICORN, 0, 5},
+		Trinal:       RangeInRashi{SAGITTARIUS, 0, 10},
 		Owner:        []int{SAGITTARIUS, PISCES},
 		Friends:      []string{SUN, MOON, MARS},
 		Neutrals:     []string{SATURN},
 		Enemies:      []string{MERCURY, VENUS},
 	},
 	VENUS: {
-		Exaltation:   RashiRange{PISCES, 0, 27},
-		Debilitation: RashiRange{VIRGO, 0, 27},
-		Trinal:       RashiRange{LIBRA, 0, 15},
+		Exaltation:   RangeInRashi{PISCES, 0, 27},
+		Debilitation: RangeInRashi{VIRGO, 0, 27},
+		Trinal:       RangeInRashi{LIBRA, 0, 15},
 		Owner:        []int{TAURUS, LIBRA},
 		Friends:      []string{MERCURY, SATURN},
 		Neutrals:     []string{MARS, JUPITER},
 		Enemies:      []string{SUN, MOON},
 	},
 	SATURN: {
-		Exaltation:   RashiRange{LIBRA, 0, 20},
-		Debilitation: RashiRange{ARIES, 0, 20},
-		Trinal:       RashiRange{AQUARIUS, 0, 20},
+		Exaltation:   RangeInRashi{LIBRA, 0, 20},
+		Debilitation: RangeInRashi{ARIES, 0, 20},
+		Trinal:       RangeInRashi{AQUARIUS, 0, 20},
 		Owner:        []int{CAPRICORN, AQUARIUS},
 		Friends:      []string{MERCURY, VENUS},
 		Neutrals:     []string{JUPITER},
 		Enemies:      []string{SUN, MOON, MARS},
 	},
 	RAHU: {
-		Exaltation:   RashiRange{-1, 0, 0},
-		Debilitation: RashiRange{-1, 0, 0},
-		Trinal:       RashiRange{-1, 0, 0},
+		Exaltation:   RangeInRashi{-1, 0, 0},
+		Debilitation: RangeInRashi{-1, 0, 0},
+		Trinal:       RangeInRashi{-1, 0, 0},
 		Owner:        []int{},
 		Friends:      []string{MERCURY, VENUS, SATURN},
 		Neutrals:     []string{MARS},
 		Enemies:      []string{SUN, MOON, JUPITER},
 	},
 	KETU: {
-		Exaltation:   RashiRange{-1, 0, 0},
-		Debilitation: RashiRange{-1, 0, 0},
-		Trinal:       RashiRange{-1, 0, 0},
+		Exaltation:   RangeInRashi{-1, 0, 0},
+		Debilitation: RangeInRashi{-1, 0, 0},
+		Trinal:       RangeInRashi{-1, 0, 0},
 		Owner:        []int{},
 		Friends:      []string{MERCURY, VENUS, SATURN},
 		Neutrals:     []string{MARS},

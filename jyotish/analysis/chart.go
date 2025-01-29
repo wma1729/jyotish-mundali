@@ -3,12 +3,11 @@ package analysis
 import (
 	"database/sql/driver"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"sort"
 )
 
-type GrahaDetais struct {
+type GrahaDetails struct {
 	Grahas []Graha
 }
 
@@ -17,20 +16,20 @@ type Chart struct {
 	GrahasAttr []GrahaAttributes
 }
 
-func (gd *GrahaDetais) Value() (driver.Value, error) {
+func (gd *GrahaDetails) Value() (driver.Value, error) {
 	return json.Marshal(gd)
 }
 
-func (gd *GrahaDetais) Scan(value interface{}) error {
+func (gd *GrahaDetails) Scan(value interface{}) error {
 	b, ok := value.([]byte)
 	if !ok {
-		return errors.New(fmt.Sprintf("unexpected value type: expected []byte, found %T", value))
+		return fmt.Errorf("unexpected value type: expected []byte, found %T", value)
 	}
 	json.Unmarshal(b, gd)
 	return nil
 }
 
-func (gd *GrahaDetais) GetLagnaRashi() int {
+func (gd *GrahaDetails) GetLagnaRashi() int {
 	for _, graha := range gd.Grahas {
 		if graha.Name == LAGNA {
 			return graha.RashiNum
@@ -39,7 +38,7 @@ func (gd *GrahaDetais) GetLagnaRashi() int {
 	return -1
 }
 
-func GetChart(gd GrahaDetais) Chart {
+func GetChart(gd GrahaDetails) Chart {
 	var bhavas [MAX_BHAVA_NUM]Bhava
 
 	lagnaRashi := gd.GetLagnaRashi()
