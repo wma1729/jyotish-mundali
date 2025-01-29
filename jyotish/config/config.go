@@ -41,10 +41,13 @@ func (config *Config) LoadFromEnvironment() error {
 	config.Idp.ClientSecret = os.Getenv(IDP_CLIENT_SECRET)
 	config.Idp.RedirectURL = os.Getenv(IDP_REDIRECT_URL)
 	config.Database.Host = os.Getenv(DB_HOST)
-	config.Database.Port, err = strconv.Atoi(os.Getenv(DB_PORT))
-	if err != nil {
-		log.Println(err)
-		return err
+	portStr := os.Getenv(DB_PORT)
+	if len(portStr) > 0 {
+		config.Database.Port, err = strconv.Atoi(os.Getenv(DB_PORT))
+		if err != nil {
+			log.Println(err)
+			return err
+		}
 	}
 	config.Database.User = os.Getenv(DB_USER)
 	config.Database.Password = os.Getenv(DB_PASSWORD)

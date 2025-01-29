@@ -3,3 +3,6 @@
 **/.env
 keycloak/keystore/
 step-ca/data/
+gopls
+config.yaml
+jmserver
