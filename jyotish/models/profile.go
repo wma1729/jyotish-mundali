@@ -1,7 +1,6 @@
 package models
 
 import (
-	"jyotish/analysis"
 	"time"
 )
 
@@ -12,5 +11,5 @@ type Profile struct {
 	City        string
 	State       string
 	Country     string
-	Details     analysis.GrahasLocation
+	Details     GrahasLocation
 }

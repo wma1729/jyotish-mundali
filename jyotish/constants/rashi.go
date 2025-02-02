@@ -1,19 +1,4 @@
-package analysis
-
-const MAX_BHAVA_NUM int = 12
-
-const (
-	LAGNA   = "lagna"
-	SUN     = "sun"
-	MOON    = "moon"
-	MARS    = "mars"
-	MERCURY = "mercury"
-	JUPITER = "jupiter"
-	VENUS   = "venus"
-	SATURN  = "saturn"
-	RAHU    = "rahu"
-	KETU    = "ketu"
-)
+package constants
 
 const (
 	ARIES       = 1
@@ -28,6 +13,16 @@ const (
 	CAPRICORN   = 10
 	AQUARIUS    = 11
 	PISCES      = 12
+)
+
+const (
+	RASHI_EXALTED     = "exalted"
+	RASHI_DEBILITATED = "debilitated"
+	RASHI_MOOLTRIKONA = "mool-trikona"
+	RASHI_OWN         = "own-rashi"
+	RASHI_FRIENDLY    = "friendly-rashi"
+	RASHI_NEUTRAL     = "neutral-rashi"
+	RASHI_ENEMY       = "enemy-rashi"
 )
 
 var RashiLordMap = map[int]string{
@@ -51,7 +46,7 @@ type RangeInRashi struct {
 	MaxDegree int
 }
 
-type GrahaAttr struct {
+type GrahaBalaInRashiRules struct {
 	Exaltation   RangeInRashi
 	Debilitation RangeInRashi
 	Trinal       RangeInRashi
@@ -61,7 +56,7 @@ type GrahaAttr struct {
 	Enemies      []string
 }
 
-var GrahaAttrMap = map[string]GrahaAttr{
+var GrahaBalaInRashiRulesMap = map[string]GrahaBalaInRashiRules{
 	SUN: {
 		Exaltation:   RangeInRashi{ARIES, 0, 10},
 		Debilitation: RangeInRashi{LIBRA, 0, 10},
@@ -144,15 +139,3 @@ var GrahaAttrMap = map[string]GrahaAttr{
 		Enemies:      []string{SUN, MOON, JUPITER},
 	},
 }
-
-const (
-	BENEFIC           = "benefic"
-	MALEFIC           = "malefic"
-	RASHI_EXALTED     = "exalted"
-	RASHI_DEBILITATED = "debilitated"
-	RASHI_MOOLTRIKONA = "mool-trikona"
-	RASHI_OWN         = "own-rashi"
-	RASHI_FRIENDLY    = "friendly-rashi"
-	RASHI_NEUTRAL     = "neutral-rashi"
-	RASHI_ENEMY       = "enemy-rashi"
-)

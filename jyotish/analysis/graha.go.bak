@@ -1,3 +1,4 @@
+/*
 package analysis
 
 import (
@@ -208,7 +209,6 @@ func (attr *GrahaAttributes) isCombust(name string, chart *Chart) {
 	}
 }
 
-/*
 func (attr *GrahaAttributes) getAspectedBy(name string, chart *Chart) {
 	_, b := chart.GetGrahaBhava(name)
 	if b == nil {
@@ -273,7 +273,116 @@ func (attr *GrahaAttributes) GetGrahaPosition(name string, chart *Chart) {
 	}
 }
 
-*/
+func (c *Chart) GetEffectiveFriends(name string) []string {
+	for _, ga := range c.GrahasAttr {
+		if ga.Name == name {
+			friends := make([]string, len(ga.EffectiveBestFriends))
+			m := make(map[string]bool)
+
+			for _, item := range ga.EffectiveBestFriends {
+				m[item] = true
+				friends = append(friends, item)
+			}
+
+			for _, item := range ga.EffectiveFriends {
+				if _, ok := m[item]; !ok {
+					friends = append(friends, item)
+				}
+			}
+
+			return friends
+		}
+	}
+	return nil
+}
+
+func (c *Chart) GetEffectiveNeutrals(name string) []string {
+	for _, ga := range c.GrahasAttr {
+		if ga.Name == name {
+			return ga.EffectiveNeutrals
+		}
+	}
+	return nil
+}
+
+func (c *Chart) GetEffectiveEnemies(name string) []string {
+	for _, ga := range c.GrahasAttr {
+		if ga.Name == name {
+			enemies := make([]string, len(ga.EffectiveWorstEnemies))
+			m := make(map[string]bool)
+
+			for _, item := range ga.EffectiveWorstEnemies {
+				m[item] = true
+				enemies = append(enemies, item)
+			}
+
+			for _, item := range ga.EffectiveEnemies {
+				if _, ok := m[item]; !ok {
+					enemies = append(enemies, item)
+				}
+			}
+
+			return enemies
+		}
+	}
+	return nil
+}
+
+func (c *Chart) EvaluateAspects() {
+	for i, b := range c.Bhavas {
+		for _, g := range b.Grahas {
+			if g.Name == LAGNA {
+				continue
+			}
+			aspectedBhava := c.GetNthBhava(i, 3)
+			if g.Name == SATURN {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.QuaterAspect = append(aspectedBhava.QuaterAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 4)
+			if g.Name == MARS {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.ThreeQuaterAspect = append(aspectedBhava.ThreeQuaterAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 5)
+			if g.Name == JUPITER {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.HalfAspect = append(aspectedBhava.HalfAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 7)
+			aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+
+			aspectedBhava = c.GetNthBhava(i, 8)
+			if g.Name == MARS {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.ThreeQuaterAspect = append(aspectedBhava.ThreeQuaterAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 9)
+			if g.Name == JUPITER {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.HalfAspect = append(aspectedBhava.HalfAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 10)
+			if g.Name == SATURN {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.QuaterAspect = append(aspectedBhava.QuaterAspect, g.Name)
+			}
+		}
+	}
+}
+
+
 func (attr *GrahaAttributes) Init(name string, chart *Chart) {
 	attr.Name = name
 	attr.getNaturalRelations(name)
@@ -288,3 +397,5 @@ func (attr *GrahaAttributes) Init(name string, chart *Chart) {
 	}
 	// attr.getAspectedBy(name, chart)
 }
+
+*/

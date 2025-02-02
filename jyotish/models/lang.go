@@ -3,7 +3,7 @@ package models
 import (
 	"encoding/json"
 	"io/ioutil"
-	"jyotish/analysis"
+	"jyotish/constants"
 	"log"
 )
 
@@ -113,25 +113,25 @@ func GrahaName(graha string, lang string) string {
 	}
 
 	switch graha {
-	case analysis.LAGNA:
+	case constants.LAGNA:
 		return vocab.Lagna
-	case analysis.SUN:
+	case constants.SUN:
 		return vocab.Sun
-	case analysis.MOON:
+	case constants.MOON:
 		return vocab.Moon
-	case analysis.MARS:
+	case constants.MARS:
 		return vocab.Mars
-	case analysis.MERCURY:
+	case constants.MERCURY:
 		return vocab.Mercury
-	case analysis.JUPITER:
+	case constants.JUPITER:
 		return vocab.Jupiter
-	case analysis.VENUS:
+	case constants.VENUS:
 		return vocab.Venus
-	case analysis.SATURN:
+	case constants.SATURN:
 		return vocab.Saturn
-	case analysis.RAHU:
+	case constants.RAHU:
 		return vocab.Rahu
-	case analysis.KETU:
+	case constants.KETU:
 		return vocab.Ketu
 	}
 
@@ -148,9 +148,9 @@ func GrahaNature(nature string, lang string) string {
 	}
 
 	switch nature {
-	case analysis.BENEFIC:
+	case constants.BENEFIC:
 		return vocab.Benefic
-	case analysis.MALEFIC:
+	case constants.MALEFIC:
 		return vocab.Malefic
 	}
 
@@ -197,19 +197,19 @@ func GrahaPosition(position string, lang string) string {
 	}
 
 	switch position {
-	case analysis.RASHI_EXALTED:
+	case constants.RASHI_EXALTED:
 		return vocab.Exalted
-	case analysis.RASHI_DEBILITATED:
+	case constants.RASHI_DEBILITATED:
 		return vocab.Debilitated
-	case analysis.RASHI_MOOLTRIKONA:
+	case constants.RASHI_MOOLTRIKONA:
 		return vocab.MoolTrikona
-	case analysis.RASHI_OWN:
+	case constants.RASHI_OWN:
 		return vocab.OwnRashi
-	case analysis.RASHI_FRIENDLY:
+	case constants.RASHI_FRIENDLY:
 		return vocab.FriendlyRashi
-	case analysis.RASHI_NEUTRAL:
+	case constants.RASHI_NEUTRAL:
 		return vocab.NeutralRashi
-	case analysis.RASHI_ENEMY:
+	case constants.RASHI_ENEMY:
 		return vocab.EnemyRashi
 	}
 

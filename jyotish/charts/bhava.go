@@ -1,7 +1,9 @@
-package analysis
+package charts
+
+import "jyotish/models"
 
 type GrahaLocCombust struct {
-	GrahaLoc
+	models.GrahaLoc
 	Combust bool
 }
 

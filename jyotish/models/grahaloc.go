@@ -1,9 +1,10 @@
-package analysis
+package models
 
 import (
 	"database/sql/driver"
 	"encoding/json"
 	"fmt"
+	"jyotish/constants"
 )
 
 type GrahaLoc struct {
@@ -36,7 +37,7 @@ func (gl *GrahasLocation) Scan(value interface{}) error {
 
 func (gl *GrahasLocation) GetLagnaRashi() int {
 	for _, graha := range gl.Grahas {
-		if graha.Name == LAGNA {
+		if graha.Name == constants.LAGNA {
 			return graha.RashiNum
 		}
 	}

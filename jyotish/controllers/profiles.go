@@ -2,8 +2,9 @@ package controllers
 
 import (
 	"fmt"
-	"jyotish/analysis"
 	"jyotish/authn"
+	"jyotish/charts"
+	"jyotish/constants"
 	"jyotish/db"
 	"jyotish/models"
 	"jyotish/views"
@@ -19,7 +20,7 @@ import (
  * DELETE /profiles/{id}          - Delete a specific profile.
  * GET    /profiles/edit          - Get the page to create a new profile.
  * GET    /profiles/edit/{id}     - Get the page to edit a specific profile.
- * GET    /profiles/analysis/{id} - Get the analysis page.
+ * GET    /profiles/analysis/{id} - Get the constants page.
  */
 func (g *Globals) HandleProfiles(w http.ResponseWriter, r *http.Request) {
 	authUser, err := authn.GetUserSession(r)
@@ -109,20 +110,20 @@ func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 	profile.Country = r.FormValue("profile-country")
 
 	grahas := []string{
-		analysis.LAGNA,
-		analysis.SUN,
-		analysis.MOON,
-		analysis.MARS,
-		analysis.MERCURY,
-		analysis.JUPITER,
-		analysis.VENUS,
-		analysis.SATURN,
-		analysis.RAHU,
-		analysis.KETU,
+		constants.LAGNA,
+		constants.SUN,
+		constants.MOON,
+		constants.MARS,
+		constants.MERCURY,
+		constants.JUPITER,
+		constants.VENUS,
+		constants.SATURN,
+		constants.RAHU,
+		constants.KETU,
 	}
 
 	for _, p := range grahas {
-		graha := analysis.GrahaLoc{}
+		graha := models.GrahaLoc{}
 		graha.Name = p
 		graha.RashiNum, _ = strconv.Atoi(r.FormValue(p + "-rashi"))
 		graha.Degree = StringToFloat32((r.FormValue(p + "-degree")))
@@ -211,7 +212,7 @@ func getAnalysisPage(w http.ResponseWriter, r *http.Request, g *Globals, user *m
 
 	log.Print(profile)
 
-	chart := analysis.GetChart(profile.Details)
+	chart := charts.GetChart(profile.Details)
 
 	page, err := views.GetAnalysisPage(user, chart)
 	if err != nil {
