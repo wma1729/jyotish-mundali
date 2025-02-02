@@ -122,7 +122,7 @@ func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 	}
 
 	for _, p := range grahas {
-		graha := analysis.Graha{}
+		graha := analysis.GrahaLoc{}
 		graha.Name = p
 		graha.RashiNum, _ = strconv.Atoi(r.FormValue(p + "-rashi"))
 		graha.Degree = StringToFloat32((r.FormValue(p + "-degree")))
@@ -134,6 +134,8 @@ func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 		}
 		profile.Details.Grahas = append(profile.Details.Grahas, graha)
 	}
+
+	log.Print(profile)
 
 	var err error
 	if profile.ID == "" {

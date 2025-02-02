@@ -1,6 +1,7 @@
 package views
 
 import (
+	"fmt"
 	"html/template"
 	"jyotish/analysis"
 	"jyotish/models"
@@ -11,6 +12,40 @@ import (
 type AnalysisPage struct {
 	MainPage
 	Chart analysis.Chart
+}
+
+func GrahaName(graha analysis.GrahaLocCombust, lang string) template.HTML {
+	vocab := &models.EnglishVocab
+	if lang != "en" {
+		vocab = &models.HindiVocab
+	}
+
+	sb := strings.Builder{}
+	sb.WriteString(models.GrahaName(graha.Name, lang))
+	sb.WriteString("<sup>")
+	sb.WriteString(fmt.Sprintf("%.f", graha.Degree))
+	sb.WriteString("</sup>")
+
+	closeParenthesis, addComma := false, false
+	if graha.Combust || graha.Retrograde {
+		sb.WriteByte('(')
+		closeParenthesis = true
+	}
+	if graha.Combust {
+		sb.WriteString(vocab.CombustAbbr)
+		addComma = true
+	}
+	if graha.Retrograde {
+		if addComma {
+			sb.WriteByte(',')
+		}
+		sb.WriteString(vocab.RetrogradeAbbr)
+	}
+	if closeParenthesis {
+		sb.WriteByte(')')
+	}
+
+	return template.HTML(sb.String())
 }
 
 func GrahasName(grahas []string, lang string) string {
@@ -46,7 +81,7 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 	tmplName := "analysis"
 	tmpl := template.Must(template.New(tmplName).Funcs(
 		template.FuncMap{
-			"GrahaName":     models.GrahaName,
+			"GrahaName":     GrahaName,
 			"GrahasName":    GrahasName,
 			"GrahaNature":   models.GrahaNature,
 			"GrahaMotion":   models.GrahaMotion,

@@ -12,5 +12,5 @@ type Profile struct {
 	City        string
 	State       string
 	Country     string
-	Details     analysis.GrahaDetails
+	Details     analysis.GrahasLocation
 }

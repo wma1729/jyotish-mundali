@@ -208,6 +208,7 @@ func (attr *GrahaAttributes) isCombust(name string, chart *Chart) {
 	}
 }
 
+/*
 func (attr *GrahaAttributes) getAspectedBy(name string, chart *Chart) {
 	_, b := chart.GetGrahaBhava(name)
 	if b == nil {
@@ -272,6 +273,7 @@ func (attr *GrahaAttributes) GetGrahaPosition(name string, chart *Chart) {
 	}
 }
 
+*/
 func (attr *GrahaAttributes) Init(name string, chart *Chart) {
 	attr.Name = name
 	attr.getNaturalRelations(name)
@@ -284,5 +286,5 @@ func (attr *GrahaAttributes) Init(name string, chart *Chart) {
 	if b != nil {
 		attr.Retrograde = b.IsRetrograde(name)
 	}
-	attr.getAspectedBy(name, chart)
+	// attr.getAspectedBy(name, chart)
 }

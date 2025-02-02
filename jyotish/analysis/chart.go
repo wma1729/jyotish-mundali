@@ -1,47 +1,18 @@
 package analysis
 
 import (
-	"database/sql/driver"
-	"encoding/json"
-	"fmt"
+	"math"
 	"sort"
 )
 
-type GrahaDetails struct {
-	Grahas []Graha
-}
-
 type Chart struct {
-	Bhavas     []Bhava
-	GrahasAttr []GrahaAttributes
+	Bhavas []Bhava
 }
 
-func (gd *GrahaDetails) Value() (driver.Value, error) {
-	return json.Marshal(gd)
-}
-
-func (gd *GrahaDetails) Scan(value interface{}) error {
-	b, ok := value.([]byte)
-	if !ok {
-		return fmt.Errorf("unexpected value type: expected []byte, found %T", value)
-	}
-	json.Unmarshal(b, gd)
-	return nil
-}
-
-func (gd *GrahaDetails) GetLagnaRashi() int {
-	for _, graha := range gd.Grahas {
-		if graha.Name == LAGNA {
-			return graha.RashiNum
-		}
-	}
-	return -1
-}
-
-func GetChart(gd GrahaDetails) Chart {
+func GetChart(gl GrahasLocation) Chart {
 	var bhavas [MAX_BHAVA_NUM]Bhava
 
-	lagnaRashi := gd.GetLagnaRashi()
+	lagnaRashi := gl.GetLagnaRashi()
 
 	bhavas[0].Number = 1
 	bhavas[0].RashiNum = lagnaRashi
@@ -58,9 +29,14 @@ func GetChart(gd GrahaDetails) Chart {
 	}
 
 	for i := 0; i < len(bhavas); i++ {
-		for j := 0; j < len(gd.Grahas); j++ {
-			if bhavas[i].RashiNum == gd.Grahas[j].RashiNum {
-				bhavas[i].Grahas = append(bhavas[i].Grahas, gd.Grahas[j])
+		for j := 0; j < len(gl.Grahas); j++ {
+			if bhavas[i].RashiNum == gl.Grahas[j].RashiNum {
+				var grahaLocationState GrahaLocCombust
+				grahaLocationState.Name = gl.Grahas[j].Name
+				grahaLocationState.RashiNum = gl.Grahas[j].RashiNum
+				grahaLocationState.Degree = gl.Grahas[j].Degree
+				grahaLocationState.Retrograde = gl.Grahas[j].Retrograde
+				bhavas[i].Grahas = append(bhavas[i].Grahas, grahaLocationState)
 			}
 		}
 		sort.Slice(bhavas[i].Grahas, func(x, y int) bool {
@@ -70,28 +46,7 @@ func GetChart(gd GrahaDetails) Chart {
 
 	var chart Chart
 	chart.Bhavas = bhavas[:]
-	chart.EvaluateAspects()
-
-	chart.GrahasAttr = make([]GrahaAttributes, 9)
-	chart.GrahasAttr[0].Init(SUN, &chart)
-	chart.GrahasAttr[1].Init(MOON, &chart)
-	chart.GrahasAttr[2].Init(MARS, &chart)
-	chart.GrahasAttr[3].Init(MERCURY, &chart)
-	chart.GrahasAttr[4].Init(JUPITER, &chart)
-	chart.GrahasAttr[5].Init(VENUS, &chart)
-	chart.GrahasAttr[6].Init(SATURN, &chart)
-	chart.GrahasAttr[7].Init(RAHU, &chart)
-	chart.GrahasAttr[8].Init(KETU, &chart)
-
-	chart.GrahasAttr[0].GetGrahaPosition(SUN, &chart)
-	chart.GrahasAttr[1].GetGrahaPosition(MOON, &chart)
-	chart.GrahasAttr[2].GetGrahaPosition(MARS, &chart)
-	chart.GrahasAttr[3].GetGrahaPosition(MERCURY, &chart)
-	chart.GrahasAttr[4].GetGrahaPosition(JUPITER, &chart)
-	chart.GrahasAttr[5].GetGrahaPosition(VENUS, &chart)
-	chart.GrahasAttr[6].GetGrahaPosition(SATURN, &chart)
-	chart.GrahasAttr[7].GetGrahaPosition(RAHU, &chart)
-	chart.GrahasAttr[8].GetGrahaPosition(KETU, &chart)
+	chart.findCombustGrahas()
 
 	return chart
 }
@@ -118,6 +73,84 @@ func (c *Chart) NthBhavaContainsGraha(i, n int, graha string) bool {
 	return b.ContainsGraha(graha)
 }
 
+func (c *Chart) findCombustGrahas() {
+	sunIndex, _ := c.GetGrahaBhava(SUN)
+	prevIndex := sunIndex - 1
+	if prevIndex < 0 {
+		prevIndex = MAX_BHAVA_NUM - 1
+	}
+	nextIndex := sunIndex + 1
+	if nextIndex == MAX_BHAVA_NUM {
+		nextIndex = 0
+	}
+
+	// Get SUN's degree
+	var sunDegree float32
+	for _, graha := range c.Bhavas[sunIndex].Grahas {
+		if graha.Name == SUN {
+			sunDegree = graha.Degree
+		}
+	}
+
+	// get combustion of all grahas in the same bhava as SUN
+	for _, graha := range c.Bhavas[sunIndex].Grahas {
+		if graha.Name != SUN {
+			distance := math.Abs(float64(graha.Degree - sunDegree))
+			evaluateCombustion(&graha, float32(distance))
+		}
+	}
+
+	// get combustion of all grahas in the previous bhava of SUN
+	for _, graha := range c.Bhavas[prevIndex].Grahas {
+		distance := math.Abs(float64((graha.Degree - 30) - sunDegree))
+		evaluateCombustion(&graha, float32(distance))
+	}
+
+	// get combustion of all grahas in the next bhava of SUN
+	for _, graha := range c.Bhavas[nextIndex].Grahas {
+		distance := math.Abs(float64((graha.Degree + 30) - sunDegree))
+		evaluateCombustion(&graha, float32(distance))
+	}
+}
+
+func evaluateCombustion(graha *GrahaLocCombust, distanceFromSun float32) {
+	switch graha.Name {
+	case MERCURY:
+		if graha.Retrograde {
+			if distanceFromSun <= 12.0 {
+				graha.Combust = true
+			}
+		} else if distanceFromSun <= 14.0 {
+			graha.Combust = true
+		}
+
+	case VENUS:
+		if graha.Retrograde {
+			if distanceFromSun <= 8.0 {
+				graha.Combust = true
+			}
+		} else if distanceFromSun <= 10.0 {
+			graha.Combust = true
+		}
+
+	case MARS:
+		if distanceFromSun <= 17.0 {
+			graha.Combust = true
+		}
+
+	case JUPITER:
+		if distanceFromSun <= 11.0 {
+			graha.Combust = true
+		}
+
+	case SATURN:
+		if distanceFromSun <= 15.0 {
+			graha.Combust = true
+		}
+	}
+}
+
+/*
 func (c *Chart) GetEffectiveFriends(name string) []string {
 	for _, ga := range c.GrahasAttr {
 		if ga.Name == name {
@@ -226,3 +259,5 @@ func (c *Chart) EvaluateAspects() {
 		}
 	}
 }
+
+*/

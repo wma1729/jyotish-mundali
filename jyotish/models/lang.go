@@ -20,6 +20,7 @@ type Language struct {
 	ChartDetails      string `json:"chartdetails"`
 	City              string `json:"city"`
 	Combust           string `json:"combust"`
+	CombustAbbr       string `json:"combust-abbr"`
 	Contact           string `json:"contact"`
 	Country           string `json:"country"`
 	CreateProfile     string `json:"create-profile"`
@@ -70,6 +71,7 @@ type Language struct {
 	RashiNumber       string `json:"rashi-number"`
 	Remarks           string `json:"remarks"`
 	Retrograde        string `json:"retrograde"`
+	RetrogradeAbbr    string `json:"retrograde-abbr"`
 	Saturn            string `json:"saturn"`
 	Save              string `json:"save"`
 	SiteAdmin         string `json:"siteadmin"`

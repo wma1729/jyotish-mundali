@@ -1,21 +1,15 @@
 package analysis
 
-type Graha struct {
-	Name       string  `json:"name"`
-	RashiNum   int     `json:"rashi"`
-	Degree     float32 `json:"degrees"`
-	Retrograde bool    `json:"retrograde"`
+type GrahaLocCombust struct {
+	GrahaLoc
+	Combust bool
 }
 
 type Bhava struct {
-	Number            int
-	RashiNum          int
-	RashiLord         string
-	Grahas            []Graha
-	FullAspect        []string
-	ThreeQuaterAspect []string
-	HalfAspect        []string
-	QuaterAspect      []string
+	Number    int
+	RashiNum  int
+	RashiLord string
+	Grahas    []GrahaLocCombust
 }
 
 func (b *Bhava) ContainsGraha(name string) bool {
@@ -27,7 +21,7 @@ func (b *Bhava) ContainsGraha(name string) bool {
 	return false
 }
 
-func (b *Bhava) GrahaByName(name string) *Graha {
+func (b *Bhava) GrahaByName(name string) *GrahaLocCombust {
 	for _, g := range b.Grahas {
 		if g.Name == name {
 			return &g

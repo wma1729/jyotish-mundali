@@ -10,7 +10,7 @@
                 <div class="bhava-{{ .Number }}" style="background-color: var(--{{ .RashiLord }}-color)">
                     <p id="graha">
                     {{ range .Grahas }}
-                        {{ GrahaName .Name $lang }}<sup>{{ .Degree }}</sup>
+                        {{ GrahaName . $lang }}
                     {{ end }}
                     </p>
                     <p id="rashi-num">{{ .RashiNum }}</p>
