@@ -1,4 +1,4 @@
-{{ define "charts" }}
+{{ define "lagna-chart" }}
     {{ $lang := .User.Lang }}
     <section class="chart-container">
         <section class="lagna-chart">
@@ -7,7 +7,7 @@
                 <div class="bhava-{{ .Number }}" style="background-color: var(--{{ .RashiLord }}-color)">
                     <p id="graha">
                     {{ range .Grahas }}
-                        {{ GrahaName . $lang }}
+                        {{ GetGrahaNameForChart . $lang }}
                     {{ end }}
                     </p>
                     <p id="rashi-num">{{ .RashiNum }}</p>

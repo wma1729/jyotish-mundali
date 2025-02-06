@@ -1,0 +1,72 @@
+{{ define "grahas-relations" }}
+    {{ $lang := .User.Lang }}
+    {{ $vocab := .Vocab }}
+    <div class="graha-attr">
+        <table>
+            <caption>{{ $vocab.Graha}} {{ $vocab.Natural}} {{ $vocab.Relations }}</caption>
+            <thead>
+                <tr>
+                    <th class="fixed-column">{{ $vocab.Name }}</th>
+                    <th>{{ $vocab.Natural }} {{ $vocab.Friends }}</th>
+                    <th>{{ $vocab.Natural }} {{ $vocab.Neutrals }}</th>
+                    <th>{{ $vocab.Natural }} {{ $vocab.Enemies }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .Chart.GrahasAttr }}
+                <tr>
+                    <th class="fixed-column">{{ GetGrahaName .Relations.Name $lang }}</th>
+                    <td>{{ ListOfGrahas .Relations.NaturalFriends $lang }}</td>
+                    <td>{{ ListOfGrahas .Relations.NaturalNeutrals $lang }}</td>
+                    <td>{{ ListOfGrahas .Relations.NaturalEnemies $lang }}</td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+        <table>
+            <caption>{{ $vocab.Graha}} {{ $vocab.Temporary}} {{ $vocab.Relations }}</caption>
+            <thead>
+                <tr>
+                    <th class="fixed-column">{{ $vocab.Name }}</th>
+                    <th>{{ $vocab.Temporary }} {{ $vocab.Friends }}</th>
+                    <th>{{ $vocab.Temporary }} {{ $vocab.Enemies }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .Chart.GrahasAttr }}
+                <tr>
+                    <th class="fixed-column">{{ GetGrahaName .Relations.Name $lang }}</th>
+                    <td>{{ ListOfGrahas .Relations.TemporaryFriends $lang }}</td>
+                    <td>{{ ListOfGrahas .Relations.TemporaryEnemies $lang }}</td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+        <table>
+            <caption>{{ $vocab.Graha}} {{ $vocab.FiveFold}} {{ $vocab.Relations }}</caption>
+            <thead>
+                <tr>
+                    <th class="fixed-column">{{ $vocab.Name }}</th>
+                    <th>{{ $vocab.Effective }} {{ $vocab.BestFriends }}</th>
+                    <th>{{ $vocab.Effective }} {{ $vocab.Friends }}</th>
+                    <th>{{ $vocab.Effective }} {{ $vocab.Neutrals }}</th>
+                    <th>{{ $vocab.Effective }} {{ $vocab.Enemies }}</th>
+                    <th>{{ $vocab.Effective }} {{ $vocab.WorstEnemies }}</th>
+                </tr>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .Chart.GrahasAttr }}
+                <tr>
+                    <th class="fixed-column">{{ GetGrahaName .Relations.Name $lang }}</th>
+                    <td>{{ ListOfGrahas .Relations.EffectiveBestFriends $lang }}</td>
+                    <td>{{ ListOfGrahas .Relations.EffectiveFriends $lang }}</td>
+                    <td>{{ ListOfGrahas .Relations.EffectiveNeutrals $lang }}</td>
+                    <td>{{ ListOfGrahas .Relations.EffectiveEnemies $lang }}</td>
+                    <td>{{ ListOfGrahas .Relations.EffectiveWorstEnemies $lang }}</td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+{{ end }}

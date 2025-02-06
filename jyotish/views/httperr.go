@@ -35,5 +35,5 @@ func (httpError *HTTPError) Send(w http.ResponseWriter) {
 		log.Fatalf("failed to send HTTP error: %s", err)
 	}
 
-	http.Error(w, httpError.Detail, httpError.StatusCode)
+	// http.Error(w, "\n"+httpError.Detail, httpError.StatusCode)
 }

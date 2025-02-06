@@ -3,7 +3,7 @@ package views
 import (
 	"fmt"
 	"html/template"
-	"jyotish/charts"
+	"jyotish/analysis"
 	"jyotish/models"
 	"net/http"
 	"strings"
@@ -11,10 +11,10 @@ import (
 
 type AnalysisPage struct {
 	MainPage
-	Chart charts.Chart
+	Chart analysis.Chart
 }
 
-func GrahaName(graha charts.GrahaLocCombust, lang string) template.HTML {
+func GetGrahaNameForChart(graha analysis.GrahaLocCombust, lang string) template.HTML {
 	vocab := &models.EnglishVocab
 	if lang != "en" {
 		vocab = &models.HindiVocab
@@ -48,7 +48,24 @@ func GrahaName(graha charts.GrahaLocCombust, lang string) template.HTML {
 	return template.HTML(sb.String())
 }
 
-func GetAnalysisPage(user *models.User, chart charts.Chart) (*AnalysisPage, error) {
+func GetGrahaName(graha string, lang string) string {
+	return models.GrahaName(graha, lang)
+}
+
+func ListOfGrahas(grahas []string, lang string) string {
+	sb := strings.Builder{}
+	first := true
+	for _, g := range grahas {
+		if !first {
+			sb.WriteString(", ")
+		}
+		sb.WriteString(models.GrahaName(g, lang))
+		first = false
+	}
+	return sb.String()
+}
+
+func GetAnalysisPage(user *models.User, chart analysis.Chart) (*AnalysisPage, error) {
 	var page AnalysisPage
 
 	if user.Lang == "en" {
@@ -68,12 +85,16 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 	tmplName := "analysis"
 	tmpl := template.Must(template.New(tmplName).Funcs(
 		template.FuncMap{
-			"GrahaName": GrahaName,
+			"GetGrahaNameForChart": GetGrahaNameForChart,
+			"GetGrahaName":         GetGrahaName,
+			"ListOfGrahas":         ListOfGrahas,
 		}).ParseFiles(
 		"templates/analysis.html",
+		"templates/lagna-chart.html",
+		"templates/grahas-relations.html",
+		"templates/bhavas.html",
 		"templates/header.html",
 		"templates/navbar.html",
-		"templates/charts.html",
 		"templates/footer.html"))
 	return tmpl.ExecuteTemplate(w, tmplName, page)
 }

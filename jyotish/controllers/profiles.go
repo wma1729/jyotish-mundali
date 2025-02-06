@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"fmt"
+	"jyotish/analysis"
 	"jyotish/authn"
-	"jyotish/charts"
 	"jyotish/constants"
 	"jyotish/db"
 	"jyotish/models"
@@ -109,18 +109,7 @@ func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 	profile.State = r.FormValue("profile-state")
 	profile.Country = r.FormValue("profile-country")
 
-	grahas := []string{
-		constants.LAGNA,
-		constants.SUN,
-		constants.MOON,
-		constants.MARS,
-		constants.MERCURY,
-		constants.JUPITER,
-		constants.VENUS,
-		constants.SATURN,
-		constants.RAHU,
-		constants.KETU,
-	}
+	grahas := append([]string{constants.LAGNA}, constants.GrahaNames...)
 
 	for _, p := range grahas {
 		graha := models.GrahaLoc{}
@@ -212,7 +201,7 @@ func getAnalysisPage(w http.ResponseWriter, r *http.Request, g *Globals, user *m
 
 	log.Print(profile)
 
-	chart := charts.GetChart(profile.Details)
+	chart := analysis.GetChart(profile.Details)
 
 	page, err := views.GetAnalysisPage(user, chart)
 	if err != nil {
@@ -222,5 +211,11 @@ func getAnalysisPage(w http.ResponseWriter, r *http.Request, g *Globals, user *m
 		return
 	}
 
-	page.Send(w)
+	err = page.Send(w)
+	if err != nil {
+		httpError := views.GetHTTPError(http.StatusInternalServerError,
+			err, "failed to send analysis page")
+		httpError.Send(w)
+		return
+	}
 }

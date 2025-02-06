@@ -23,15 +23,15 @@
     color: blue;
 }
 
-#analysis-charts, #analysis-grahas, #analysis-bhavas {
+#analysis-lagna-chart, #analysis-grahas-relations, #analysis-bhavas {
     width: 85vw;
 }
 
-#analysis-charts {
+#analysis-lagna-chart {
     display: flex;
 }
 
-#analysis-grahas, #analysis-bhavas {
+#analysis-grahas-relations, #analysis-bhavas {
     display: none;
 }
 

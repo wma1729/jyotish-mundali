@@ -17,3 +17,15 @@ const (
 	BENEFIC = "benefic"
 	MALEFIC = "malefic"
 )
+
+var GrahaNames = []string{
+	SUN,
+	MOON,
+	MARS,
+	MERCURY,
+	JUPITER,
+	VENUS,
+	SATURN,
+	RAHU,
+	KETU,
+}

@@ -35,6 +35,7 @@ type Language struct {
 	Exalted           string `json:"exalted"`
 	FAQs              string `json:"faqs"`
 	Forward           string `json:"forward"`
+	FiveFold          string `json:"five-fold"`
 	FriendlyRashi     string `json:"friendly-rashi"`
 	Friends           string `json:"friends"`
 	FullAspect        string `json:"full-aspect"`
@@ -69,6 +70,7 @@ type Language struct {
 	QuaterAspect      string `json:"quater-aspect"`
 	Rahu              string `json:"rahu"`
 	RashiNumber       string `json:"rashi-number"`
+	Relations         string `json:"relations"`
 	Remarks           string `json:"remarks"`
 	Retrograde        string `json:"retrograde"`
 	RetrogradeAbbr    string `json:"retrograde-abbr"`

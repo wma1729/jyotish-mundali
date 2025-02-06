@@ -1,4 +1,4 @@
-package charts
+package analysis
 
 import (
 	"jyotish/constants"
@@ -7,8 +7,13 @@ import (
 	"sort"
 )
 
+type GrahaAttributes struct {
+	Relations GrahaRelations
+}
+
 type Chart struct {
-	Bhavas []Bhava
+	Bhavas     []Bhava
+	GrahasAttr []GrahaAttributes
 }
 
 func GetChart(gl models.GrahasLocation) Chart {
@@ -50,6 +55,8 @@ func GetChart(gl models.GrahasLocation) Chart {
 	chart.Bhavas = bhavas[:]
 	chart.findCombustGrahas()
 
+	chart.EvaluateGrahaAttributes()
+
 	return chart
 }
 
@@ -73,6 +80,43 @@ func (c *Chart) GetNthBhava(i, n int) *Bhava {
 func (c *Chart) NthBhavaContainsGraha(i, n int, graha string) bool {
 	b := c.GetNthBhava(i, n)
 	return b.ContainsGraha(graha)
+}
+
+func evaluateCombustion(graha *GrahaLocCombust, distanceFromSun float32) {
+	switch graha.Name {
+	case constants.MERCURY:
+		if graha.Retrograde {
+			if distanceFromSun <= 12.0 {
+				graha.Combust = true
+			}
+		} else if distanceFromSun <= 14.0 {
+			graha.Combust = true
+		}
+
+	case constants.VENUS:
+		if graha.Retrograde {
+			if distanceFromSun <= 8.0 {
+				graha.Combust = true
+			}
+		} else if distanceFromSun <= 10.0 {
+			graha.Combust = true
+		}
+
+	case constants.MARS:
+		if distanceFromSun <= 17.0 {
+			graha.Combust = true
+		}
+
+	case constants.JUPITER:
+		if distanceFromSun <= 11.0 {
+			graha.Combust = true
+		}
+
+	case constants.SATURN:
+		if distanceFromSun <= 15.0 {
+			graha.Combust = true
+		}
+	}
 }
 
 func (c *Chart) findCombustGrahas() {
@@ -115,39 +159,9 @@ func (c *Chart) findCombustGrahas() {
 	}
 }
 
-func evaluateCombustion(graha *GrahaLocCombust, distanceFromSun float32) {
-	switch graha.Name {
-	case constants.MERCURY:
-		if graha.Retrograde {
-			if distanceFromSun <= 12.0 {
-				graha.Combust = true
-			}
-		} else if distanceFromSun <= 14.0 {
-			graha.Combust = true
-		}
-
-	case constants.VENUS:
-		if graha.Retrograde {
-			if distanceFromSun <= 8.0 {
-				graha.Combust = true
-			}
-		} else if distanceFromSun <= 10.0 {
-			graha.Combust = true
-		}
-
-	case constants.MARS:
-		if distanceFromSun <= 17.0 {
-			graha.Combust = true
-		}
-
-	case constants.JUPITER:
-		if distanceFromSun <= 11.0 {
-			graha.Combust = true
-		}
-
-	case constants.SATURN:
-		if distanceFromSun <= 15.0 {
-			graha.Combust = true
-		}
+func (c *Chart) EvaluateGrahaAttributes() {
+	c.GrahasAttr = make([]GrahaAttributes, 9)
+	for i, graha := range constants.GrahaNames {
+		c.GrahasAttr[i].Relations.EvaluateGrahaRelations(graha, c)
 	}
 }
