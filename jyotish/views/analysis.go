@@ -92,6 +92,7 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 		"templates/analysis.html",
 		"templates/lagna-chart.html",
 		"templates/grahas-relations.html",
+		"templates/grahas-aspects.html",
 		"templates/bhavas.html",
 		"templates/header.html",
 		"templates/navbar.html",

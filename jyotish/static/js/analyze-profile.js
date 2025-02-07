@@ -1,6 +1,7 @@
 const contents = [
     'lagna-chart',
     'grahas-relations',
+    'grahas-aspects',
     'bhavas'
 ];
 

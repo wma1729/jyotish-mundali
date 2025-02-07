@@ -2,7 +2,7 @@
     {{ $lang := .User.Lang }}
     {{ $vocab := .Vocab }}
     <div class="graha-attr">
-        <table>
+        <table class="graha-attr-table">
             <caption>{{ $vocab.Graha}} {{ $vocab.Natural}} {{ $vocab.Relations }}</caption>
             <thead>
                 <tr>
@@ -23,7 +23,7 @@
                 {{ end }}
             </tbody>
         </table>
-        <table>
+        <table class="graha-attr-table">
             <caption>{{ $vocab.Graha}} {{ $vocab.Temporary}} {{ $vocab.Relations }}</caption>
             <thead>
                 <tr>
@@ -42,7 +42,7 @@
                 {{ end }}
             </tbody>
         </table>
-        <table>
+        <table class="graha-attr-table">
             <caption>{{ $vocab.Graha}} {{ $vocab.FiveFold}} {{ $vocab.Relations }}</caption>
             <thead>
                 <tr>

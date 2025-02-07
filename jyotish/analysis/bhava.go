@@ -8,10 +8,14 @@ type GrahaLocCombust struct {
 }
 
 type Bhava struct {
-	Number    int
-	RashiNum  int
-	RashiLord string
-	Grahas    []GrahaLocCombust
+	Number             int
+	RashiNum           int
+	RashiLord          string
+	Grahas             []GrahaLocCombust
+	FullAspect         []string
+	ThreeQuarterAspect []string
+	HalfAspect         []string
+	QuarterAspect      []string
 }
 
 func (b *Bhava) ContainsGraha(name string) bool {

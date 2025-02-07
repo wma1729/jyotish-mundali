@@ -9,6 +9,7 @@ import (
 
 type GrahaAttributes struct {
 	Relations GrahaRelations
+	Aspects   GrahaAspects
 }
 
 type Chart struct {
@@ -54,7 +55,7 @@ func GetChart(gl models.GrahasLocation) Chart {
 	var chart Chart
 	chart.Bhavas = bhavas[:]
 	chart.findCombustGrahas()
-
+	chart.findAspectsOnBhavas()
 	chart.EvaluateGrahaAttributes()
 
 	return chart
@@ -82,41 +83,43 @@ func (c *Chart) NthBhavaContainsGraha(i, n int, graha string) bool {
 	return b.ContainsGraha(graha)
 }
 
-func evaluateCombustion(graha *GrahaLocCombust, distanceFromSun float32) {
-	switch graha.Name {
+func isCombust(graha string, retrograde bool, distanceFromSun float32) bool {
+	switch graha {
 	case constants.MERCURY:
-		if graha.Retrograde {
+		if retrograde {
 			if distanceFromSun <= 12.0 {
-				graha.Combust = true
+				return true
 			}
 		} else if distanceFromSun <= 14.0 {
-			graha.Combust = true
+			return true
 		}
 
 	case constants.VENUS:
-		if graha.Retrograde {
+		if retrograde {
 			if distanceFromSun <= 8.0 {
-				graha.Combust = true
+				return true
 			}
 		} else if distanceFromSun <= 10.0 {
-			graha.Combust = true
+			return true
 		}
 
 	case constants.MARS:
 		if distanceFromSun <= 17.0 {
-			graha.Combust = true
+			return true
 		}
 
 	case constants.JUPITER:
 		if distanceFromSun <= 11.0 {
-			graha.Combust = true
+			return true
 		}
 
 	case constants.SATURN:
 		if distanceFromSun <= 15.0 {
-			graha.Combust = true
+			return true
 		}
 	}
+
+	return false
 }
 
 func (c *Chart) findCombustGrahas() {
@@ -142,20 +145,75 @@ func (c *Chart) findCombustGrahas() {
 	for _, graha := range c.Bhavas[sunIndex].Grahas {
 		if graha.Name != constants.SUN {
 			distance := math.Abs(float64(graha.Degree - sunDegree))
-			evaluateCombustion(&graha, float32(distance))
+			graha.Combust = isCombust(graha.Name, graha.Retrograde, float32(distance))
 		}
 	}
 
 	// get combustion of all grahas in the previous bhava of SUN
 	for _, graha := range c.Bhavas[prevIndex].Grahas {
 		distance := math.Abs(float64((graha.Degree - 30) - sunDegree))
-		evaluateCombustion(&graha, float32(distance))
+		graha.Combust = isCombust(graha.Name, graha.Retrograde, float32(distance))
 	}
 
 	// get combustion of all grahas in the next bhava of SUN
 	for _, graha := range c.Bhavas[nextIndex].Grahas {
 		distance := math.Abs(float64((graha.Degree + 30) - sunDegree))
-		evaluateCombustion(&graha, float32(distance))
+		graha.Combust = isCombust(graha.Name, graha.Retrograde, float32(distance))
+	}
+}
+
+func (c *Chart) findAspectsOnBhavas() {
+	for i, b := range c.Bhavas {
+		for _, g := range b.Grahas {
+			if g.Name == constants.LAGNA || g.Name == constants.RAHU || g.Name == constants.KETU {
+				continue
+			}
+
+			aspectedBhava := c.GetNthBhava(i, 3)
+			if g.Name == constants.SATURN {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.QuarterAspect = append(aspectedBhava.QuarterAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 4)
+			if g.Name == constants.MARS {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.ThreeQuarterAspect = append(aspectedBhava.ThreeQuarterAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 5)
+			if g.Name == constants.JUPITER {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.HalfAspect = append(aspectedBhava.HalfAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 7)
+			aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+
+			aspectedBhava = c.GetNthBhava(i, 8)
+			if g.Name == constants.MARS {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.ThreeQuarterAspect = append(aspectedBhava.ThreeQuarterAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 9)
+			if g.Name == constants.JUPITER {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.HalfAspect = append(aspectedBhava.HalfAspect, g.Name)
+			}
+
+			aspectedBhava = c.GetNthBhava(i, 10)
+			if g.Name == constants.SATURN {
+				aspectedBhava.FullAspect = append(aspectedBhava.FullAspect, g.Name)
+			} else {
+				aspectedBhava.QuarterAspect = append(aspectedBhava.QuarterAspect, g.Name)
+			}
+		}
 	}
 }
 
@@ -163,5 +221,6 @@ func (c *Chart) EvaluateGrahaAttributes() {
 	c.GrahasAttr = make([]GrahaAttributes, 9)
 	for i, graha := range constants.GrahaNames {
 		c.GrahasAttr[i].Relations.EvaluateGrahaRelations(graha, c)
+		c.GrahasAttr[i].Aspects.EvaluateGrahaAspects(graha, c)
 	}
 }

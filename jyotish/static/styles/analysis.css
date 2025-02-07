@@ -23,7 +23,7 @@
     color: blue;
 }
 
-#analysis-lagna-chart, #analysis-grahas-relations, #analysis-bhavas {
+#analysis-lagna-chart, #analysis-grahas-relations, #analysis-grahas-aspects, #analysis-bhavas {
     width: 85vw;
 }
 
@@ -31,18 +31,21 @@
     display: flex;
 }
 
-#analysis-grahas-relations, #analysis-bhavas {
+#analysis-grahas-relations, #analysis-grahas-aspects, #analysis-bhavas {
     display: none;
 }
 
-.graha-attr {
+.graha-attr, .graha-aspects {
     position: relative;
     height: fit-content;
-    /* width: 75vw; */
     margin: 4%;
     overflow-y: visible;
     overflow-x: scroll;
     scrollbar-color: rgb(119, 174, 175) rgb(119, 174, 175, 0.5);
+}
+
+.graha-attr-table {
+    margin-bottom: 4%;
 }
 
 .fixed-column {
