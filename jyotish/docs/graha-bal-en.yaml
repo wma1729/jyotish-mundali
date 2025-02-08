@@ -1,10 +1,10 @@
 toc-entry:
-  name: graha-rashi-bal
+  name: graha-bal
   order: 4
-  header: Graha Positional Strength
+  header: Graha Strength
 section:
   intro:
-    - Depending on the placenement of a graha in various rashis,
+    - Depending on the placenement of a graha in various rashis & bhavas,
       it may gain or loose strength.
   sub-sections:
     - header: Exaltation-debilitation rashis
@@ -128,6 +128,63 @@ section:
           graha's strength.
       pictures: []
       tables: []
+    - header: Grahas in kendras (angles)
+      content:
+        - >-
+          A graha situated in a kendra gains strength. The maximum strength
+          is achieved in 4th kendra and the least in 1st kendra in the
+          following order: 4, 7, 10, 1.
+      pictures: []
+      tables: []
+    - header: Graha states
+      content:
+        - >-
+          A rashi is divided into 5 equal parts.
+        - >-
+          Bala (child): Neither strength nor wisdom. A graha in this state
+          can give results only up to 25% of its potential.
+        - >-
+          Kumara (youth): Has strength but no wisdom. A graha in this state
+          can give results only upto 50% of its potential.
+        - >-
+          Yuva (young adult): Possess both the strength and the wisdom. A
+          graha in this state gives full results.
+        - >-
+          Vriddha (old): Possess wisdom but lacks strength to execute.
+          A graha in this state gives minimal results.
+        - >-
+          Mrita (dead): Almost dead. A graha in this state gives no results.
+        - >-
+          For the odd rashis these states are in the following order: Bala (0-6),
+          Kumara (6-12), Yuva (12-18), Vriddha (18-24), Mrita (24-30). For the
+          even rashis the order is reversed i.e. Mrita (0-6), Vriddha (6-12),
+          Yuva (12-18), Kumara (18-24), Bala (24-30).
+      pictures: []
+      tables: []
+    - header: Directional strength
+      content:
+        - >-
+          Directional strength is an important consideration is determining the
+          overall strength of a graha and must not be overlooked.
+      pictures: []
+      tables:
+        - headers:
+            - Direction
+            - Strength
+            - Weakness
+          rows:
+            - - 1 Bhava - East
+              - Mercury Jupiter
+              - Saturn
+            - - 10 Bhava - South
+              - Sun Mars
+              - Moon Venus
+            - - 7 Bhava - West
+              - Saturn
+              - Mercury Jupiter
+            - - 4 bhava - North
+              - Moon Venus
+              - Sun Mars
   remarks:
     - >-
       Rahu-Ketu are special. They are not assigned any exaltation-debilitation
