@@ -1,0 +1,23 @@
+{{ define "grahas-nature" }}
+    {{ $lang := .User.Lang }}
+    {{ $vocab := .Vocab }}
+    <div class="graha-attr">
+        <table class="graha-attr-table">
+            <caption>{{ $vocab.Graha}} {{ $vocab.Nature }}</caption>
+            <thead >
+                <tr>
+                    <th class="fixed-column">{{ $vocab.Name }}</th>
+                    <th>{{ $vocab.Natural }} {{ $vocab.Nature }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .Chart.GrahasAttr }}
+                <tr>
+                    <th class="fixed-column">{{ GetGrahaName .Nature.Name $lang }}</th>
+                    <td>{{ GrahaNature .Nature.NaturalNature $lang }}</td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+{{ end }}

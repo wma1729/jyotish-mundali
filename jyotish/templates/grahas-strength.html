@@ -1,0 +1,35 @@
+{{ define "grahas-strength" }}
+    {{ $lang := .User.Lang }}
+    {{ $vocab := .Vocab }}
+    <div class="graha-attr">
+        <table class="graha-attr-table">
+            <caption>{{ $vocab.Graha}} {{ $vocab.Strength }}</caption>
+            <thead >
+                <tr>
+                    <th class="fixed-column">{{ $vocab.Name }}</th>
+                    <th>{{ $vocab.Position }}</th>
+                    <th>{{ $vocab.Motion }}</th>
+                    <th>{{ $vocab.Combust }}</th>
+                    <th>{{ $vocab.Friendly }} {{ $vocab.Aspect }}</th>
+                    <th>{{ $vocab.Neutral }} {{ $vocab.Aspect }}</th>
+                    <th>{{ $vocab.Inimical }} {{ $vocab.Aspect }}</th>
+                    <th>{{ $vocab.InKendra }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range .Chart.GrahasAttr }}
+                <tr>
+                    <th class="fixed-column">{{ GetGrahaName .Strength.Name $lang }}</th>
+                    <td>{{ GrahaPosition .Strength.Position $lang }}</td>
+                    <td>{{ GrahaMotion .Strength.Retrograde $lang }}</td>
+                    <td>{{ YesOrNo .Strength.Combust $lang }}</td>
+                    <td>{{ ListOfGrahas .Strength.FriendlyAspects $lang }}</td>
+                    <td>{{ ListOfGrahas .Strength.NeutralAspects $lang }}</td>
+                    <td>{{ ListOfGrahas .Strength.InimicalAspects $lang }}</td>
+                    <td>{{ YesOrNo .Strength.InKendra $lang }}</td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+{{ end }}

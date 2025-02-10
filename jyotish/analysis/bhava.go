@@ -36,6 +36,11 @@ func (b *Bhava) GrahaByName(name string) *GrahaLocCombust {
 	return nil
 }
 
+func (b *Bhava) GrahaDegree(name string) float32 {
+	graha := b.GrahaByName(name)
+	return graha.Degree
+}
+
 func (b *Bhava) IsRetrograde(name string) bool {
 	graha := b.GrahaByName(name)
 	if graha != nil {

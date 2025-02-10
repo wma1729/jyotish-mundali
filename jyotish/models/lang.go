@@ -36,6 +36,7 @@ type Language struct {
 	FAQs               string `json:"faqs"`
 	Forward            string `json:"forward"`
 	FiveFold           string `json:"five-fold"`
+	Friendly           string `jsons:"friendly"`
 	FriendlyRashi      string `json:"friendly-rashi"`
 	Friends            string `json:"friends"`
 	FullAspect         string `json:"full-aspect"`
@@ -43,6 +44,8 @@ type Language struct {
 	HalfAspect         string `json:"half-aspect"`
 	Hindi              string `json:"hindi"`
 	Home               string `json:"home"`
+	Inimical           string `json:"inimical"`
+	InKendra           string `json:"in-kendra"`
 	Jupiter            string `json:"jupiter"`
 	Ketu               string `json:"ketu"`
 	KnowledgeBase      string `json:"knowledgebase"`
@@ -58,8 +61,8 @@ type Language struct {
 	Name               string `json:"name"`
 	Natural            string `json:"natural"`
 	Nature             string `json:"nature"`
+	Neutral            string `json:"neutral"`
 	NeutralRashi       string `json:"neutral-rashi"`
-	Neutrals           string `json:"neutrals"`
 	No                 string `json:"no"`
 	OwnRashi           string `json:"own-rashi"`
 	PlaceOfBirth       string `json:"pob"`
@@ -78,6 +81,7 @@ type Language struct {
 	Save               string `json:"save"`
 	SiteAdmin          string `json:"siteadmin"`
 	State              string `json:"state"`
+	Strength           string `json:"strength"`
 	Sun                string `json:"sun"`
 	Temporary          string `json:"temporary"`
 	ThreeQuarterAspect string `json:"three-quarter-aspect"`
@@ -140,7 +144,7 @@ func GrahaName(graha string, lang string) string {
 	return ""
 }
 
-func GrahaNature(nature string, lang string) string {
+func GrahaNature(nature int, lang string) string {
 	var vocab *Language
 
 	if lang == "en" {
@@ -154,6 +158,8 @@ func GrahaNature(nature string, lang string) string {
 		return vocab.Benefic
 	case constants.MALEFIC:
 		return vocab.Malefic
+	case constants.NEUTRAL:
+		return vocab.Neutral
 	}
 
 	return ""
@@ -189,7 +195,7 @@ func YesOrNo(flag bool, lang string) string {
 	return vocab.No
 }
 
-func GrahaPosition(position string, lang string) string {
+func GrahaPosition(position int, lang string) string {
 	var vocab *Language
 
 	if lang == "en" {
@@ -199,19 +205,19 @@ func GrahaPosition(position string, lang string) string {
 	}
 
 	switch position {
-	case constants.RASHI_EXALTED:
+	case constants.IN_EXALTATION_RASHI:
 		return vocab.Exalted
-	case constants.RASHI_DEBILITATED:
+	case constants.IN_DEBILITATION_RASHI:
 		return vocab.Debilitated
-	case constants.RASHI_MOOLTRIKONA:
+	case constants.IN_MOOLTRIKONA_RASHI:
 		return vocab.MoolTrikona
-	case constants.RASHI_OWN:
+	case constants.IN_OWN_RASHI:
 		return vocab.OwnRashi
-	case constants.RASHI_FRIENDLY:
+	case constants.IN_FRIENDLY_RASHI:
 		return vocab.FriendlyRashi
-	case constants.RASHI_NEUTRAL:
+	case constants.IN_NEUTRAL_RASHI:
 		return vocab.NeutralRashi
-	case constants.RASHI_ENEMY:
+	case constants.IN_INIMICAL_RASHI:
 		return vocab.EnemyRashi
 	}
 

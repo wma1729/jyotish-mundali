@@ -23,7 +23,12 @@
     color: blue;
 }
 
-#analysis-lagna-chart, #analysis-grahas-relations, #analysis-grahas-aspects, #analysis-bhavas {
+#analysis-lagna-chart,
+#analysis-grahas-relations,
+#analysis-grahas-aspects,
+#analysis-grahas-nature,
+#analysis-grahas-strength,
+#analysis-bhavas {
     width: 85vw;
 }
 
@@ -31,7 +36,11 @@
     display: flex;
 }
 
-#analysis-grahas-relations, #analysis-grahas-aspects, #analysis-bhavas {
+#analysis-grahas-relations,
+#analysis-grahas-aspects,
+#analysis-grahas-nature,
+#analysis-grahas-strength,
+#analysis-bhavas {
     display: none;
 }
 

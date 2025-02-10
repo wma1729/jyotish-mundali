@@ -1,0 +1,153 @@
+package analysis
+
+import (
+	"jyotish/constants"
+	"math"
+)
+
+type GrahaNature struct {
+	Name          string
+	NaturalNature int
+}
+
+func isMoonBenefic(chart *Chart) bool {
+	i, b := chart.GetGrahaBhava(constants.SUN)
+	sun := b.GrahaByName(constants.SUN)
+
+	if chart.NthBhavaContainsGraha(i, 1, constants.MOON) {
+		moon := chart.GetNthBhava(i, 1).GrahaByName(constants.MOON)
+		if moon.Degree > sun.Degree {
+			return true
+		}
+	} else if chart.NthBhavaContainsGraha(i, 7, constants.MOON) {
+		moon := chart.GetNthBhava(i, 7).GrahaByName(constants.MOON)
+		if moon.Degree < sun.Degree {
+			return true
+		}
+	} else {
+		for n := 2; n <= 6; n++ {
+			if chart.NthBhavaContainsGraha(i, n, constants.MOON) {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func isMercuryBenefic(chart *Chart) bool {
+	var beneficDistance float64
+	var maleficDistance float64
+	var distance float64
+
+	_, b := chart.GetGrahaBhava(constants.MERCURY)
+	mercuryDegree := b.GrahaDegree(constants.MERCURY)
+	benevolence := 0
+
+	if b.ContainsGraha(constants.SUN) {
+		degree := b.GrahaDegree(constants.SUN)
+		distance = math.Abs(float64(degree - mercuryDegree))
+		maleficDistance = math.Min(maleficDistance, distance)
+		benevolence--
+	}
+	if b.ContainsGraha(constants.MOON) {
+		degree := b.GrahaDegree(constants.MOON)
+		distance = math.Abs(float64(degree - mercuryDegree))
+		if isMoonBenefic(chart) {
+			maleficDistance = math.Min(maleficDistance, distance)
+			benevolence++
+		} else {
+			beneficDistance = math.Min(beneficDistance, distance)
+			benevolence--
+		}
+	}
+	if b.ContainsGraha(constants.MARS) {
+		degree := b.GrahaDegree(constants.MARS)
+		distance = math.Abs(float64(degree - mercuryDegree))
+		maleficDistance = math.Min(maleficDistance, distance)
+		benevolence--
+	}
+	if b.ContainsGraha(constants.JUPITER) {
+		degree := b.GrahaDegree(constants.JUPITER)
+		distance = math.Abs(float64(degree - mercuryDegree))
+		beneficDistance = math.Min(beneficDistance, distance)
+		benevolence++
+	}
+	if b.ContainsGraha(constants.VENUS) {
+		degree := b.GrahaDegree(constants.VENUS)
+		distance = math.Abs(float64(degree - mercuryDegree))
+		beneficDistance = math.Min(beneficDistance, distance)
+		benevolence++
+	}
+	if b.ContainsGraha(constants.SATURN) {
+		degree := b.GrahaDegree(constants.SATURN)
+		distance = math.Abs(float64(degree - mercuryDegree))
+		maleficDistance = math.Min(maleficDistance, distance)
+		benevolence--
+	}
+	if b.ContainsGraha(constants.RAHU) {
+		degree := b.GrahaDegree(constants.RAHU)
+		distance = math.Abs(float64(degree - mercuryDegree))
+		maleficDistance = math.Min(maleficDistance, distance)
+		benevolence--
+	}
+	if b.ContainsGraha(constants.KETU) {
+		degree := b.GrahaDegree(constants.KETU)
+		distance = math.Abs(float64(degree - mercuryDegree))
+		maleficDistance = math.Min(maleficDistance, distance)
+		benevolence--
+	}
+
+	if benevolence > 0 {
+		// More benefic planets
+		return true
+	} else if benevolence == 0 {
+		// consider distance
+		if beneficDistance <= maleficDistance {
+			return true
+		}
+	}
+
+	return false
+}
+
+func (nature *GrahaNature) findNaturalNature(name string, chart *Chart) {
+	switch name {
+	case constants.SUN:
+		nature.NaturalNature = constants.MALEFIC
+
+	case constants.MOON:
+		nature.NaturalNature = constants.MALEFIC
+		if isMoonBenefic(chart) {
+			nature.NaturalNature = constants.BENEFIC
+		}
+
+	case constants.MARS:
+		nature.NaturalNature = constants.MALEFIC
+
+	case constants.MERCURY:
+		nature.NaturalNature = constants.MALEFIC
+		if isMercuryBenefic(chart) {
+			nature.NaturalNature = constants.BENEFIC
+		}
+
+	case constants.JUPITER:
+		nature.NaturalNature = constants.BENEFIC
+
+	case constants.VENUS:
+		nature.NaturalNature = constants.BENEFIC
+
+	case constants.SATURN:
+		nature.NaturalNature = constants.MALEFIC
+
+	case constants.RAHU:
+		nature.NaturalNature = constants.MALEFIC
+
+	case constants.KETU:
+		nature.NaturalNature = constants.MALEFIC
+	}
+}
+
+func (nature *GrahaNature) EvaluateGrahaNature(name string, chart *Chart) {
+	nature.Name = name
+	nature.findNaturalNature(name, chart)
+}

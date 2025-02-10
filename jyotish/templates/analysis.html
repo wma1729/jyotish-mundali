@@ -10,6 +10,8 @@
                     <a class="analysis-toc-link" href="#" onClick="showContent('lagna-chart');">{{ .Vocab.Lagna }} {{ .Vocab.Chart }}</a>
                     <a class="analysis-toc-link" href="#" onClick="showContent('grahas-relations');">{{ .Vocab.Graha }} {{ .Vocab.Relations }}</a>
                     <a class="analysis-toc-link" href="#" onClick="showContent('grahas-aspects');">{{ .Vocab.Graha }} {{ .Vocab.Aspect }}</a>
+                    <a class="analysis-toc-link" href="#" onClick="showContent('grahas-nature');">{{ .Vocab.Graha }} {{ .Vocab.Nature }}</a>
+                    <a class="analysis-toc-link" href="#" onClick="showContent('grahas-strength');">{{ .Vocab.Graha }} {{ .Vocab.Strength }}</a>
                     <a class="analysis-toc-link" href="#" onClick="showContent('bhavas');">{{ .Vocab.Bhava }}</a>
                 </menu>
             </div>
@@ -21,6 +23,12 @@
             </div>
             <div id="analysis-grahas-aspects">
                 {{ template "grahas-aspects" . }}
+            </div>
+            <div id="analysis-grahas-nature">
+                {{ template "grahas-nature" . }}
+            </div>
+            <div id="analysis-grahas-strength">
+                {{ template "grahas-strength" . }}
             </div>
             <div id="analysis-bhavas">
                 {{ template "bhavas" . }}

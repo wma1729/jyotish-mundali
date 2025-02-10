@@ -10,6 +10,8 @@ import (
 type GrahaAttributes struct {
 	Relations GrahaRelations
 	Aspects   GrahaAspects
+	Strength  GrahaStrength
+	Nature    GrahaNature
 }
 
 type Chart struct {
@@ -222,5 +224,7 @@ func (c *Chart) EvaluateGrahaAttributes() {
 	for i, graha := range constants.GrahaNames {
 		c.GrahasAttr[i].Relations.EvaluateGrahaRelations(graha, c)
 		c.GrahasAttr[i].Aspects.EvaluateGrahaAspects(graha, c)
+		c.GrahasAttr[i].Nature.EvaluateGrahaNature(graha, c)
+		c.GrahasAttr[i].Strength.EvaluateGrahaStrength(graha, c)
 	}
 }

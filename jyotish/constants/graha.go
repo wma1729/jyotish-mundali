@@ -14,8 +14,19 @@ const (
 )
 
 const (
-	BENEFIC = "benefic"
-	MALEFIC = "malefic"
+	BENEFIC = iota
+	MALEFIC
+	NEUTRAL
+)
+
+const (
+	IN_EXALTATION_RASHI = iota
+	IN_DEBILITATION_RASHI
+	IN_MOOLTRIKONA_RASHI
+	IN_OWN_RASHI
+	IN_FRIENDLY_RASHI
+	IN_NEUTRAL_RASHI
+	IN_INIMICAL_RASHI
 )
 
 var GrahaNames = []string{
