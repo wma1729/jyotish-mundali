@@ -9,6 +9,7 @@ import (
 
 type Language struct {
 	Action             string `json:"action"`
+	Adult              string `json:"adult"`
 	Aspect             string `json:"aspect"`
 	Astrologer         string `json:"astrologer"`
 	Attributes         string `json:"attributes"`
@@ -18,6 +19,7 @@ type Language struct {
 	BirthDetails       string `json:"birthdetails"`
 	Chart              string `json:"chart"`
 	ChartDetails       string `json:"chartdetails"`
+	Child              string `json:"child"`
 	City               string `json:"city"`
 	Combust            string `json:"combust"`
 	CombustAbbr        string `json:"combust-abbr"`
@@ -25,9 +27,11 @@ type Language struct {
 	Country            string `json:"country"`
 	CreateProfile      string `json:"create-profile"`
 	DateOfBirth        string `json:"dob"`
+	Dead               string `json:"dead"`
 	Debilitated        string `json:"debilitated"`
 	DegreeInRashi      string `json:"degree-in-rashi"`
 	Description        string `json:"description"`
+	Directional        string `json:"directional"`
 	Effective          string `json:"effective"`
 	Enemies            string `json:"enemies"`
 	EnemyRashi         string `json:"enemy-rashi"`
@@ -41,6 +45,7 @@ type Language struct {
 	Friends            string `json:"friends"`
 	FullAspect         string `json:"full-aspect"`
 	Graha              string `json:"graha"`
+	GrahaState         string `json:"graha-state"`
 	HalfAspect         string `json:"half-aspect"`
 	Hindi              string `json:"hindi"`
 	Home               string `json:"home"`
@@ -64,6 +69,7 @@ type Language struct {
 	Neutral            string `json:"neutral"`
 	NeutralRashi       string `json:"neutral-rashi"`
 	No                 string `json:"no"`
+	Old                string `json:"old"`
 	OwnRashi           string `json:"own-rashi"`
 	PlaceOfBirth       string `json:"pob"`
 	Position           string `json:"position"`
@@ -88,6 +94,7 @@ type Language struct {
 	Venus              string `json:"venus"`
 	WorstEnemies       string `json:"worst-enemies"`
 	Yes                string `json:"yes"`
+	Youth              string `json:"youth"`
 }
 
 var EnglishVocab, HindiVocab Language
@@ -219,6 +226,31 @@ func GrahaPosition(position int, lang string) string {
 		return vocab.NeutralRashi
 	case constants.IN_INIMICAL_RASHI:
 		return vocab.EnemyRashi
+	}
+
+	return "-"
+}
+
+func GrahaState(state int, lang string) string {
+	var vocab *Language
+
+	if lang == "en" {
+		vocab = &EnglishVocab
+	} else {
+		vocab = &HindiVocab
+	}
+
+	switch state {
+	case constants.CHILD:
+		return vocab.Child
+	case constants.YOUTH:
+		return vocab.Youth
+	case constants.ADULT:
+		return vocab.Adult
+	case constants.OLD:
+		return vocab.Old
+	case constants.DEAD:
+		return vocab.Dead
 	}
 
 	return "-"

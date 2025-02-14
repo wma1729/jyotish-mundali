@@ -92,6 +92,7 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 			"GrahaMotion":          models.GrahaMotion,
 			"YesOrNo":              models.YesOrNo,
 			"GrahaPosition":        models.GrahaPosition,
+			"GrahaState":           models.GrahaState,
 		}).ParseFiles(
 		"templates/analysis.html",
 		"templates/lagna-chart.html",

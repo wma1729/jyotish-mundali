@@ -1,19 +1,22 @@
 package analysis
 
 import (
+	"fmt"
 	"jyotish/constants"
 	"jyotish/misc"
 )
 
 type GrahaStrength struct {
-	Name            string
-	Position        int
-	Combust         bool
-	Retrograde      bool
-	FriendlyAspects []string
-	NeutralAspects  []string
-	InimicalAspects []string
-	InKendra        bool
+	Name                string
+	Position            int
+	Combust             bool
+	Retrograde          bool
+	FriendlyAspects     []string
+	NeutralAspects      []string
+	InimicalAspects     []string
+	InKendra            bool
+	State               int
+	DirectionalStrength string
 }
 
 func (strength *GrahaStrength) findGrahaPosition(name string, bhava *Bhava) {
@@ -61,6 +64,82 @@ func (strength *GrahaStrength) findAspects(name string, bhava *Bhava) {
 	}
 }
 
+func (strength *GrahaStrength) findState(name string, bhava *Bhava) {
+	graha := bhava.GrahaByName(name)
+	degree := graha.Degree
+	if bhava.Number%2 == 0 {
+		if degree < 6 {
+			strength.State = constants.DEAD
+		} else if degree >= 6 && degree < 12 {
+			strength.State = constants.OLD
+		} else if degree >= 12 && degree < 18 {
+			strength.State = constants.ADULT
+		} else if degree >= 18 && degree < 24 {
+			strength.State = constants.YOUTH
+		} else {
+			strength.State = constants.CHILD
+		}
+	} else {
+		if degree < 6 {
+			strength.State = constants.CHILD
+		} else if degree >= 6 && degree < 12 {
+			strength.State = constants.YOUTH
+		} else if degree >= 12 && degree < 18 {
+			strength.State = constants.ADULT
+		} else if degree >= 18 && degree < 24 {
+			strength.State = constants.OLD
+		} else {
+			strength.State = constants.DEAD
+		}
+	}
+}
+
+func (strength *GrahaStrength) findDirectionalStrength(name string, bhava *Bhava) {
+	graha := bhava.GrahaByName(name)
+	degree := graha.Degree + float32(30*(bhava.Number-1))
+	directionalStrength := float32(0)
+
+	switch name {
+	case constants.MERCURY:
+	case constants.JUPITER:
+		if degree > 180 {
+			degree = degree - 180
+			directionalStrength = degree / 180
+		} else {
+			directionalStrength = 1 - (degree / 180)
+		}
+
+	case constants.MOON:
+	case constants.VENUS:
+		if degree > 270 && degree < 360 {
+			degree = degree - 270
+			directionalStrength = degree / 180
+		} else {
+			degree = misc.AbsoluteDifference(degree, 90)
+			directionalStrength = 1 - (degree / 180)
+		}
+
+	case constants.SATURN:
+		if degree >= 180 && degree < 360 {
+			degree = degree - 180
+		} else if degree >= 0 && degree < 180 {
+			degree = 180 - degree
+		}
+		directionalStrength = 1 - (degree / 180)
+
+	case constants.SUN:
+	case constants.MARS:
+		if degree >= 0 && degree < 90 {
+			degree = degree + 90
+		} else {
+			degree = misc.AbsoluteDifference(degree, 270)
+		}
+		directionalStrength = 1 - (degree / 180)
+	}
+
+	strength.DirectionalStrength = fmt.Sprintf("%.2f", directionalStrength)
+}
+
 func (strength *GrahaStrength) EvaluateGrahaStrength(name string, chart *Chart) {
 	strength.Name = name
 
@@ -73,4 +152,6 @@ func (strength *GrahaStrength) EvaluateGrahaStrength(name string, chart *Chart) 
 	strength.findCombustAndRetrograde(name, b)
 	strength.findAspects(name, b)
 	strength.InKendra = b.Number == 4 || b.Number == 7 || b.Number == 10 || b.Number == 1
+	strength.findState(name, b)
+	strength.findDirectionalStrength(name, b)
 }

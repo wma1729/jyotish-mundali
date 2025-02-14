@@ -29,6 +29,14 @@ const (
 	IN_INIMICAL_RASHI
 )
 
+const (
+	CHILD = iota
+	YOUTH
+	ADULT
+	OLD
+	DEAD
+)
+
 var GrahaNames = []string{
 	SUN,
 	MOON,
