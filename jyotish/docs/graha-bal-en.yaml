@@ -127,7 +127,26 @@ section:
           the graha. Placement is a neutral rashi has no impact on
           graha's strength.
       pictures: []
-      tables: []
+      tables:
+        - caption: Potential graha strength based on position
+          headers:
+            - Graha Position
+            - Percentage of strength
+          rows:
+            - - Exaltation Rashi
+              - 87.5 - 100 %
+            - - Mool-trikona Rashi
+              - 75 - 87.5 %
+            - - Own Rashi
+              - 50 - 75 %
+            - - Friendly Rashi
+              - 37.5 - 50 %
+            - - Neutral Rashi
+              - 25 - 37.5 %
+            - - Inimical Rashi
+              - 12.5 - 25 %
+            - - Debilitation Rashi
+              - 0 - 12.5 %
     - header: Grahas in kendras (angles)
       content:
         - >-
@@ -185,6 +204,47 @@ section:
             - - 4 bhava - North
               - Moon Venus
               - Sun Mars
+    - header: Comustion
+      content:
+        - >-
+          When a graha comes very close to the Sun, it is not visible to us.
+          This usually happens when that graha is farthest from us. Being out
+          of sight and far from us, the graha becomes weak. Such a graha is
+          called Combuted. The closer the graha is to the Sun, the more will
+          be its inauspicious results. The grahas moving away from the Sun after
+          conjunction are less harmful than grahas moving towards conjunction
+          with the Sun. When naturally benefic grahas combust, their benevolence
+          decreases. When naturally malefic grahas are combust, their malefic
+          influence increases. If the position strength of the combust graha
+          is good or benefic/friendly grahas are aspecting it, then it will be
+          less harmful and if the combust graha does not get good position
+          strength and malefic/enemy grahas are aspecting it, then it will be
+          more harmful.
+        - >-
+          To know the results of a combust graha, first know which house it is
+          the lord of - it will harm the house of which it is the lord. The type
+          of damage done depends on the graha and the house.
+        - >-
+          The internal characteristics of the combusted graha usually come to
+          the fore. The internal characteristics of the grahas are as follows -
+          Moon: mind, emotions, feelings, etc.; Mars: courage, morale,
+          self-confidence, etc.; Mercury - intellect, talent, etc.; Jupiter:
+          generosity, prudence, knowledge, etc.; Venus: beauty, desires, etc.;
+          Saturn: cruelty, solitude, sacrifice, etc. Remember that the
+          conjunction of Sun + Mercury forms Budhaditya Yoga.
+        - >-
+          Each house represents some external (such as body parts, relations
+          and relatives, movable and immovable properties, clothes, business,
+          job, etc.) and some internal (such as courage, intellect, morale,
+          education, etc.) matters. If the lord of that house is combust, then
+          the external matters are adversely affected. But the internal matters
+          are minimally affected. Example - If Venus is combust in Capricorn
+          Ascendant Kundali, then look at the fifth and tenth houses. External
+          matters of the fifth house - children, kidney, liver and external
+          matters of the tenth house - father, knees, business, job, position
+          usually suffer.
+      pictures: []
+      tables: []
   remarks:
     - >-
       Rahu-Ketu are special. They are not assigned any exaltation-debilitation
@@ -208,23 +268,3 @@ section:
       functional malefic, debilitation takes away its strength to act in an
       malefic way.
     - A graha in its own rashi always give favorable results.
-  table:
-    caption: Potential graha strength based on position
-    headers:
-      - Graha Position
-      - Percentage of strength
-    rows:
-      - - Exaltation Rashi
-        - 87.5 - 100 %
-      - - Mool-trikona Rashi
-        - 75 - 87.5 %
-      - - Own Rashi
-        - 50 - 75 %
-      - - Friendly Rashi
-        - 37.5 - 50 %
-      - - Neutral Rashi
-        - 25 - 37.5 %
-      - - Inimical Rashi
-        - 12.5 - 25 %
-      - - Debilitation Rashi
-        - 0 - 12.5 %
