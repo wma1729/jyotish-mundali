@@ -244,7 +244,21 @@ section:
           matters of the tenth house - father, knees, business, job, position
           usually suffer.
       pictures: []
-      tables: []
+      tables:
+        - headers:
+            - Graha
+            - Degrees
+          rows:
+            - - Mercury
+              - 14 / 12 (R)
+            - - Venus
+              - 10 / 8 (R)
+            - - Mars
+              - 17
+            - - Jupiter
+              - 11
+            - - Saturn
+              - 15
   remarks:
     - >-
       Rahu-Ketu are special. They are not assigned any exaltation-debilitation
