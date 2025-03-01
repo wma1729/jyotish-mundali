@@ -1,11 +1,11 @@
 toc-entry:
   name: bhava
   order: 7
-  header: Bhavas (loosely zodiac houses)
+  header: Bhavas (loosely zodiac bhavas)
 section:
   intro:
     - >-
-      There are twelve bhavas (houses) - where each bhava encompasses a rashi.
+      There are twelve bhavas (bhavas) - where each bhava encompasses a rashi.
   sub-sections:
     - header: Bhavas
       content:
@@ -56,7 +56,7 @@ section:
               - Chest, heart, nose 
               - Mother
               - >-
-                Immovable property, house, wealth, conveyance, emotions,
+                Immovable property, bhava, wealth, conveyance, emotions,
                 education, happiness, near (maternal) relatives, friends,
                 agriculture (crops, grains, livestock, water wells),
                 clothes, perfumes.
@@ -160,7 +160,7 @@ section:
         - >-
           A graha that is the owner of both a kendra and a trikona is called raj yoga karaka
           and bestows great benefits in its dasha period. If the owner of both a kendra and
-          a trikona are posited in the same house or aspects each other, it is considered a
+          a trikona are posited in the same bhava or aspects each other, it is considered a
           good raj yoga and brings properity in the dasha period of at least one of them.
         - >-
           In any horoscope, all the trikonas are owned either by the grahas of the Sun
@@ -187,13 +187,6 @@ section:
         - >-
           Bhavas 3, 6 and 11 are called trishadaya. The owner of these bhavas never give good
           results in their dasha periods.
-      pictures: []
-      tables: []
-    - header: Maraka
-      content:
-        - >-
-          Bhavas 2 and 7 are called maraka. Bhava 3 and 8 represents longevity and bhava 2 and 7
-          are 12 bhava (loss of longevity) away from bhava 3 and 8 respectively.
       pictures: []
       tables: []
     - header: Harmonics and reflection
@@ -244,9 +237,29 @@ section:
           disease/relief from disease, 8th and 3rd (8th away from bhava 8) indicates
           longevity.
         - >-
+          The eighth bhava and the number 8 are indicators of longevity in astrology. Hence,
+          the eighth bhava from any bhava limits the duration of the results (benefic/malefic)
+          of the bhava.
+        - >-
+          In astrology, the twelfth bhava indicates the end/loss/detriment. Hence, the
+          twelfth bhava from any bhava, symbolizes the end of the results (benefic/malefic)
+          of the bhava. If the Lord of the tenth bhava is placed in the ninth bhava
+          (twelfth from the tenth), the native has to face difficulties in his work,
+          such natives are seldom seen satisfied in their work field. If the Lord of the
+          third bhava is placed in the second bhava (twelfth from the third), the native
+          usually does not have any younger brothers or sisters. A lack of confidence can
+          also be seen in them and they remain shy in public life as well.
+        - >-
           When the lord of a bhava is the same number of bhavas away from the bhava as
           that bhava is from the lagna, the good or bad things associated with the bhava
           will occur again and again. This situation is called bhavat bhavam.
       pictures: []
       tables:
+    - header: Maraka
+      content:
+        - >-
+          Bhavas 2 and 7 are called maraka. Bhava 3 and 8 represents longevity and bhava 2 and 7
+          are 12 bhava (loss of longevity) away from bhava 3 and 8 respectively.
+      pictures: []
+      tables: []
 
