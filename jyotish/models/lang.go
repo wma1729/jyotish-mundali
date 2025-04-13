@@ -69,6 +69,18 @@ type Language struct {
 	Neutral            string `json:"neutral"`
 	NeutralRashi       string `json:"neutral-rashi"`
 	No                 string `json:"no"`
+	Number1            string `json:"num-1"`
+	Number2            string `json:"num-2"`
+	Number3            string `json:"num-3"`
+	Number4            string `json:"num-4"`
+	Number5            string `json:"num-5"`
+	Number6            string `json:"num-6"`
+	Number7            string `json:"num-7"`
+	Number8            string `json:"num-8"`
+	Number9            string `json:"num-9"`
+	Number10           string `json:"num-10"`
+	Number11           string `json:"num-11"`
+	Number12           string `json:"num-12"`
 	Old                string `json:"old"`
 	OwnRashi           string `json:"own-rashi"`
 	PlaceOfBirth       string `json:"pob"`

@@ -7,7 +7,7 @@ section:
     - >-
       There are twelve bhavas (bhavas) - where each bhava encompasses a rashi.
   sub-sections:
-    - header: Bhavas
+    - header: Bhava
       content:
       pictures: []
       tables:
@@ -253,8 +253,29 @@ section:
           When the lord of a bhava is the same number of bhavas away from the bhava as
           that bhava is from the lagna, the good or bad things associated with the bhava
           will occur again and again. This situation is called bhavat bhavam.
+        - >-
+          Every Bhava indicates some meanings. Some of these are living beings while others
+          are non-living. To analyze a bhava, see the position of the bhava lord.
       pictures: []
       tables:
+        - caption: Position of bhava lord
+          headers:
+            - From the Lagna
+            - From the bhava itself
+            - Results
+          rows:
+            - - In good bhava
+              - In good bhava
+              - Benefic for both living and non-living things
+            - - In good bhava
+              - In dussthana
+              - Benefic for non-living things and malefic for living beings
+            - - In dussthana
+              - In good bhava
+              - Malefic for non-living things and benefic for living beings
+            - - In dussthana
+              - In dussthana
+              - Malefic for both living and non-living things
     - header: Maraka
       content:
         - >-
