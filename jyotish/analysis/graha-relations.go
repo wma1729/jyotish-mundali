@@ -27,12 +27,12 @@ func (relations *GrahaRelations) populateNaturalRelations(name string) {
 	relations.NaturalEnemies = constants.GrahaBalaInRashiRulesMap[name].Enemies
 }
 
-// Add grahas in the nth bhava from ith bhava to a set excluding Rahu, Ketu, Lagna
+// Add grahas in the nth bhava from ith bhava to a set excluding Lagna
 // (not a graha but treated like one in the implementation), and itself.
 func addGrahasInNthBhava(grahas map[string]bool, name string, c, n int, chart *Chart) {
 	bhava := chart.GetNthBhava(c, n)
 	for _, g := range bhava.Grahas {
-		if g.Name != constants.RAHU && g.Name != constants.KETU && g.Name != constants.LAGNA && g.Name != name {
+		if g.Name != constants.LAGNA && g.Name != name {
 			grahas[g.Name] = true
 		}
 	}

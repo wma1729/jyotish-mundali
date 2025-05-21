@@ -1,2 +1,21 @@
 {{ define "bhavas" }}
+    {{ $lang := .User.Lang }}
+    {{ $vocab := .Vocab }}
+    <article class="bhava-analysis">
+        <h2>{{ $vocab.Bhava }} {{ $vocab.Analysis }}</h2>
+        {{ range .BhavaDesc }}
+            <article>
+                <details class="bhava-desc">
+                    <summary>{{ $vocab.Bhava }} {{ .DisplayNumber }} - {{ .Name }}</summary>
+                    <ul class="no-list-styling">
+                        <li><b>{{ $vocab.Relations }}</b>: {{ .Relations }}</li>
+                        <li><b>{{ $vocab.BodyParts }}</b>: {{ .BodyParts }}</li>
+                        <li><b>{{ $vocab.DirectMeanings }}</b>: {{ .Meanings }}</li>
+                        <li><b>{{ $vocab.Indicator }}</b>: {{ .Indicator }}</li>
+                        <li><b>{{ $vocab.Efforts }}</b>: {{ .Efforts }}</li>
+                    </ul>
+                </details>
+            </article>
+        {{ end }}
+    </article>
 {{ end }}

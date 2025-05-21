@@ -11,6 +11,7 @@
                     <th>{{ $vocab.ThreeQuarterAspect }}</th>
                     <th>{{ $vocab.HalfAspect }}</th>
                     <th>{{ $vocab.QuarterAspect }}</th>
+                    <th>{{ $vocab.Strength }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +22,7 @@
                     <td>{{ ListOfGrahas .Aspects.ThreeQuarterAspect $lang }}</td>
                     <td>{{ ListOfGrahas .Aspects.HalfAspect $lang }}</td>
                     <td>{{ ListOfGrahas .Aspects.QuarterAspect $lang }}</td>
+                    <td>{{ .Aspects.Strength }}</td>
                 </tr>
                 {{ end }}
             </tbody>

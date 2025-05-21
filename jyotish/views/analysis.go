@@ -11,7 +11,8 @@ import (
 
 type AnalysisPage struct {
 	MainPage
-	Chart analysis.Chart
+	Chart     analysis.Chart
+	BhavaDesc []models.BhavaDescription
 }
 
 func GetGrahaNameForChart(graha analysis.GrahaLocCombust, lang string) template.HTML {
@@ -76,6 +77,7 @@ func GetAnalysisPage(user *models.User, chart analysis.Chart) (*AnalysisPage, er
 
 	page.User = user
 	page.Chart = chart
+	page.BhavaDesc, _ = models.GetBhavaDescription(user.Lang)
 
 	return &page, nil
 

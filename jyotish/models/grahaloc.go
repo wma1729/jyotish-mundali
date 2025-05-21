@@ -10,7 +10,7 @@ import (
 type GrahaLoc struct {
 	Name       string  `json:"name"`
 	RashiNum   int     `json:"rashi"`
-	Degree     float32 `json:"degrees"`
+	Degree     float64 `json:"degrees"`
 	Retrograde bool    `json:"retrograde"`
 }
 

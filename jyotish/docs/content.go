@@ -40,7 +40,7 @@ type Content struct {
 	Section  Section  `yaml:"section"`
 }
 
-func loadFileContent(fileName string, content *Content) error {
+func LoadFileContent(fileName string, content *Content) error {
 	f, err := os.Open(fileName)
 	if err != nil {
 		log.Println(err)
@@ -71,7 +71,7 @@ func loadDocumentation(lang string) ([]Content, error) {
 	for _, f := range files {
 		if strings.HasSuffix(f.Name(), "-"+lang+".yaml") {
 			var c Content
-			if loadFileContent("./docs/"+f.Name(), &c) == nil {
+			if LoadFileContent("./docs/"+f.Name(), &c) == nil {
 				contents = append(contents, c)
 			}
 		}

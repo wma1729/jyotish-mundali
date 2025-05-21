@@ -10,6 +10,7 @@ import (
 type Language struct {
 	Action             string `json:"action"`
 	Adult              string `json:"adult"`
+	Analysis           string `json:"analysis"`
 	Aspect             string `json:"aspect"`
 	Astrologer         string `json:"astrologer"`
 	Attributes         string `json:"attributes"`
@@ -17,6 +18,7 @@ type Language struct {
 	BestFriends        string `json:"best-friends"`
 	Bhava              string `json:"bhava"`
 	BirthDetails       string `json:"birthdetails"`
+	BodyParts          string `json:"body-parts"`
 	Chart              string `json:"chart"`
 	ChartDetails       string `json:"chartdetails"`
 	Child              string `json:"child"`
@@ -31,8 +33,10 @@ type Language struct {
 	Debilitated        string `json:"debilitated"`
 	DegreeInRashi      string `json:"degree-in-rashi"`
 	Description        string `json:"description"`
+	DirectMeanings     string `json:"direct-meanings"`
 	Directional        string `json:"directional"`
 	Effective          string `json:"effective"`
+	Efforts            string `json:"efforts"`
 	Enemies            string `json:"enemies"`
 	EnemyRashi         string `json:"enemy-rashi"`
 	English            string `json:"english"`
@@ -49,6 +53,7 @@ type Language struct {
 	HalfAspect         string `json:"half-aspect"`
 	Hindi              string `json:"hindi"`
 	Home               string `json:"home"`
+	Indicator          string `json:"indicator"`
 	Inimical           string `json:"inimical"`
 	InKendra           string `json:"in-kendra"`
 	Jupiter            string `json:"jupiter"`

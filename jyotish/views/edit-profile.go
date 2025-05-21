@@ -21,7 +21,7 @@ func GetRashiNumber(chart models.GrahasLocation, graha string) int {
 	return -1
 }
 
-func GetDegreeInRashi(chart models.GrahasLocation, graha string) float32 {
+func GetDegreeInRashi(chart models.GrahasLocation, graha string) float64 {
 	for _, p := range chart.Grahas {
 		if p.Name == graha {
 			return p.Degree

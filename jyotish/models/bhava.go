@@ -11,7 +11,7 @@ type BhavaDescription struct {
 	Name          string
 	BodyParts     string
 	Relations     string
-	Meaning       string
+	Meanings      string
 	Indicator     string
 	Efforts       string
 }
@@ -42,18 +42,16 @@ func GetBhavaDescription(lang string) ([]BhavaDescription, error) {
 
 	for _, subSection := range content.Section.SubSections {
 		if subSection.Header == vocab.Bhava {
-			var bhavaDesc BhavaDescription
 			for i := 0; i < constants.MAX_BHAVA_NUM; i++ {
-				bhavaDesc.Number = i + 1
-				bhavaDesc.DisplayNumber = subSection.Tables[0].Rows[i][0]
-				bhavaDesc.Name = subSection.Tables[0].Rows[i][1]
-				bhavaDesc.BodyParts = subSection.Tables[0].Rows[i][2]
-				bhavaDesc.Relations = subSection.Tables[0].Rows[i][3]
-				bhavaDesc.Meaning = subSection.Tables[0].Rows[i][4]
-				bhavaDesc.Indicator = subSection.Tables[0].Rows[i][5]
-				bhavaDesc.Efforts = subSection.Tables[0].Rows[i][6]
+				bhavaDescription[i].Number = i + 1
+				bhavaDescription[i].DisplayNumber = subSection.Tables[0].Rows[i][0]
+				bhavaDescription[i].Name = subSection.Tables[0].Rows[i][1]
+				bhavaDescription[i].BodyParts = subSection.Tables[0].Rows[i][2]
+				bhavaDescription[i].Relations = subSection.Tables[0].Rows[i][3]
+				bhavaDescription[i].Meanings = subSection.Tables[0].Rows[i][4]
+				bhavaDescription[i].Indicator = subSection.Tables[0].Rows[i][5]
+				bhavaDescription[i].Efforts = subSection.Tables[0].Rows[i][6]
 			}
-			bhavaDescription = append(bhavaDescription, bhavaDesc)
 		}
 	}
 

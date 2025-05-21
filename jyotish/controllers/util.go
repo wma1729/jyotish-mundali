@@ -14,7 +14,7 @@ func SplitPath(path string) []string {
 	}
 }
 
-func StringToFloat32(value string) float32 {
-	f64, _ := strconv.ParseFloat(value, 32)
-	return float32(f64)
+func StringToFloat(value string) float64 {
+	f, _ := strconv.ParseFloat(value, 32)
+	return f
 }

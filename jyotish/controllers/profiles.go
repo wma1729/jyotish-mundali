@@ -115,7 +115,7 @@ func setProfile(w http.ResponseWriter, r *http.Request, g *Globals, user *models
 		graha := models.GrahaLoc{}
 		graha.Name = p
 		graha.RashiNum, _ = strconv.Atoi(r.FormValue(p + "-rashi"))
-		graha.Degree = StringToFloat32((r.FormValue(p + "-degree")))
+		graha.Degree = StringToFloat((r.FormValue(p + "-degree")))
 		retrograde, _ := strconv.Atoi(r.FormValue(p + "-retrograde"))
 		if retrograde == 1 {
 			graha.Retrograde = true

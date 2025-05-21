@@ -64,3 +64,19 @@
     color: white;
     z-index: 2;
 }
+
+.bhava-analysis {
+    margin: 0;
+    padding: 0;
+    width: 85vw;
+}
+
+.bhava-desc {
+    margin: 0.5rem;
+    padding: 0.3rem;
+    background-color: rgb(119, 174, 175, 0.1);
+}
+
+.no-list-styling {
+    list-style-type: none;
+}
