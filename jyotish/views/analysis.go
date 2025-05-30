@@ -66,6 +66,19 @@ func ListOfGrahas(grahas []string, lang string) string {
 	return sb.String()
 }
 
+func ListOfAspectingGrahas(aspectingGrahas []analysis.AscpectAndDegree, lang string) string {
+	sb := strings.Builder{}
+	first := true
+	for _, ag := range aspectingGrahas {
+		if !first {
+			sb.WriteString(", ")
+		}
+		sb.WriteString(fmt.Sprintf("%s (%d)", models.GrahaName(ag.Name, lang), ag.Degree))
+		first = false
+	}
+	return sb.String()
+}
+
 func GetAnalysisPage(user *models.User, chart analysis.Chart) (*AnalysisPage, error) {
 	var page AnalysisPage
 
@@ -87,14 +100,15 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 	tmplName := "analysis"
 	tmpl := template.Must(template.New(tmplName).Funcs(
 		template.FuncMap{
-			"GetGrahaNameForChart": GetGrahaNameForChart,
-			"GetGrahaName":         GetGrahaName,
-			"ListOfGrahas":         ListOfGrahas,
-			"GrahaNature":          models.GrahaNature,
-			"GrahaMotion":          models.GrahaMotion,
-			"YesOrNo":              models.YesOrNo,
-			"GrahaPosition":        models.GrahaPosition,
-			"GrahaState":           models.GrahaState,
+			"GetGrahaNameForChart":  GetGrahaNameForChart,
+			"GetGrahaName":          GetGrahaName,
+			"ListOfGrahas":          ListOfGrahas,
+			"ListOfAspectingGrahas": ListOfAspectingGrahas,
+			"GrahaNature":           models.GrahaNature,
+			"GrahaMotion":           models.GrahaMotion,
+			"YesOrNo":               models.YesOrNo,
+			"GrahaPosition":         models.GrahaPosition,
+			"GrahaState":            models.GrahaState,
 		}).ParseFiles(
 		"templates/analysis.html",
 		"templates/lagna-chart.html",

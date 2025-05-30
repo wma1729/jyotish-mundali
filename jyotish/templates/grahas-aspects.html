@@ -7,10 +7,11 @@
             <thead>
                 <tr>
                     <th class="fixed-column">{{ $vocab.Name }}</th>
-                    <th>{{ $vocab.FullAspect }}</th>
-                    <th>{{ $vocab.ThreeQuarterAspect }}</th>
-                    <th>{{ $vocab.HalfAspect }}</th>
-                    <th>{{ $vocab.QuarterAspect }}</th>
+                    <th>{{ $vocab.BestFriends }}</th>
+                    <th>{{ $vocab.Friends }}</th>
+                    <th>{{ $vocab.Neutral }}</th>
+                    <th>{{ $vocab.Enemies }}</th>
+                    <th>{{ $vocab.WorstEnemies }}</th>
                     <th>{{ $vocab.Strength }}</th>
                 </tr>
             </thead>
@@ -18,10 +19,11 @@
                 {{ range .Chart.GrahasAttr }}
                 <tr>
                     <th class="fixed-column">{{ GetGrahaName .Aspects.Name $lang }}</th>
-                    <td>{{ ListOfGrahas .Aspects.FullAspect $lang }}</td>
-                    <td>{{ ListOfGrahas .Aspects.ThreeQuarterAspect $lang }}</td>
-                    <td>{{ ListOfGrahas .Aspects.HalfAspect $lang }}</td>
-                    <td>{{ ListOfGrahas .Aspects.QuarterAspect $lang }}</td>
+                    <td>{{ ListOfAspectingGrahas .Aspects.BestFriends $lang }}</td>
+                    <td>{{ ListOfAspectingGrahas .Aspects.Friends $lang }}</td>
+                    <td>{{ ListOfAspectingGrahas .Aspects.Neutrals $lang }}</td>
+                    <td>{{ ListOfAspectingGrahas .Aspects.Enemies $lang }}</td>
+                    <td>{{ ListOfAspectingGrahas .Aspects.WorstEnemies $lang }}</td>
                     <td>{{ .Aspects.Strength }}</td>
                 </tr>
                 {{ end }}

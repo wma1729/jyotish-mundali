@@ -3,6 +3,7 @@ package analysis
 import (
 	"jyotish/constants"
 	"jyotish/misc"
+	"log"
 	"math"
 )
 
@@ -14,16 +15,11 @@ type GrahaStrength struct {
 	CombustionStrength    float64
 	Retrograde            bool
 	RetrogressionStrength float64
-	FriendlyAspects       []string
-	NeutralAspects        []string
-	InimicalAspects       []string
-	AspectualStrength     float64
-	InGoodBhava           bool
+	Residence             int
 	ResidenceStrength     float64
 	State                 int
 	StateStrength         float64
 	DirectionalStrength   float64
-	CumulativeStrength    float64
 }
 
 func (strength *GrahaStrength) findGrahaPosition(name string, chart *Chart) {
@@ -37,33 +33,38 @@ func (strength *GrahaStrength) findGrahaPosition(name string, chart *Chart) {
 	rashLordGrahaAttr := chart.GetGrahaAttributes(rashiLord)
 	rashiLordRelations := rashLordGrahaAttr.Relations
 
+	if name == constants.RAHU {
+		log.Print(grahaBala)
+		log.Print(rashiLordRelations)
+	}
+
 	if bhava.RashiNum == grahaBala.Exaltation.RashiNum {
 		strength.Position = constants.IN_EXALTATION_RASHI
 		strength.PositionalStrength = 0.9
 	} else if bhava.RashiNum == grahaBala.Debilitation.RashiNum {
 		strength.Position = constants.IN_DEBILITATION_RASHI
-		strength.PositionalStrength = 0.1
+		strength.PositionalStrength = -0.9
 	} else if bhava.RashiNum == grahaBala.Trinal.RashiNum {
 		strength.Position = constants.IN_MOOLTRIKONA_RASHI
 		strength.PositionalStrength = 0.8
 	} else if rashiLord == name {
 		strength.Position = constants.IN_OWN_RASHI
-		strength.PositionalStrength = 0.7
+		strength.PositionalStrength = 0.6
 	} else if misc.StringSliceContains(rashiLordRelations.EffectiveBestFriends, name) {
 		strength.Position = constants.IN_FRIENDLY_RASHI
-		strength.PositionalStrength = 0.6
+		strength.PositionalStrength = 0.4
 	} else if misc.StringSliceContains(rashiLordRelations.EffectiveFriends, name) {
 		strength.Position = constants.IN_FRIENDLY_RASHI
-		strength.PositionalStrength = 0.5
+		strength.PositionalStrength = 0.2
 	} else if misc.StringSliceContains(rashiLordRelations.EffectiveEnemies, name) {
 		strength.Position = constants.IN_INIMICAL_RASHI
-		strength.PositionalStrength = 0.3
+		strength.PositionalStrength = -0.2
 	} else if misc.StringSliceContains(rashiLordRelations.EffectiveWorstEnemies, name) {
 		strength.Position = constants.IN_INIMICAL_RASHI
-		strength.PositionalStrength = 0.2
+		strength.PositionalStrength = -0.4
 	} else {
 		strength.Position = constants.IN_NEUTRAL_RASHI
-		strength.PositionalStrength = 0.4
+		strength.PositionalStrength = 0.0
 	}
 }
 
@@ -72,13 +73,23 @@ func (strength *GrahaStrength) findCombustAndRetrograde(name string, bhava *Bhav
 		if g.Name == name {
 			strength.Combust = g.Combust
 			if g.Combust {
-				strength.CombustionStrength = misc.RoundFloat((1.0-g.CombustionExtent)/2.0, 2)
+				combustionStrength := misc.RoundFloat((1.0-g.CombustionExtent)/4.0, 2)
+				if strength.PositionalStrength >= 0.0 {
+					strength.CombustionStrength = -1.0 * combustionStrength
+				} else {
+					strength.CombustionStrength = combustionStrength
+				}
 			} else {
-				strength.CombustionStrength = 0.5
+				strength.CombustionStrength = 0.0
 			}
+
 			strength.Retrograde = g.Retrograde
 			if g.Retrograde && g.Name != constants.RAHU && g.Name != constants.KETU {
-				strength.RetrogressionStrength = 0.50
+				if strength.Position == constants.IN_DEBILITATION_RASHI {
+					strength.RetrogressionStrength = -0.25
+				} else {
+					strength.RetrogressionStrength = 0.25
+				}
 			} else {
 				strength.RetrogressionStrength = 0.0
 			}
@@ -87,55 +98,22 @@ func (strength *GrahaStrength) findCombustAndRetrograde(name string, bhava *Bhav
 	}
 }
 
-func (strength *GrahaStrength) findAspects(name string, chart *Chart) {
-	_, bhava := chart.GetGrahaBhava(name)
-	if bhava == nil {
-		return
-	}
-
-	ga := chart.GetGrahaAttributes(name)
-	if ga == nil {
-		return
-	}
-
-	friendlyGrahas := append(ga.Relations.EffectiveBestFriends, ga.Relations.EffectiveFriends...)
-	enemyGrahas := append(ga.Relations.EffectiveWorstEnemies, ga.Relations.EffectiveEnemies...)
-
-	for _, graha := range bhava.FullAspect {
-		if misc.StringSliceContains(friendlyGrahas, graha) {
-			strength.FriendlyAspects = append(strength.FriendlyAspects, graha)
-		} else if misc.StringSliceContains(enemyGrahas, graha) {
-			strength.InimicalAspects = append(strength.InimicalAspects, graha)
-		} else {
-			strength.NeutralAspects = append(strength.NeutralAspects, graha)
-		}
-	}
-
-	strength.AspectualStrength = ga.Aspects.Strength
-}
-
 func (strength *GrahaStrength) findResidenceStrength(name string, bhava *Bhava) {
-	strength.InGoodBhava = false
+	strength.Residence = bhava.Number
 	residenceStrength := float64(0.0)
 
 	switch bhava.Number {
 	case 9:
-		strength.InGoodBhava = true
 		residenceStrength = 1.0
 	case 5:
-		strength.InGoodBhava = true
 		residenceStrength = 5.0 / 6.0
 	case 1:
-		strength.InGoodBhava = true
 		residenceStrength = 4.0 / 6.0
 	case 10:
-		strength.InGoodBhava = true
 		residenceStrength = 3.0 / 6.0
 	case 4:
-		strength.InGoodBhava = true
 		residenceStrength = 2.0 / 6.0
 	case 7:
-		strength.InGoodBhava = true
 		residenceStrength = 1.0 / 6.0
 	}
 
@@ -155,7 +133,7 @@ func (strength *GrahaStrength) findState(name string, bhava *Bhava) {
 			strength.StateStrength = 0.25
 		} else if degree >= 6 && degree < 12 {
 			strength.State = constants.OLD
-			strength.StateStrength = 0.40
+			strength.StateStrength = 0.50
 		} else if degree >= 12 && degree < 18 {
 			strength.State = constants.ADULT
 			strength.StateStrength = 1.0
@@ -184,6 +162,8 @@ func (strength *GrahaStrength) findState(name string, bhava *Bhava) {
 			strength.StateStrength = 0.25
 		}
 	}
+
+	strength.StateStrength = misc.RoundFloat(strength.StateStrength, 2)
 }
 
 func (strength *GrahaStrength) findDirectionalStrength(name string, bhava *Bhava) {
@@ -246,13 +226,7 @@ func (strength *GrahaStrength) EvaluateGrahaStrength(name string, chart *Chart) 
 
 	strength.findGrahaPosition(name, chart)
 	strength.findCombustAndRetrograde(name, b)
-	strength.findAspects(name, chart)
 	strength.findResidenceStrength(name, b)
 	strength.findState(name, b)
 	strength.findDirectionalStrength(name, b)
-	strength.CumulativeStrength = (strength.PositionalStrength +
-		strength.CombustionStrength + strength.RetrogressionStrength +
-		strength.AspectualStrength + strength.ResidenceStrength +
-		strength.StateStrength + strength.DirectionalStrength) / 6.0
-	strength.CumulativeStrength = misc.RoundFloat(strength.CumulativeStrength, 2)
 }

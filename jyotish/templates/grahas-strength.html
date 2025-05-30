@@ -10,13 +10,9 @@
                     <th>{{ $vocab.Position }}</th>
                     <th>{{ $vocab.Motion }}</th>
                     <th>{{ $vocab.Combust }}</th>
-                    <th>{{ $vocab.Friendly }} {{ $vocab.Aspect }}</th>
-                    <th>{{ $vocab.Neutral }} {{ $vocab.Aspect }}</th>
-                    <th>{{ $vocab.Inimical }} {{ $vocab.Aspect }}</th>
-                    <th>{{ $vocab.InKendra }}</th>
+                    <th>{{ $vocab.Bhava }}</th>
                     <th>{{ $vocab.GrahaState }}</th>
                     <th>{{ $vocab.Directional }} {{ $vocab.Strength }}</th>
-                    <th>{{ $vocab.Strength }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,13 +22,9 @@
                     <td>{{ GrahaPosition .Strength.Position $lang }} ({{ .Strength.PositionalStrength }})</td>
                     <td>{{ GrahaMotion .Strength.Retrograde $lang }} ({{ .Strength.RetrogressionStrength }})</td>
                     <td>{{ YesOrNo .Strength.Combust $lang }} ({{ .Strength.CombustionStrength }})</td>
-                    <td>{{ ListOfGrahas .Strength.FriendlyAspects $lang }}</td>
-                    <td>{{ ListOfGrahas .Strength.NeutralAspects $lang }}</td>
-                    <td>{{ ListOfGrahas .Strength.InimicalAspects $lang }}</td>
-                    <td>{{ YesOrNo .Strength.InGoodBhava $lang }} ({{ .Strength.ResidenceStrength }})</td>
+                    <td>{{ .Strength.Residence }} ({{ .Strength.ResidenceStrength }})</td>
                     <td>{{ GrahaState .Strength.State $lang }} ({{ .Strength.StateStrength }})</td>
                     <td>{{ .Strength.DirectionalStrength }}</td>
-                    <td>{{ .Strength.CumulativeStrength }}</td>
                 </tr>
                 {{ end }}
             </tbody>
