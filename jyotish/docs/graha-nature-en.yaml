@@ -33,6 +33,27 @@ section:
               - Malefic
             - - Ketu
               - Malefic
+    - header: Functional Nature
+      content:
+        - >-
+          A graha gives good or bad results during its dasha period. It is not
+          that a naturally benefic planet will benefit the native and a naturally
+          malefic planet will harm the native. The functional nature depends on
+          the ownership of the bhava in the horoscope. Use the following rules
+          in determining the functional nature of a planet:
+        - The lord of lagna (1st bhava) and triangle (5th, 9th bhava) is benefic
+          where 9 > 5 > 1.
+        - The lord of 3rd, 6th and 11th bhava is malefic where 3 < 6 < 11.
+        - The lord of 6th, 8th and 12th bhava is malefic where 8 > 6 > 12.
+        - The lord of the kendra (4th, 7th, 10th bhava) gives up its natural
+          nature and becomes neutral; if the natural nature is benefic then
+          it no longer remains benefic and if the natural nature is malefic
+          then it no longer remains malefic. This is called Kendra-adhipati dosha.
+        - If Moon is the lord of lagna then it is neutral.
+        - If Sun or Moon is the lord of 2nd or 8th or 12th bhava then it is neutral.
+        - If the lord of any house is situated in its own bhava then it is always benefic.
+
+
   remarks:
     - >-
       Some experts believe that the Moon is benefic N days before and after the

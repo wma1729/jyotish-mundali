@@ -48,6 +48,7 @@ type Language struct {
 	FriendlyRashi      string `json:"friendly-rashi"`
 	Friends            string `json:"friends"`
 	FullAspect         string `json:"full-aspect"`
+	Functional         string `json:"functional"`
 	Graha              string `json:"graha"`
 	GrahaState         string `json:"graha-state"`
 	HalfAspect         string `json:"half-aspect"`

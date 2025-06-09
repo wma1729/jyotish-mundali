@@ -103,6 +103,16 @@ func (c *Chart) GetGrahaAttributes(name string) *GrahaAttributes {
 	return nil
 }
 
+func (c *Chart) GetOwningBhavas(name string) []int {
+	bhavas := make([]int, 1)
+	for _, b := range c.Bhavas {
+		if b.RashiLord.Name == name {
+			bhavas = append(bhavas, b.Number)
+		}
+	}
+	return bhavas
+}
+
 func isCombust(graha string, retrograde bool, distanceFromSun float64) (bool, float64) {
 	d := distanceFromSun
 	switch graha {
