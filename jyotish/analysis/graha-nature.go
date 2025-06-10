@@ -2,14 +2,14 @@ package analysis
 
 import (
 	"jyotish/constants"
-	"log"
 	"math"
 )
 
 type GrahaNature struct {
-	Name             string
-	NaturalNature    int
-	FunctionalNature int
+	Name                  string
+	NaturalNature         int
+	FunctionalNature      int
+	FunctionalNatureScore int
 }
 
 func isMoonBenefic(chart *Chart) bool {
@@ -150,40 +150,49 @@ func (nature *GrahaNature) findNaturalNature(name string, chart *Chart) {
 }
 
 func (nature *GrahaNature) findFunctionalNature(name string, chart *Chart) {
-	result := 0
+	nature.FunctionalNatureScore = 0
 
 	bhavas := chart.GetOwningBhavas(name)
 	for _, num := range bhavas {
 		switch num {
 		case 1:
 			if name != constants.MOON {
-				result += 1
+				nature.FunctionalNatureScore += 1
 			}
 
 		case 2:
 			if name != constants.SUN && name != constants.MOON {
-				result += 1
+				nature.FunctionalNatureScore += 1
 			}
 
 		case 3, 6, 11:
-			result -= 1
+			nature.FunctionalNatureScore -= 1
 
 		case 5, 9:
-			result += 1
+			nature.FunctionalNatureScore += 1
 
 		case 8, 12:
 			if name != constants.SUN && name != constants.MOON {
-				result -= 1
+				nature.FunctionalNatureScore -= 1
 			}
 
 		}
 	}
 
-	log.Printf("%s: %d", name, result)
+	// Override the rules if graha in its own rashi
+	_, b := chart.GetGrahaBhava(name)
+	if b != nil {
+		if b.RashiLord.Name == name {
+			if nature.FunctionalNatureScore < 0 {
+				nature.FunctionalNatureScore = 0
+			}
+			nature.FunctionalNatureScore += 1
+		}
+	}
 
-	if result > 0 {
+	if nature.FunctionalNatureScore > 0 {
 		nature.FunctionalNature = constants.BENEFIC
-	} else if result == 0 {
+	} else if nature.FunctionalNatureScore == 0 {
 		nature.FunctionalNature = constants.NEUTRAL
 	} else {
 		nature.FunctionalNature = constants.MALEFIC
