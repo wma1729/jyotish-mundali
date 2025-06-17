@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"jyotish/analysis"
+	"jyotish/constants"
 	"jyotish/models"
 	"net/http"
 	"strings"
@@ -49,6 +50,10 @@ func GetGrahaNameForChart(graha analysis.GrahaLocCombust, lang string) template.
 	return template.HTML(sb.String())
 }
 
+func GetBhava(chart *analysis.Chart, bhavaNum int) analysis.Bhava {
+	return chart.Bhavas[bhavaNum-1]
+}
+
 func GetGrahaName(graha string, lang string) string {
 	return models.GrahaName(graha, lang)
 }
@@ -79,6 +84,44 @@ func ListOfAspectingGrahas(aspectingGrahas []analysis.AscpectAndDegree, lang str
 	return sb.String()
 }
 
+func GetGrahaPositionResult(grahaPosition analysis.GrahaPosition, lang string) string {
+	var vocab *models.Language
+
+	if lang == "en" {
+		vocab = &models.EnglishVocab
+	} else {
+		vocab = &models.HindiVocab
+	}
+
+	sb := strings.Builder{}
+
+	sb.WriteString(fmt.Sprintf("%d ", grahaPosition.Count))
+	switch grahaPosition.Result {
+	case constants.RESULT_GAINS:
+		sb.WriteString(vocab.Benefic)
+	case constants.RESULT_LOSSES:
+		sb.WriteString(vocab.Malefic)
+	default:
+		sb.WriteString(vocab.Neutral)
+	}
+	sb.WriteString(" - ")
+	switch grahaPosition.Subjects {
+	case constants.SUBJECTS_LIVING_BEING:
+		sb.WriteString(vocab.SubjectsLiving)
+	case constants.SUBJECTS_NON_LIVING_BEING:
+		sb.WriteString(vocab.SubjectsNonLiving)
+	default:
+		sb.WriteString(fmt.Sprintf("%s, %s", vocab.SubjectsLiving, vocab.SubjectsNonLiving))
+	}
+	sb.WriteString(fmt.Sprintf(" (%d)", grahaPosition.Score))
+
+	return sb.String()
+}
+
+func GetRashiName(number int, lang string) string {
+	return fmt.Sprintf("%s (%d)", models.RashiName(number, lang), number)
+}
+
 func GetAnalysisPage(user *models.User, chart analysis.Chart) (*AnalysisPage, error) {
 	var page AnalysisPage
 
@@ -100,15 +143,18 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 	tmplName := "analysis"
 	tmpl := template.Must(template.New(tmplName).Funcs(
 		template.FuncMap{
-			"GetGrahaNameForChart":  GetGrahaNameForChart,
-			"GetGrahaName":          GetGrahaName,
-			"ListOfGrahas":          ListOfGrahas,
-			"ListOfAspectingGrahas": ListOfAspectingGrahas,
-			"GrahaNature":           models.GrahaNature,
-			"GrahaMotion":           models.GrahaMotion,
-			"YesOrNo":               models.YesOrNo,
-			"GrahaPosition":         models.GrahaPosition,
-			"GrahaState":            models.GrahaState,
+			"GetBhava":               GetBhava,
+			"GetGrahaNameForChart":   GetGrahaNameForChart,
+			"GetGrahaName":           GetGrahaName,
+			"ListOfGrahas":           ListOfGrahas,
+			"ListOfAspectingGrahas":  ListOfAspectingGrahas,
+			"GrahaNature":            models.GrahaNature,
+			"GrahaMotion":            models.GrahaMotion,
+			"YesOrNo":                models.YesOrNo,
+			"GrahaPosition":          models.GrahaPosition,
+			"GrahaState":             models.GrahaState,
+			"GetRashiName":           GetRashiName,
+			"GetGrahaPositionResult": GetGrahaPositionResult,
 		}).ParseFiles(
 		"templates/analysis.html",
 		"templates/lagna-chart.html",

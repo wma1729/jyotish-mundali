@@ -157,7 +157,7 @@ func (nature *GrahaNature) findFunctionalNature(name string, chart *Chart) {
 		switch num {
 		case 1:
 			if name != constants.MOON {
-				nature.FunctionalNatureScore += 1
+				nature.FunctionalNatureScore += 2
 			}
 
 		case 2:
@@ -169,7 +169,7 @@ func (nature *GrahaNature) findFunctionalNature(name string, chart *Chart) {
 			nature.FunctionalNatureScore -= 1
 
 		case 5, 9:
-			nature.FunctionalNatureScore += 1
+			nature.FunctionalNatureScore += 2
 
 		case 8, 12:
 			if name != constants.SUN && name != constants.MOON {
@@ -182,7 +182,7 @@ func (nature *GrahaNature) findFunctionalNature(name string, chart *Chart) {
 	// Override the rules if graha in its own rashi
 	_, b := chart.GetGrahaBhava(name)
 	if b != nil {
-		if b.RashiLord.Name == name {
+		if b.RashiLord == name {
 			if nature.FunctionalNatureScore < 0 {
 				nature.FunctionalNatureScore = 0
 			}

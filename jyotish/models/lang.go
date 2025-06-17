@@ -11,6 +11,8 @@ type Language struct {
 	Action             string `json:"action"`
 	Adult              string `json:"adult"`
 	Analysis           string `json:"analysis"`
+	Aries              string `json:"aries"`
+	Aquarius           string `json:"aquarius"`
 	Aspect             string `json:"aspect"`
 	Astrologer         string `json:"astrologer"`
 	Attributes         string `json:"attributes"`
@@ -19,6 +21,8 @@ type Language struct {
 	Bhava              string `json:"bhava"`
 	BirthDetails       string `json:"birthdetails"`
 	BodyParts          string `json:"body-parts"`
+	Cancer             string `json:"cancer"`
+	Capricorn          string `json:"capricorn"`
 	Chart              string `json:"chart"`
 	ChartDetails       string `json:"chartdetails"`
 	Child              string `json:"child"`
@@ -35,6 +39,8 @@ type Language struct {
 	Description        string `json:"description"`
 	DirectMeanings     string `json:"direct-meanings"`
 	Directional        string `json:"directional"`
+	DistanceFromBhava  string `json:"distance-from-bhava"`
+	DistanceFromLagna  string `json:"distance-from-lagna"`
 	Effective          string `json:"effective"`
 	Efforts            string `json:"efforts"`
 	Enemies            string `json:"enemies"`
@@ -49,6 +55,7 @@ type Language struct {
 	Friends            string `json:"friends"`
 	FullAspect         string `json:"full-aspect"`
 	Functional         string `json:"functional"`
+	Gemini             string `json:"gemini"`
 	Graha              string `json:"graha"`
 	GrahaState         string `json:"graha-state"`
 	HalfAspect         string `json:"half-aspect"`
@@ -62,7 +69,10 @@ type Language struct {
 	KnowledgeBase      string `json:"knowledgebase"`
 	Lagna              string `json:"lagna"`
 	Language           string `json:"language"`
+	Leo                string `json:"leo"`
+	Libra              string `json:"libra"`
 	Logout             string `json:"logout"`
+	Lord               string `json:"lord"`
 	Malefic            string `json:"malefic"`
 	Mars               string `json:"mars"`
 	Mercury            string `json:"mercury"`
@@ -89,6 +99,7 @@ type Language struct {
 	Number12           string `json:"num-12"`
 	Old                string `json:"old"`
 	OwnRashi           string `json:"own-rashi"`
+	Pisces             string `json:"pisces"`
 	PlaceOfBirth       string `json:"pob"`
 	Position           string `json:"position"`
 	Preferences        string `json:"preferences"`
@@ -96,20 +107,27 @@ type Language struct {
 	Public             string `json:"public"`
 	QuarterAspect      string `json:"quarter-aspect"`
 	Rahu               string `json:"rahu"`
+	Rashi              string `json:"rashi"`
 	RashiNumber        string `json:"rashi-number"`
 	Relations          string `json:"relations"`
 	Remarks            string `json:"remarks"`
 	Retrograde         string `json:"retrograde"`
 	RetrogradeAbbr     string `json:"retrograde-abbr"`
+	Sagittarius        string `json:"sagittarius"`
 	Saturn             string `json:"saturn"`
 	Save               string `json:"save"`
+	Scorpio            string `json:"scorpio"`
 	SiteAdmin          string `json:"siteadmin"`
 	State              string `json:"state"`
 	Strength           string `json:"strength"`
+	SubjectsLiving     string `json:"subjects-living"`
+	SubjectsNonLiving  string `json:"subjects-non-living"`
 	Sun                string `json:"sun"`
+	Taurus             string `json:"taurus"`
 	Temporary          string `json:"temporary"`
 	ThreeQuarterAspect string `json:"three-quarter-aspect"`
 	Venus              string `json:"venus"`
+	Virgo              string `json:"virgo"`
 	WorstEnemies       string `json:"worst-enemies"`
 	Yes                string `json:"yes"`
 	Youth              string `json:"youth"`
@@ -269,6 +287,45 @@ func GrahaState(state int, lang string) string {
 		return vocab.Old
 	case constants.DEAD:
 		return vocab.Dead
+	}
+
+	return "-"
+}
+
+func RashiName(number int, lang string) string {
+	var vocab *Language
+
+	if lang == "en" {
+		vocab = &EnglishVocab
+	} else {
+		vocab = &HindiVocab
+	}
+
+	switch number {
+	case 1:
+		return vocab.Aries
+	case 2:
+		return vocab.Taurus
+	case 3:
+		return vocab.Gemini
+	case 4:
+		return vocab.Cancer
+	case 5:
+		return vocab.Leo
+	case 6:
+		return vocab.Virgo
+	case 7:
+		return vocab.Libra
+	case 8:
+		return vocab.Scorpio
+	case 9:
+		return vocab.Sagittarius
+	case 10:
+		return vocab.Capricorn
+	case 11:
+		return vocab.Aquarius
+	case 12:
+		return vocab.Pisces
 	}
 
 	return "-"

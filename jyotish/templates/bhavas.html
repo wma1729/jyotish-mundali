@@ -1,6 +1,7 @@
 {{ define "bhavas" }}
     {{ $lang := .User.Lang }}
     {{ $vocab := .Vocab }}
+    {{ $chart := .Chart }}
     <article class="bhava-analysis">
         <h2>{{ $vocab.Bhava }} {{ $vocab.Analysis }}</h2>
         {{ range .BhavaDesc }}
@@ -15,7 +16,19 @@
                         <li><b>{{ $vocab.Efforts }}</b>: {{ .Efforts }}</li>
                     </ul>
                 </details>
+                {{ $bhava := GetBhava $chart .Number }}
+                <ul class="no-list-styling">
+                    <li><b>{{ $vocab.Bhava }} {{ $vocab.Rashi }}</b>: {{ GetRashiName $bhava.RashiNum $lang }}</li>
+                    <li><b>{{ $vocab.Bhava }} {{ $vocab.Lord }}</b>: {{ GetGrahaName $bhava.RashiLord $lang}}</li>
+                    <li><b>{{ $vocab.DistanceFromLagna }}</b>: {{ GetGrahaPositionResult $bhava.BhavaLord.DistanceFromLagna $lang }}</li>
+                    <li><b>{{ $vocab.DistanceFromBhava }}</b>: {{ GetGrahaPositionResult $bhava.BhavaLord.DistanceFromBhava $lang }}</li>
+                </ul>
             </article>
         {{ end }}
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     </article>
 {{ end }}

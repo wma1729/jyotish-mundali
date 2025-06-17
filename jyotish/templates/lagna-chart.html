@@ -4,7 +4,7 @@
         <section class="lagna-chart">
         {{ range .Chart.Bhavas }}
             <section class="bhava-{{ .Number }}-wrapper">
-                <div class="bhava-{{ .Number }}" style="background-color: var(--{{ .RashiLord.Name }}-color)">
+                <div class="bhava-{{ .Number }}" style="background-color: var(--{{ .RashiLord }}-color)">
                     <p id="graha">
                     {{ range .Grahas }}
                         {{ GetGrahaNameForChart . $lang }}

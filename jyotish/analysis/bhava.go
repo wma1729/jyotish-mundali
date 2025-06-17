@@ -11,21 +11,28 @@ type GrahaLocCombust struct {
 	CombustionExtent float64
 }
 
-type BhavaLord struct {
-	Name              string
-	DistanceFromLagna int
-	DistanceFromBhava int
+type GrahaPosition struct {
+	Count    int
+	Score    int
+	Result   int
+	Subjects int
+}
+
+type BhavaLordAttr struct {
+	DistanceFromLagna GrahaPosition
+	DistanceFromBhava GrahaPosition
 }
 
 type Bhava struct {
 	Number             int
 	RashiNum           int
-	RashiLord          BhavaLord
+	RashiLord          string
 	Grahas             []GrahaLocCombust
 	FullAspect         []string
 	ThreeQuarterAspect []string
 	HalfAspect         []string
 	QuarterAspect      []string
+	BhavaLord          BhavaLordAttr
 }
 
 func (b *Bhava) ContainsGraha(name string) bool {
