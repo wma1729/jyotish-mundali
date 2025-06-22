@@ -80,3 +80,15 @@
 .no-list-styling {
     list-style-type: none;
 }
+
+.good {
+    color: green;
+}
+
+.neutral {
+    color: blue;
+}
+
+.bad {
+    color: red;
+}

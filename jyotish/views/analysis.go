@@ -84,7 +84,7 @@ func ListOfAspectingGrahas(aspectingGrahas []analysis.AscpectAndDegree, lang str
 	return sb.String()
 }
 
-func GetGrahaPositionResult(grahaPosition analysis.GrahaPosition, lang string) string {
+func GetGrahaPositionResult(grahaPosition analysis.GrahaPosition, lang string) template.HTML {
 	var vocab *models.Language
 
 	if lang == "en" {
@@ -95,13 +95,15 @@ func GetGrahaPositionResult(grahaPosition analysis.GrahaPosition, lang string) s
 
 	sb := strings.Builder{}
 
-	sb.WriteString(fmt.Sprintf("%d ", grahaPosition.Count))
 	switch grahaPosition.Result {
 	case constants.RESULT_GAINS:
+		sb.WriteString(fmt.Sprintf(`<span class="good">%d `, grahaPosition.Count))
 		sb.WriteString(vocab.Benefic)
 	case constants.RESULT_LOSSES:
+		sb.WriteString(fmt.Sprintf(`<span class="bad">%d `, grahaPosition.Count))
 		sb.WriteString(vocab.Malefic)
 	default:
+		sb.WriteString(fmt.Sprintf(`<span class="neutral">%d `, grahaPosition.Count))
 		sb.WriteString(vocab.Neutral)
 	}
 	sb.WriteString(" - ")
@@ -113,9 +115,9 @@ func GetGrahaPositionResult(grahaPosition analysis.GrahaPosition, lang string) s
 	default:
 		sb.WriteString(fmt.Sprintf("%s, %s", vocab.SubjectsLiving, vocab.SubjectsNonLiving))
 	}
-	sb.WriteString(fmt.Sprintf(" (%d)", grahaPosition.Score))
+	sb.WriteString(fmt.Sprintf(" (%d)</span>", grahaPosition.Score))
 
-	return sb.String()
+	return template.HTML(sb.String())
 }
 
 func GetRashiName(number int, lang string) string {
