@@ -14,9 +14,9 @@ const (
 )
 
 const (
-	BENEFIC = iota
+	NEUTRAL = iota
+	BENEFIC
 	MALEFIC
-	NEUTRAL
 )
 
 const (

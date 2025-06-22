@@ -4,10 +4,12 @@ go 1.18
 
 require (
 	github.com/coreos/go-oidc/v3 v3.2.0
-	github.com/lib/pq v1.10.6
+	github.com/lib/pq v1.10.9
 	golang.org/x/net v0.0.0-20220622184535-263ec571b305
 	golang.org/x/oauth2 v0.0.0-20220622183110-fd043fe589d2
 )
+
+require gopkg.in/yaml.v3 v3.0.1
 
 require (
 	github.com/golang/protobuf v1.4.2 // indirect
@@ -15,5 +17,4 @@ require (
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/square/go-jose.v2 v2.5.1 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

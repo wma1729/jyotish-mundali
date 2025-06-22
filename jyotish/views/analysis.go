@@ -71,6 +71,19 @@ func ListOfGrahas(grahas []string, lang string) string {
 	return sb.String()
 }
 
+func ListOfIntegers(numbers []int) string {
+	sb := strings.Builder{}
+	first := true
+	for _, n := range numbers {
+		if !first {
+			sb.WriteString(", ")
+		}
+		sb.WriteString(fmt.Sprintf("%d", n))
+		first = false
+	}
+	return sb.String()
+}
+
 func ListOfAspectingGrahas(aspectingGrahas []analysis.AscpectAndDegree, lang string) string {
 	sb := strings.Builder{}
 	first := true
@@ -96,15 +109,12 @@ func GetGrahaPositionResult(grahaPosition analysis.GrahaPosition, lang string) t
 	sb := strings.Builder{}
 
 	switch grahaPosition.Result {
-	case constants.RESULT_GAINS:
+	case constants.BENEFIC:
 		sb.WriteString(fmt.Sprintf(`<span class="good">%d `, grahaPosition.Count))
-		sb.WriteString(vocab.Benefic)
-	case constants.RESULT_LOSSES:
+	case constants.MALEFIC:
 		sb.WriteString(fmt.Sprintf(`<span class="bad">%d `, grahaPosition.Count))
-		sb.WriteString(vocab.Malefic)
 	default:
 		sb.WriteString(fmt.Sprintf(`<span class="neutral">%d `, grahaPosition.Count))
-		sb.WriteString(vocab.Neutral)
 	}
 	sb.WriteString(" - ")
 	switch grahaPosition.Subjects {
@@ -148,8 +158,9 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 			"GetBhava":               GetBhava,
 			"GetGrahaNameForChart":   GetGrahaNameForChart,
 			"GetGrahaName":           GetGrahaName,
-			"ListOfGrahas":           ListOfGrahas,
 			"ListOfAspectingGrahas":  ListOfAspectingGrahas,
+			"ListOfGrahas":           ListOfGrahas,
+			"ListOfIntegers":         ListOfIntegers,
 			"GrahaNature":            models.GrahaNature,
 			"GrahaMotion":            models.GrahaMotion,
 			"YesOrNo":                models.YesOrNo,
