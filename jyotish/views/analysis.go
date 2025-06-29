@@ -121,7 +121,8 @@ func GetInfluenceRating(category string, gir analysis.GrahaInfluenceRating, lang
 
 	sb := strings.Builder{}
 
-	if category == "distance" {
+	switch category {
+	case "distance", "position", "owner":
 		switch gir.Rating {
 		case constants.BENEFIC:
 			sb.WriteString(fmt.Sprintf(`<span class="good">%d`, gir.Value))
@@ -130,6 +131,69 @@ func GetInfluenceRating(category string, gir analysis.GrahaInfluenceRating, lang
 		default:
 			sb.WriteString(fmt.Sprintf(`<span class="neutral">%d`, gir.Value))
 		}
+	case "nature":
+		switch gir.Rating {
+		case constants.BENEFIC:
+			sb.WriteString(
+				fmt.Sprintf(`<span class="good">%s`,
+					models.GrahaNature(gir.Value, lang)))
+		case constants.MALEFIC:
+			sb.WriteString(
+				fmt.Sprintf(`<span class="bad">%s`,
+					models.GrahaNature(gir.Value, lang)))
+		default:
+			sb.WriteString(
+				fmt.Sprintf(`<span class="neutral">%s`,
+					models.GrahaNature(gir.Value, lang)))
+		}
+	case "relation":
+		switch gir.Rating {
+		case constants.BENEFIC:
+			sb.WriteString(fmt.Sprintf(`<span class="good">%s`, vocab.Friendly))
+		case constants.MALEFIC:
+			sb.WriteString(fmt.Sprintf(`<span class="bad">%s`, vocab.Inimical))
+		default:
+			sb.WriteString(fmt.Sprintf(`<span class="neutral">%s`, vocab.Neutral))
+		}
+	case "position-strength":
+		switch gir.Rating {
+		case constants.BENEFIC:
+			sb.WriteString(
+				fmt.Sprintf(`<span class="good">%s`,
+					models.GrahaPosition(gir.Value, lang)))
+		case constants.MALEFIC:
+			sb.WriteString(
+				fmt.Sprintf(`<span class="bad">%s`,
+					models.GrahaPosition(gir.Value, lang)))
+		default:
+			sb.WriteString(
+				fmt.Sprintf(`<span class="neutral">%s`,
+					models.GrahaPosition(gir.Value, lang)))
+		}
+	case "combust":
+		if gir.Rating == constants.MALEFIC {
+			sb.WriteString(
+				fmt.Sprintf(`<span class="bad">%s`, vocab.Yes))
+		} else {
+			sb.WriteString(
+				fmt.Sprintf(`<span class="neutral">%s`, vocab.No))
+		}
+	case "retrograde":
+		var motion string
+		if gir.Value == 1 {
+			motion = vocab.Retrograde
+		} else {
+			motion = vocab.Forward
+		}
+
+		switch gir.Rating {
+		case constants.BENEFIC:
+			sb.WriteString(fmt.Sprintf(`<span class="good">%s`, motion))
+		case constants.MALEFIC:
+			sb.WriteString(fmt.Sprintf(`<span class="bad">%s`, motion))
+		default:
+			sb.WriteString(fmt.Sprintf(`<span class="neutral">%s`, motion))
+		}
 	}
 
 	switch gir.Notes {
@@ -137,6 +201,8 @@ func GetInfluenceRating(category string, gir analysis.GrahaInfluenceRating, lang
 		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsLiving))
 	case constants.SUBJECTS_NON_LIVING_BEING:
 		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsNonLiving))
+	case constants.BHAVA_LORD:
+		sb.WriteString(fmt.Sprintf(" - %s", vocab.OwnRashi))
 	}
 
 	sb.WriteString("</span>")

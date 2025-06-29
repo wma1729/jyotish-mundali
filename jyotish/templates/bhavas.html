@@ -26,6 +26,13 @@
                         <tr>
                             <th>{{ $vocab.Graha }}</th>
                             <th>{{ $vocab.Influence }}</th>
+                            <th>{{ $vocab.Nature }}</th>
+                            <th>{{ $vocab.Relations }} - {{ GetGrahaName $bhava.RashiLord $lang }}</th>
+                            <th>{{ $vocab.Position }}</th>
+                            <th>{{ $vocab.Bhava }}</th>
+                            <th>{{ $vocab.BhavaOwnership }}</th>
+                            <th>{{ $vocab.Combust }}</th>
+                            <th>{{ $vocab.Motion }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +40,17 @@
                         <tr>
                             <td>{{ GetGrahaName .Name $lang }}</td>
                             <td>{{ GetInfluenceOnBhava .AssociationWithBhava $lang }}</td>
+                            <td>{{ GetInfluenceRating "nature" .Nature $lang }}</td>
+                            <td>{{ GetInfluenceRating "relation" .RelationWithBhavaLord $lang }}</td>
+                            <td>{{ GetInfluenceRating "position-strength" .PositionalStrength $lang }}</td>
+                            <td>{{ GetInfluenceRating "position" .PositionInChart $lang }}</td>
+                            <td>
+                                {{ range .OwnerOf }}
+                                    {{ GetInfluenceRating "owner" . $lang}}&nbsp;
+                                {{ end }}
+                            </td>
+                            <td>{{ GetInfluenceRating "combust" .Combust $lang }}</td>
+                            <td>{{ GetInfluenceRating "retrograde" .Retrograde $lang }}</td>
                         </tr>
                         {{ end }}
                     </tbody>

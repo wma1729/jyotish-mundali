@@ -2,9 +2,9 @@ package models
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"jyotish/constants"
 	"log"
+	"os"
 )
 
 type Language struct {
@@ -140,7 +140,7 @@ type Language struct {
 var EnglishVocab, HindiVocab Language
 
 func loadFileContent(fileName string, language *Language) {
-	fileContent, err := ioutil.ReadFile(fileName)
+	fileContent, err := os.ReadFile(fileName)
 	if err != nil {
 		log.Fatalf("failed to open %s", fileName)
 	}

@@ -31,6 +31,7 @@ const (
 )
 
 const (
+	N_A    = 0 // not applicable
 	FRIEND = 1
 	ENEMY  = 2
 )

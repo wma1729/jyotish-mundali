@@ -15,6 +15,7 @@ const (
 	SUBJECTS_ALL              = "all"
 	SUBJECTS_LIVING_BEING     = "living-being"
 	SUBJECTS_NON_LIVING_BEING = "non-living-being"
+	BHAVA_LORD                = "bhava-lord"
 )
 
 var BhavaKarakas = map[int][]string{

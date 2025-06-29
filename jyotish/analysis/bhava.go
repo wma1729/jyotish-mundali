@@ -24,7 +24,7 @@ type GrahaInfluenceOnBhava struct {
 	Nature                GrahaInfluenceRating
 	RelationWithBhavaLord GrahaInfluenceRating
 	PositionInChart       GrahaInfluenceRating
-	PositionStrength      GrahaInfluenceRating
+	PositionalStrength    GrahaInfluenceRating
 	OwnerOf               []GrahaInfluenceRating
 	Combust               GrahaInfluenceRating
 	Retrograde            GrahaInfluenceRating
@@ -77,9 +77,10 @@ func (b *Bhava) IsRetrograde(name string) bool {
 }
 
 func (b *Bhava) FindGrahasAssociations(c *Chart, name string, assoc int) {
-	for _, gi := range b.GrahasInfluence {
+	for i, gi := range b.GrahasInfluence {
 		if gi.Name == name {
-			gi.AssociationWithBhava = append(gi.AssociationWithBhava, assoc)
+			b.GrahasInfluence[i].AssociationWithBhava =
+				append(gi.AssociationWithBhava, assoc)
 			return
 		}
 	}
@@ -102,9 +103,15 @@ func (b *Bhava) FindGrahasAssociations(c *Chart, name string, assoc int) {
 
 	// Is the graha friendly, inimical or neutral to bhava lord?
 
-	gi.RelationWithBhavaLord.Value = constants.NEUTRAL
-	gi.RelationWithBhavaLord.Rating = constants.NEUTRAL
-	gi.RelationWithBhavaLord.Notes = ""
+	if name == b.RashiLord && assoc != constants.BHAVA_OWNERSHIP {
+		gi.RelationWithBhavaLord.Value = constants.BENEFIC
+		gi.RelationWithBhavaLord.Rating = constants.BENEFIC
+		gi.RelationWithBhavaLord.Notes = constants.BHAVA_LORD
+	} else {
+		gi.RelationWithBhavaLord.Value = constants.NEUTRAL
+		gi.RelationWithBhavaLord.Rating = constants.NEUTRAL
+		gi.RelationWithBhavaLord.Notes = ""
+	}
 
 	for _, g := range constants.GrahaBalaInRashiRulesMap[name].Friends {
 		if g == b.RashiLord {
@@ -136,22 +143,22 @@ func (b *Bhava) FindGrahasAssociations(c *Chart, name string, assoc int) {
 
 	// Get the position strength
 
-	gi.PositionStrength.Value = ga.Strength.Position
-	switch gi.PositionStrength.Value {
-	case constants.IN_EXALTATION_RASHI:
-	case constants.IN_MOOLTRIKONA_RASHI:
-	case constants.IN_OWN_RASHI:
-	case constants.IN_FRIENDLY_RASHI:
-		gi.PositionInChart.Rating = constants.BENEFIC
+	gi.PositionalStrength.Value = ga.Strength.Position
+	switch gi.PositionalStrength.Value {
+	case constants.IN_EXALTATION_RASHI,
+		constants.IN_MOOLTRIKONA_RASHI,
+		constants.IN_OWN_RASHI,
+		constants.IN_FRIENDLY_RASHI:
+		gi.PositionalStrength.Rating = constants.BENEFIC
 
-	case constants.IN_DEBILITATION_RASHI:
-	case constants.IN_INIMICAL_RASHI:
-		gi.PositionStrength.Rating = constants.MALEFIC
+	case constants.IN_DEBILITATION_RASHI,
+		constants.IN_INIMICAL_RASHI:
+		gi.PositionalStrength.Rating = constants.MALEFIC
 
 	default:
-		gi.PositionStrength.Rating = constants.NEUTRAL
+		gi.PositionalStrength.Rating = constants.NEUTRAL
 	}
-	gi.PositionStrength.Notes = ""
+	gi.PositionalStrength.Notes = ""
 
 	// Get the ownership
 
@@ -178,7 +185,7 @@ func (b *Bhava) FindGrahasAssociations(c *Chart, name string, assoc int) {
 		gi.Combust.Rating = constants.MALEFIC
 	} else {
 		gi.Combust.Value = 0
-		gi.Combust.Rating = constants.BENEFIC
+		gi.Combust.Rating = constants.NEUTRAL
 	}
 	gi.Combust.Notes = ""
 
@@ -186,10 +193,16 @@ func (b *Bhava) FindGrahasAssociations(c *Chart, name string, assoc int) {
 
 	if ga.Strength.Retrograde {
 		gi.Retrograde.Value = 1
-		gi.Retrograde.Rating = constants.MALEFIC
+		if name == constants.RAHU || name == constants.KETU {
+			gi.Retrograde.Rating = constants.NEUTRAL
+		} else if ga.Nature.NaturalNature == constants.BENEFIC {
+			gi.Retrograde.Rating = constants.BENEFIC
+		} else {
+			gi.Retrograde.Rating = constants.MALEFIC
+		}
 	} else {
 		gi.Retrograde.Value = 0
-		gi.Retrograde.Rating = constants.BENEFIC
+		gi.Retrograde.Rating = constants.NEUTRAL
 	}
 	gi.Retrograde.Notes = ""
 
@@ -204,7 +217,7 @@ func (b *Bhava) FindGrahasInfluence(c *Chart) {
 	for i := 0; i < constants.MAX_BHAVA_NUM; i++ {
 		if c.Bhavas[i].ContainsGraha(b.RashiLord) {
 			b.BhavaLordDistanceFromLagna.Value = i + 1
-			var distanceFromBhava = i - b.Number
+			var distanceFromBhava = i - (b.Number - 1)
 			if distanceFromBhava < 0 {
 				distanceFromBhava += constants.MAX_BHAVA_NUM
 			}
@@ -237,6 +250,10 @@ func (b *Bhava) FindGrahasInfluence(c *Chart) {
 	}
 	b.BhavaLordDistanceFromBhava.Notes = constants.SUBJECTS_NON_LIVING_BEING
 
+	for _, g := range constants.BhavaKarakas[b.Number] {
+		b.FindGrahasAssociations(c, g, constants.BHAVA_SIGNIFICATOR)
+	}
+
 	for _, g := range b.Grahas {
 		if g.Name != constants.LAGNA {
 			b.FindGrahasAssociations(c, g.Name, constants.BHAVA_PLACEMENT)
@@ -245,9 +262,5 @@ func (b *Bhava) FindGrahasInfluence(c *Chart) {
 
 	for _, g := range b.FullAspect {
 		b.FindGrahasAssociations(c, g, constants.BHAVA_ASPECT)
-	}
-
-	for _, g := range constants.BhavaKarakas[b.Number] {
-		b.FindGrahasAssociations(c, g, constants.BHAVA_SIGNIFICATOR)
 	}
 }
