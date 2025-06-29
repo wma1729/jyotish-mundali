@@ -97,7 +97,20 @@ func ListOfAspectingGrahas(aspectingGrahas []analysis.AscpectAndDegree, lang str
 	return sb.String()
 }
 
-func GetGrahaPositionResult(grahaPosition analysis.GrahaPosition, lang string) template.HTML {
+func GetInfluenceOnBhava(assoc []int, lang string) string {
+	sb := strings.Builder{}
+	first := true
+	for _, a := range assoc {
+		if !first {
+			sb.WriteString(", ")
+		}
+		sb.WriteString(models.GetInfluenceOnBhava(a, lang))
+		first = false
+	}
+	return sb.String()
+}
+
+func GetInfluenceRating(category string, gir analysis.GrahaInfluenceRating, lang string) template.HTML {
 	var vocab *models.Language
 
 	if lang == "en" {
@@ -108,24 +121,25 @@ func GetGrahaPositionResult(grahaPosition analysis.GrahaPosition, lang string) t
 
 	sb := strings.Builder{}
 
-	switch grahaPosition.Result {
-	case constants.BENEFIC:
-		sb.WriteString(fmt.Sprintf(`<span class="good">%d `, grahaPosition.Count))
-	case constants.MALEFIC:
-		sb.WriteString(fmt.Sprintf(`<span class="bad">%d `, grahaPosition.Count))
-	default:
-		sb.WriteString(fmt.Sprintf(`<span class="neutral">%d `, grahaPosition.Count))
+	if category == "distance" {
+		switch gir.Rating {
+		case constants.BENEFIC:
+			sb.WriteString(fmt.Sprintf(`<span class="good">%d`, gir.Value))
+		case constants.MALEFIC:
+			sb.WriteString(fmt.Sprintf(`<span class="bad">%d`, gir.Value))
+		default:
+			sb.WriteString(fmt.Sprintf(`<span class="neutral">%d`, gir.Value))
+		}
 	}
-	sb.WriteString(" - ")
-	switch grahaPosition.Subjects {
+
+	switch gir.Notes {
 	case constants.SUBJECTS_LIVING_BEING:
-		sb.WriteString(vocab.SubjectsLiving)
+		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsLiving))
 	case constants.SUBJECTS_NON_LIVING_BEING:
-		sb.WriteString(vocab.SubjectsNonLiving)
-	default:
-		sb.WriteString(fmt.Sprintf("%s, %s", vocab.SubjectsLiving, vocab.SubjectsNonLiving))
+		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsNonLiving))
 	}
-	sb.WriteString(fmt.Sprintf(" (%d)</span>", grahaPosition.Score))
+
+	sb.WriteString("</span>")
 
 	return template.HTML(sb.String())
 }
@@ -155,19 +169,20 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 	tmplName := "analysis"
 	tmpl := template.Must(template.New(tmplName).Funcs(
 		template.FuncMap{
-			"GetBhava":               GetBhava,
-			"GetGrahaNameForChart":   GetGrahaNameForChart,
-			"GetGrahaName":           GetGrahaName,
-			"ListOfAspectingGrahas":  ListOfAspectingGrahas,
-			"ListOfGrahas":           ListOfGrahas,
-			"ListOfIntegers":         ListOfIntegers,
-			"GrahaNature":            models.GrahaNature,
-			"GrahaMotion":            models.GrahaMotion,
-			"YesOrNo":                models.YesOrNo,
-			"GrahaPosition":          models.GrahaPosition,
-			"GrahaState":             models.GrahaState,
-			"GetRashiName":           GetRashiName,
-			"GetGrahaPositionResult": GetGrahaPositionResult,
+			"GetBhava":              GetBhava,
+			"GetGrahaNameForChart":  GetGrahaNameForChart,
+			"GetGrahaName":          GetGrahaName,
+			"ListOfAspectingGrahas": ListOfAspectingGrahas,
+			"ListOfGrahas":          ListOfGrahas,
+			"ListOfIntegers":        ListOfIntegers,
+			"GrahaNature":           models.GrahaNature,
+			"GrahaMotion":           models.GrahaMotion,
+			"YesOrNo":               models.YesOrNo,
+			"GrahaPosition":         models.GrahaPosition,
+			"GrahaState":            models.GrahaState,
+			"GetRashiName":          GetRashiName,
+			"GetInfluenceRating":    GetInfluenceRating,
+			"GetInfluenceOnBhava":   GetInfluenceOnBhava,
 		}).ParseFiles(
 		"templates/analysis.html",
 		"templates/lagna-chart.html",

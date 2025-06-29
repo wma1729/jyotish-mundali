@@ -19,6 +19,10 @@ type Language struct {
 	Benefic            string `json:"benefic"`
 	BestFriends        string `json:"best-friends"`
 	Bhava              string `json:"bhava"`
+	BhavaAspect        string `json:"bhava-aspect"`
+	BhavaPlacement     string `json:"bhava-placement"`
+	BhavaOwnership     string `json:"bhava-ownership"`
+	BhavaSignificator  string `json:"bhava-significator"`
 	BirthDetails       string `json:"birthdetails"`
 	BodyParts          string `json:"body-parts"`
 	Cancer             string `json:"cancer"`
@@ -61,7 +65,7 @@ type Language struct {
 	HalfAspect         string `json:"half-aspect"`
 	Hindi              string `json:"hindi"`
 	Home               string `json:"home"`
-	Indicator          string `json:"indicator"`
+	Influence          string `json:"influence"`
 	Inimical           string `json:"inimical"`
 	InKendra           string `json:"in-kendra"`
 	Jupiter            string `json:"jupiter"`
@@ -329,4 +333,27 @@ func RashiName(number int, lang string) string {
 	}
 
 	return "-"
+}
+
+func GetInfluenceOnBhava(assoc int, lang string) string {
+	var vocab *Language
+
+	if lang == "en" {
+		vocab = &EnglishVocab
+	} else {
+		vocab = &HindiVocab
+	}
+
+	switch assoc {
+	case constants.BHAVA_ASPECT:
+		return vocab.BhavaAspect
+	case constants.BHAVA_PLACEMENT:
+		return vocab.BhavaPlacement
+	case constants.BHAVA_OWNERSHIP:
+		return vocab.BhavaOwnership
+	case constants.BHAVA_SIGNIFICATOR:
+		return vocab.BhavaSignificator
+	default:
+		return "-"
+	}
 }

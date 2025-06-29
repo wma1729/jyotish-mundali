@@ -74,10 +74,11 @@
 .bhava-desc {
     margin: 0.5rem;
     padding: 0.3rem;
-    background-color: rgb(119, 174, 175, 0.1);
+    background-color: rgb(119, 174, 175);
 }
 
 .no-list-styling {
+    padding-inline-start: 0;
     list-style-type: none;
 }
 

@@ -12,17 +12,31 @@
                         <li><b>{{ $vocab.Relations }}</b>: {{ .Relations }}</li>
                         <li><b>{{ $vocab.BodyParts }}</b>: {{ .BodyParts }}</li>
                         <li><b>{{ $vocab.DirectMeanings }}</b>: {{ .Meanings }}</li>
-                        <li><b>{{ $vocab.Indicator }}</b>: {{ .Indicator }}</li>
+                        <li><b>{{ $vocab.BhavaSignificator }}</b>: {{ .Significator }}</li>
                         <li><b>{{ $vocab.Efforts }}</b>: {{ .Efforts }}</li>
                     </ul>
                 </details>
                 {{ $bhava := GetBhava $chart .Number }}
-                <ul class="no-list-styling">
-                    <li><b>{{ $vocab.Bhava }} {{ $vocab.Rashi }}</b>: {{ GetRashiName $bhava.RashiNum $lang }}</li>
-                    <li><b>{{ $vocab.Bhava }} {{ $vocab.Lord }}</b>: {{ GetGrahaName $bhava.RashiLord $lang}}</li>
-                    <li><b>{{ $vocab.DistanceFromLagna }}</b>: {{ GetGrahaPositionResult $bhava.BhavaLord.DistanceFromLagna $lang }}</li>
-                    <li><b>{{ $vocab.DistanceFromBhava }}</b>: {{ GetGrahaPositionResult $bhava.BhavaLord.DistanceFromBhava $lang }}</li>
-                </ul>
+                <p style="padding-left: 1rem;"><b>{{ $vocab.Bhava }} {{ $vocab.Rashi }}</b>: {{ GetRashiName $bhava.RashiNum $lang }}</p>
+                <p style="padding-left: 1rem;"><b>{{ $vocab.Bhava }} {{ $vocab.Lord }}</b>: {{ GetGrahaName $bhava.RashiLord $lang }}</p>
+                <p style="padding-left: 1rem;"><b>{{ $vocab.DistanceFromLagna }}</b>: {{ GetInfluenceRating "distance" $bhava.BhavaLordDistanceFromLagna $lang }}</p>
+                <p style="padding-left: 1rem;"><b>{{ $vocab.DistanceFromBhava }}</b>: {{ GetInfluenceRating "distance" $bhava.BhavaLordDistanceFromBhava $lang }}</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ $vocab.Graha }}</th>
+                            <th>{{ $vocab.Influence }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{ range $bhava.GrahasInfluence }}
+                        <tr>
+                            <td>{{ GetGrahaName .Name $lang }}</td>
+                            <td>{{ GetInfluenceOnBhava .AssociationWithBhava $lang }}</td>
+                        </tr>
+                        {{ end }}
+                    </tbody>
+                </table>
             </article>
         {{ end }}
         <br>

@@ -61,11 +61,14 @@ func GetChart(gl models.GrahasLocation) Chart {
 
 	chart.findCombustGrahas()
 	chart.findAspectsOnBhavas()
-	chart.findDistanceOfBhavaLordFromLagnaAndBhavaItself()
 	chart.EvaluateGrahaRelations()
 	chart.EvaluateGrahaAspects()
 	chart.EvaluateGrahaNature()
 	chart.EvaluateGrahaStrength()
+
+	for i := 0; i < len(chart.Bhavas); i++ {
+		chart.Bhavas[i].FindGrahasInfluence(&chart)
+	}
 
 	return chart
 }
@@ -245,99 +248,6 @@ func (c *Chart) findAspectsOnBhavas() {
 				aspectedBhava.QuarterAspect = append(aspectedBhava.QuarterAspect, g.Name)
 			}
 		}
-	}
-}
-
-func (c *Chart) findDistanceOfBhavaLordFromLagnaAndBhavaItself() {
-	for i, bhava := range c.Bhavas {
-		var bhavaLord = bhava.RashiLord
-		for j := 0; j < constants.MAX_BHAVA_NUM; j++ {
-			if c.Bhavas[j].ContainsGraha(bhavaLord) {
-				bhava.BhavaLord.DistanceFromLagna.Count = j + 1
-				var distanceFromBhava = j - i
-				if distanceFromBhava < 0 {
-					distanceFromBhava += constants.MAX_BHAVA_NUM
-				}
-				bhava.BhavaLord.DistanceFromBhava.Count = distanceFromBhava + 1
-
-				switch bhava.BhavaLord.DistanceFromLagna.Count {
-				case 1:
-					bhava.BhavaLord.DistanceFromLagna.Score = 1
-					bhava.BhavaLord.DistanceFromLagna.Result = constants.BENEFIC
-					bhava.BhavaLord.DistanceFromLagna.Subjects = constants.SUBJECTS_LIVING_BEING
-
-				case 5:
-					bhava.BhavaLord.DistanceFromLagna.Score = 2
-					bhava.BhavaLord.DistanceFromLagna.Result = constants.BENEFIC
-					bhava.BhavaLord.DistanceFromLagna.Subjects = constants.SUBJECTS_LIVING_BEING
-
-				case 6:
-					bhava.BhavaLord.DistanceFromLagna.Score = -1
-					bhava.BhavaLord.DistanceFromLagna.Result = constants.MALEFIC
-					bhava.BhavaLord.DistanceFromLagna.Subjects = constants.SUBJECTS_LIVING_BEING
-
-				case 8:
-					bhava.BhavaLord.DistanceFromLagna.Score = -3
-					bhava.BhavaLord.DistanceFromLagna.Result = constants.MALEFIC
-					bhava.BhavaLord.DistanceFromLagna.Subjects = constants.SUBJECTS_LIVING_BEING
-
-				case 9:
-					bhava.BhavaLord.DistanceFromLagna.Score = 3
-					bhava.BhavaLord.DistanceFromLagna.Result = constants.BENEFIC
-					bhava.BhavaLord.DistanceFromLagna.Subjects = constants.SUBJECTS_LIVING_BEING
-
-				case 12:
-					bhava.BhavaLord.DistanceFromLagna.Score = -2
-					bhava.BhavaLord.DistanceFromLagna.Result = constants.MALEFIC
-					bhava.BhavaLord.DistanceFromLagna.Subjects = constants.SUBJECTS_LIVING_BEING
-
-				default:
-					bhava.BhavaLord.DistanceFromLagna.Score = 0
-					bhava.BhavaLord.DistanceFromLagna.Result = constants.NEUTRAL
-					bhava.BhavaLord.DistanceFromLagna.Subjects = constants.SUBJECTS_LIVING_BEING
-				}
-
-				switch bhava.BhavaLord.DistanceFromBhava.Count {
-				case 1:
-					bhava.BhavaLord.DistanceFromBhava.Score = 1
-					bhava.BhavaLord.DistanceFromBhava.Result = constants.BENEFIC
-					bhava.BhavaLord.DistanceFromBhava.Subjects = constants.SUBJECTS_NON_LIVING_BEING
-
-				case 5:
-					bhava.BhavaLord.DistanceFromBhava.Score = 2
-					bhava.BhavaLord.DistanceFromBhava.Result = constants.BENEFIC
-					bhava.BhavaLord.DistanceFromBhava.Subjects = constants.SUBJECTS_NON_LIVING_BEING
-
-				case 6:
-					bhava.BhavaLord.DistanceFromBhava.Score = -1
-					bhava.BhavaLord.DistanceFromBhava.Result = constants.MALEFIC
-					bhava.BhavaLord.DistanceFromBhava.Subjects = constants.SUBJECTS_NON_LIVING_BEING
-
-				case 8:
-					bhava.BhavaLord.DistanceFromBhava.Score = -3
-					bhava.BhavaLord.DistanceFromBhava.Result = constants.MALEFIC
-					bhava.BhavaLord.DistanceFromBhava.Subjects = constants.SUBJECTS_NON_LIVING_BEING
-
-				case 9:
-					bhava.BhavaLord.DistanceFromBhava.Score = 3
-					bhava.BhavaLord.DistanceFromBhava.Result = constants.BENEFIC
-					bhava.BhavaLord.DistanceFromBhava.Subjects = constants.SUBJECTS_NON_LIVING_BEING
-
-				case 12:
-					bhava.BhavaLord.DistanceFromBhava.Score = -2
-					bhava.BhavaLord.DistanceFromBhava.Result = constants.MALEFIC
-					bhava.BhavaLord.DistanceFromBhava.Subjects = constants.SUBJECTS_NON_LIVING_BEING
-
-				default:
-					bhava.BhavaLord.DistanceFromBhava.Score = 0
-					bhava.BhavaLord.DistanceFromBhava.Result = constants.NEUTRAL
-					bhava.BhavaLord.DistanceFromBhava.Subjects = constants.SUBJECTS_NON_LIVING_BEING
-				}
-
-				break
-			}
-		}
-		c.Bhavas[i].BhavaLord = bhava.BhavaLord
 	}
 }
 

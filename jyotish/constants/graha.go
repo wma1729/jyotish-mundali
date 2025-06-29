@@ -1,5 +1,7 @@
 package constants
 
+const NEUTRAL = 0
+
 const (
 	LAGNA   = "lagna"
 	SUN     = "sun"
@@ -14,9 +16,8 @@ const (
 )
 
 const (
-	NEUTRAL = iota
-	BENEFIC
-	MALEFIC
+	BENEFIC = 1
+	MALEFIC = 2
 )
 
 const (
@@ -27,6 +28,11 @@ const (
 	IN_FRIENDLY_RASHI
 	IN_NEUTRAL_RASHI
 	IN_INIMICAL_RASHI
+)
+
+const (
+	FRIEND = 1
+	ENEMY  = 2
 )
 
 const (
