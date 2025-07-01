@@ -95,54 +95,40 @@ func (strength *GrahaStrength) findState(name string, bhava *Bhava) {
 	}
 }
 
-func (strength *GrahaStrength) findDirectionalStrength(name string, bhava *Bhava) {
+func (strength *GrahaStrength) findDirectionalStrength(name string, bhava *Bhava, ascendent float64) {
+	nadir := ascendent + 90
+	descendent := nadir + 90
+	zenith := descendent + 90
+	var diff float64
+
 	graha := bhava.GrahaByName(name)
 	if graha == nil {
 		return
 	}
 
 	degree := graha.Degree + 30.0*float64(bhava.Number-1)
-	directionalStrength := float64(0.0)
 
 	switch name {
-	case constants.MERCURY:
-	case constants.JUPITER:
-		if degree > 180 {
-			degree = degree - 180
-			directionalStrength = degree / 180
-		} else {
-			directionalStrength = 1 - (degree / 180)
-		}
+	case constants.MERCURY, constants.JUPITER:
+		diff = math.Abs(degree - descendent)
 
-	case constants.MOON:
-	case constants.VENUS:
-		if degree > 270 && degree < 360 {
-			degree = degree - 270
-			directionalStrength = degree / 180
-		} else {
-			degree = math.Abs(degree - 90)
-			directionalStrength = 1 - (degree / 180)
-		}
+	case constants.MOON, constants.VENUS:
+		diff = math.Abs(degree - zenith)
 
 	case constants.SATURN:
-		if degree >= 180 && degree < 360 {
-			degree = degree - 180
-		} else if degree >= 0 && degree < 180 {
-			degree = 180 - degree
-		}
-		directionalStrength = 1 - (degree / 180)
+		diff = math.Abs(degree - ascendent)
 
-	case constants.SUN:
-	case constants.MARS:
-		if degree >= 0 && degree < 90 {
-			degree = degree + 90
-		} else {
-			degree = math.Abs(degree - 270)
-		}
-		directionalStrength = 1 - (degree / 180)
+	case constants.SUN, constants.MARS:
+		diff = math.Abs(degree - nadir)
 	}
 
-	strength.DirectionalStrength = misc.RoundFloat(directionalStrength, 2)
+	if diff > 180 {
+		diff = 360 - diff
+	}
+
+	diff /= (3 * 60.0)
+
+	strength.DirectionalStrength = misc.RoundFloat(diff, 2)
 }
 
 func (strength *GrahaStrength) EvaluateGrahaStrength(name string, chart *Chart) {
@@ -153,10 +139,19 @@ func (strength *GrahaStrength) EvaluateGrahaStrength(name string, chart *Chart) 
 		return
 	}
 
+	var ascendent float64
+
+	for _, g := range chart.Bhavas[0].Grahas {
+		if g.Name == constants.LAGNA {
+			ascendent = g.Degree
+			break
+		}
+	}
+
 	strength.Residence = bhava.Number
 	strength.OwnerOf = chart.GetOwningBhavas(name)
 	strength.findGrahaPosition(name, chart)
 	strength.findCombustAndRetrograde(name, bhava)
 	strength.findState(name, bhava)
-	strength.findDirectionalStrength(name, bhava)
+	strength.findDirectionalStrength(name, bhava, ascendent)
 }
