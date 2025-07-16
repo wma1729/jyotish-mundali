@@ -10,15 +10,17 @@
                     <th>{{ $vocab.Friends }}</th>
                     <th>{{ $vocab.Neutral }}</th>
                     <th>{{ $vocab.Enemies }}</th>
+                    <th>{{ $vocab.Strength }}</th>
                 </tr>
             </thead>
             <tbody>
                 {{ range .Chart.GrahasAttr }}
                 <tr>
                     <th class="fixed-column">{{ GetGrahaName .Aspects.Name $lang }}</th>
-                    <td>{{ ListOfAspectingGrahas .Aspects.Friends $lang }}</td>
-                    <td>{{ ListOfAspectingGrahas .Aspects.Neutrals $lang }}</td>
-                    <td>{{ ListOfAspectingGrahas .Aspects.Enemies $lang }}</td>
+                    <td>{{ ListOfGrahas .Aspects.Friends $lang }}</td>
+                    <td>{{ ListOfGrahas .Aspects.Neutrals $lang }}</td>
+                    <td>{{ ListOfGrahas .Aspects.Enemies $lang }}</td>
+                    <td>{{ .Aspects.Strength }}</td>
                 </tr>
                 {{ end }}
             </tbody>

@@ -194,6 +194,16 @@ func GetInfluenceRating(category string, gir analysis.GrahaInfluenceRating, lang
 		default:
 			sb.WriteString(fmt.Sprintf(`<span class="neutral">%s`, motion))
 		}
+	case "direction-strength":
+		value := fmt.Sprintf("%.2f", float64(gir.Value)/100.00)
+		switch gir.Rating {
+		case constants.BENEFIC:
+			sb.WriteString(fmt.Sprintf(`<span class="good">%s`, value))
+		case constants.MALEFIC:
+			sb.WriteString(fmt.Sprintf(`<span class="bad">%s`, value))
+		default:
+			sb.WriteString(fmt.Sprintf(`<span class="neutral">%s`, value))
+		}
 	}
 
 	switch gir.Notes {

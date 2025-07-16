@@ -28,6 +28,7 @@ type GrahaInfluenceOnBhava struct {
 	OwnerOf               []GrahaInfluenceRating
 	Combust               GrahaInfluenceRating
 	Retrograde            GrahaInfluenceRating
+	DirectionalStrength   GrahaInfluenceRating
 }
 
 type Bhava struct {
@@ -206,6 +207,22 @@ func (b *Bhava) FindGrahasAssociations(c *Chart, name string, assoc int) {
 	}
 	gi.Retrograde.Notes = ""
 
+	// Get the directional strength
+
+	if name == constants.RAHU || name == constants.KETU {
+		gi.DirectionalStrength.Rating = constants.NEUTRAL
+	} else {
+		gi.DirectionalStrength.Value = int(ga.Strength.DirectionalStrength * 100)
+		if ga.Strength.DirectionalStrength >= 0.75 {
+			gi.DirectionalStrength.Rating = constants.BENEFIC
+		} else if ga.Strength.DirectionalStrength <= 0.25 {
+			gi.DirectionalStrength.Rating = constants.MALEFIC
+		} else {
+			gi.DirectionalStrength.Rating = constants.NEUTRAL
+		}
+	}
+	gi.DirectionalStrength.Notes = ""
+
 	b.GrahasInfluence = append(b.GrahasInfluence, gi)
 }
 
@@ -230,7 +247,7 @@ func (b *Bhava) FindGrahasInfluence(c *Chart) {
 	case 1, 5, 9:
 		b.BhavaLordDistanceFromLagna.Rating = constants.BENEFIC
 
-	case 3, 6, 8, 12:
+	case 6, 8, 12:
 		b.BhavaLordDistanceFromLagna.Rating = constants.MALEFIC
 
 	default:
@@ -242,17 +259,13 @@ func (b *Bhava) FindGrahasInfluence(c *Chart) {
 	case 1, 5, 9:
 		b.BhavaLordDistanceFromBhava.Rating = constants.BENEFIC
 
-	case 3, 6, 8, 12:
+	case 6, 8, 12:
 		b.BhavaLordDistanceFromBhava.Rating = constants.MALEFIC
 
 	default:
 		b.BhavaLordDistanceFromBhava.Rating = constants.NEUTRAL
 	}
 	b.BhavaLordDistanceFromBhava.Notes = constants.SUBJECTS_NON_LIVING_BEING
-
-	for _, g := range constants.BhavaKarakas[b.Number] {
-		b.FindGrahasAssociations(c, g, constants.BHAVA_SIGNIFICATOR)
-	}
 
 	for _, g := range b.Grahas {
 		if g.Name != constants.LAGNA {
@@ -262,5 +275,9 @@ func (b *Bhava) FindGrahasInfluence(c *Chart) {
 
 	for _, g := range b.FullAspect {
 		b.FindGrahasAssociations(c, g, constants.BHAVA_ASPECT)
+	}
+
+	for _, g := range constants.BhavaKarakas[b.Number] {
+		b.FindGrahasAssociations(c, g, constants.BHAVA_SIGNIFICATOR)
 	}
 }

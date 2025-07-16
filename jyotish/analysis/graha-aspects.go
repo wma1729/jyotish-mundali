@@ -9,19 +9,22 @@ type AscpectAndDegree struct {
 
 type GrahaAspects struct {
 	Name     string
-	Friends  []AscpectAndDegree
-	Neutrals []AscpectAndDegree
-	Enemies  []AscpectAndDegree
+	Friends  []string
+	Neutrals []string
+	Enemies  []string
+	Strength int
 }
 
-func (aspects *GrahaAspects) findAspectualStrength(grahaAttr *GrahaAttributes, aspectingGrahas []string, degree int) {
+func (aspects *GrahaAspects) findAspectualStrength(grahaAttr *GrahaAttributes, aspectingGrahas []string) {
 	for _, graha := range aspectingGrahas {
 		if misc.StringSliceContains(grahaAttr.Relations.NaturalFriends, graha) {
-			aspects.Friends = append(aspects.Friends, AscpectAndDegree{graha, degree})
+			aspects.Friends = append(aspects.Friends, graha)
+			aspects.Strength += 1
 		} else if misc.StringSliceContains(grahaAttr.Relations.NaturalEnemies, graha) {
-			aspects.Enemies = append(aspects.Enemies, AscpectAndDegree{graha, degree})
+			aspects.Enemies = append(aspects.Enemies, graha)
+			aspects.Strength -= 1
 		} else {
-			aspects.Neutrals = append(aspects.Neutrals, AscpectAndDegree{graha, degree})
+			aspects.Neutrals = append(aspects.Neutrals, graha)
 		}
 	}
 
@@ -30,6 +33,7 @@ func (aspects *GrahaAspects) findAspectualStrength(grahaAttr *GrahaAttributes, a
 // Uses effective relations to determine aspect strength
 func (aspects *GrahaAspects) EvaluateGrahaAspects(name string, chart *Chart) {
 	aspects.Name = name
+	aspects.Strength = 0.0
 	_, b := chart.GetGrahaBhava(name)
 	if b == nil {
 		return
@@ -40,13 +44,9 @@ func (aspects *GrahaAspects) EvaluateGrahaAspects(name string, chart *Chart) {
 		return
 	}
 
-	aspects.Friends = make([]AscpectAndDegree, 0)
-	aspects.Neutrals = make([]AscpectAndDegree, 0)
-	aspects.Enemies = make([]AscpectAndDegree, 0)
+	aspects.Friends = make([]string, 0)
+	aspects.Neutrals = make([]string, 0)
+	aspects.Enemies = make([]string, 0)
 
-	aspects.findAspectualStrength(ga, b.FullAspect, 100)
-	aspects.findAspectualStrength(ga, b.ThreeQuarterAspect, 75)
-	aspects.findAspectualStrength(ga, b.HalfAspect, 50)
-	aspects.findAspectualStrength(ga, b.QuarterAspect, 25)
-
+	aspects.findAspectualStrength(ga, b.FullAspect)
 }
