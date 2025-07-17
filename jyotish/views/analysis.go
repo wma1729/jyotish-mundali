@@ -122,7 +122,7 @@ func GetInfluenceRating(category string, gir analysis.GrahaInfluenceRating, lang
 	sb := strings.Builder{}
 
 	switch category {
-	case "distance", "position", "owner":
+	case "distance", "position", "owner", "aspectual-strength":
 		switch gir.Rating {
 		case constants.BENEFIC:
 			sb.WriteString(fmt.Sprintf(`<span class="good">%d`, gir.Value))

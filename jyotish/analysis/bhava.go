@@ -29,6 +29,7 @@ type GrahaInfluenceOnBhava struct {
 	Combust               GrahaInfluenceRating
 	Retrograde            GrahaInfluenceRating
 	DirectionalStrength   GrahaInfluenceRating
+	AspectualStrength     GrahaInfluenceRating
 }
 
 type Bhava struct {
@@ -222,6 +223,16 @@ func (b *Bhava) FindGrahasAssociations(c *Chart, name string, assoc int) {
 		}
 	}
 	gi.DirectionalStrength.Notes = ""
+
+	gi.AspectualStrength.Value = ga.Strength.AspectualStrength
+	if gi.AspectualStrength.Value > 0 {
+		gi.AspectualStrength.Rating = constants.BENEFIC
+	} else if gi.AspectualStrength.Value == 0 {
+		gi.AspectualStrength.Rating = constants.NEUTRAL
+	} else {
+		gi.AspectualStrength.Rating = constants.MALEFIC
+	}
+	gi.AspectualStrength.Notes = ""
 
 	b.GrahasInfluence = append(b.GrahasInfluence, gi)
 }

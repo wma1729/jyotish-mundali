@@ -1,6 +1,9 @@
 package analysis
 
-import "jyotish/misc"
+import (
+	"jyotish/constants"
+	"jyotish/misc"
+)
 
 type AscpectAndDegree struct {
 	Name   string
@@ -15,16 +18,22 @@ type GrahaAspects struct {
 	Strength int
 }
 
-func (aspects *GrahaAspects) findAspectualStrength(grahaAttr *GrahaAttributes, aspectingGrahas []string) {
-	for _, graha := range aspectingGrahas {
-		if misc.StringSliceContains(grahaAttr.Relations.NaturalFriends, graha) {
-			aspects.Friends = append(aspects.Friends, graha)
+func (aspects *GrahaAspects) findAspectualStrength(grahaAttr *GrahaAttributes, aspectedGrahas []string) {
+	aspectingGraha := aspects.Name
+
+	for _, aspectedGraha := range aspectedGrahas {
+		if (aspectingGraha == constants.RAHU && aspectedGraha == constants.KETU) ||
+			(aspectingGraha == constants.KETU && aspectedGraha == constants.RAHU) {
+			continue
+		}
+		if misc.StringSliceContains(grahaAttr.Relations.NaturalFriends, aspectedGraha) {
+			aspects.Friends = append(aspects.Friends, aspectedGraha)
 			aspects.Strength += 1
-		} else if misc.StringSliceContains(grahaAttr.Relations.NaturalEnemies, graha) {
-			aspects.Enemies = append(aspects.Enemies, graha)
+		} else if misc.StringSliceContains(grahaAttr.Relations.NaturalEnemies, aspectedGraha) {
+			aspects.Enemies = append(aspects.Enemies, aspectedGraha)
 			aspects.Strength -= 1
 		} else {
-			aspects.Neutrals = append(aspects.Neutrals, graha)
+			aspects.Neutrals = append(aspects.Neutrals, aspectedGraha)
 		}
 	}
 

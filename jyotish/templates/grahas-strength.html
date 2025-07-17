@@ -14,6 +14,7 @@
                     <th>{{ $vocab.Bhava }} {{ $vocab.Lord}}</th>
                     <th>{{ $vocab.GrahaState }}</th>
                     <th>{{ $vocab.Directional }} {{ $vocab.Strength }}</th>
+                    <th>{{ $vocab.Aspect }} {{ $vocab.Strength }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                     <td>{{ ListOfIntegers .Strength.OwnerOf }}</td>
                     <td>{{ GrahaState .Strength.State $lang }}</td>
                     <td>{{ .Strength.DirectionalStrength }}</td>
+                    <td>{{ .Strength.AspectualStrength }}</td>
                 </tr>
                 {{ end }}
             </tbody>

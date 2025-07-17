@@ -199,7 +199,7 @@ func (c *Chart) findCombustGrahas() {
 func (c *Chart) findAspectsOnBhavas() {
 	for i, b := range c.Bhavas {
 		for _, g := range b.Grahas {
-			if g.Name == constants.LAGNA || g.Name == constants.RAHU || g.Name == constants.KETU {
+			if g.Name == constants.LAGNA {
 				continue
 			}
 

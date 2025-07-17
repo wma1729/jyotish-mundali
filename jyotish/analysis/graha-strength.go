@@ -16,6 +16,8 @@ type GrahaStrength struct {
 	OwnerOf             []int
 	State               int
 	DirectionalStrength float64
+	AspectualStrength   int
+	CumulativeStrength  int
 }
 
 func (strength *GrahaStrength) findGrahaPosition(name string, chart *Chart) {
@@ -131,6 +133,16 @@ func (strength *GrahaStrength) findDirectionalStrength(name string, bhava *Bhava
 	strength.DirectionalStrength = misc.RoundFloat(diff, 2)
 }
 
+func (strength *GrahaStrength) findAspectualStrength(name string, chart *Chart) {
+	ga := chart.GetGrahaAttributes(name)
+	if ga == nil {
+		log.Printf("failed to get graha attributes for %s", name)
+		return
+	}
+
+	strength.AspectualStrength = ga.Aspects.Strength
+}
+
 func (strength *GrahaStrength) EvaluateGrahaStrength(name string, chart *Chart) {
 	strength.Name = name
 
@@ -154,4 +166,5 @@ func (strength *GrahaStrength) EvaluateGrahaStrength(name string, chart *Chart) 
 	strength.findCombustAndRetrograde(name, bhava)
 	strength.findState(name, bhava)
 	strength.findDirectionalStrength(name, bhava, ascendent)
+	strength.findAspectualStrength(name, chart)
 }
