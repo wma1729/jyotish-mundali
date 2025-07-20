@@ -122,29 +122,36 @@ func GetInfluenceRating(category string, gir analysis.GrahaInfluenceRating, lang
 	sb := strings.Builder{}
 
 	switch category {
+	case "bhava-karaka":
+		if gir.Rating == constants.MALEFIC {
+			sb.WriteString(fmt.Sprintf(`<span class="bad">%s`,
+				models.GrahaName(gir.Value.(string), lang)))
+		} else {
+			sb.WriteString(`<span class="neutral">-`)
+		}
 	case "distance", "position", "owner", "aspectual-strength":
 		switch gir.Rating {
 		case constants.BENEFIC:
-			sb.WriteString(fmt.Sprintf(`<span class="good">%d`, gir.Value))
+			sb.WriteString(fmt.Sprintf(`<span class="good">%d`, gir.Value.(int)))
 		case constants.MALEFIC:
-			sb.WriteString(fmt.Sprintf(`<span class="bad">%d`, gir.Value))
+			sb.WriteString(fmt.Sprintf(`<span class="bad">%d`, gir.Value.(int)))
 		default:
-			sb.WriteString(fmt.Sprintf(`<span class="neutral">%d`, gir.Value))
+			sb.WriteString(fmt.Sprintf(`<span class="neutral">%d`, gir.Value.(int)))
 		}
 	case "nature":
 		switch gir.Rating {
 		case constants.BENEFIC:
 			sb.WriteString(
 				fmt.Sprintf(`<span class="good">%s`,
-					models.GrahaNature(gir.Value, lang)))
+					models.GrahaNature(gir.Value.(int), lang)))
 		case constants.MALEFIC:
 			sb.WriteString(
 				fmt.Sprintf(`<span class="bad">%s`,
-					models.GrahaNature(gir.Value, lang)))
+					models.GrahaNature(gir.Value.(int), lang)))
 		default:
 			sb.WriteString(
 				fmt.Sprintf(`<span class="neutral">%s`,
-					models.GrahaNature(gir.Value, lang)))
+					models.GrahaNature(gir.Value.(int), lang)))
 		}
 	case "relation":
 		switch gir.Rating {
@@ -160,15 +167,15 @@ func GetInfluenceRating(category string, gir analysis.GrahaInfluenceRating, lang
 		case constants.BENEFIC:
 			sb.WriteString(
 				fmt.Sprintf(`<span class="good">%s`,
-					models.GrahaPosition(gir.Value, lang)))
+					models.GrahaPosition(gir.Value.(int), lang)))
 		case constants.MALEFIC:
 			sb.WriteString(
 				fmt.Sprintf(`<span class="bad">%s`,
-					models.GrahaPosition(gir.Value, lang)))
+					models.GrahaPosition(gir.Value.(int), lang)))
 		default:
 			sb.WriteString(
 				fmt.Sprintf(`<span class="neutral">%s`,
-					models.GrahaPosition(gir.Value, lang)))
+					models.GrahaPosition(gir.Value.(int), lang)))
 		}
 	case "combust":
 		if gir.Rating == constants.MALEFIC {
@@ -195,22 +202,33 @@ func GetInfluenceRating(category string, gir analysis.GrahaInfluenceRating, lang
 			sb.WriteString(fmt.Sprintf(`<span class="neutral">%s`, motion))
 		}
 	case "direction-strength":
-		value := fmt.Sprintf("%.2f", float64(gir.Value)/100.00)
 		switch gir.Rating {
 		case constants.BENEFIC:
-			sb.WriteString(fmt.Sprintf(`<span class="good">%s`, value))
+			sb.WriteString(fmt.Sprintf(`<span class="good">%.2f`, gir.Value.(float64)))
 		case constants.MALEFIC:
-			sb.WriteString(fmt.Sprintf(`<span class="bad">%s`, value))
+			sb.WriteString(fmt.Sprintf(`<span class="bad">%.2f`, gir.Value.(float64)))
 		default:
-			sb.WriteString(fmt.Sprintf(`<span class="neutral">%s`, value))
+			sb.WriteString(fmt.Sprintf(`<span class="neutral">%.2f`, gir.Value.(float64)))
 		}
 	}
 
 	switch gir.Notes {
+	case constants.SUBJECTS_CHILDREN:
+		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsChildren))
+	case constants.SUBJECTS_ELDER_SIBLINGS:
+		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsElderSiblings))
+	case constants.SUBJECTS_FATHER:
+		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsFather))
 	case constants.SUBJECTS_LIVING_BEING:
 		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsLiving))
+	case constants.SUBJECTS_MOTHER:
+		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsMother))
 	case constants.SUBJECTS_NON_LIVING_BEING:
 		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsNonLiving))
+	case constants.SUBJECTS_SPOUSE:
+		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsSpouse))
+	case constants.SUBJECTS_YOUNGER_SIBLINGS:
+		sb.WriteString(fmt.Sprintf(" - %s", vocab.SubjectsYoungerSiblings))
 	case constants.BHAVA_LORD:
 		sb.WriteString(fmt.Sprintf(" - %s", vocab.OwnRashi))
 	}

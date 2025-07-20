@@ -12,7 +12,7 @@
                         <li><b>{{ $vocab.Relations }}</b>: {{ .Relations }}</li>
                         <li><b>{{ $vocab.BodyParts }}</b>: {{ .BodyParts }}</li>
                         <li><b>{{ $vocab.DirectMeanings }}</b>: {{ .Meanings }}</li>
-                        <li><b>{{ $vocab.BhavaSignificator }}</b>: {{ .Significator }}</li>
+                        <li><b>{{ $vocab.BhavaKaraka }}</b>: {{ .Karaka }}</li>
                         <li><b>{{ $vocab.Efforts }}</b>: {{ .Efforts }}</li>
                     </ul>
                 </details>
@@ -21,6 +21,7 @@
                 <p style="padding-left: 1rem;"><b>{{ $vocab.Bhava }} {{ $vocab.Lord }}</b>: {{ GetGrahaName $bhava.RashiLord $lang }}</p>
                 <p style="padding-left: 1rem;"><b>{{ $vocab.DistanceFromLagna }}</b>: {{ GetInfluenceRating "distance" $bhava.BhavaLordDistanceFromLagna $lang }}</p>
                 <p style="padding-left: 1rem;"><b>{{ $vocab.DistanceFromBhava }}</b>: {{ GetInfluenceRating "distance" $bhava.BhavaLordDistanceFromBhava $lang }}</p>
+                <p style="padding-left: 1rem;"><b>{{ $vocab.BhavaKaraka }} {{ $vocab.Position }}</b>: {{ GetInfluenceRating "bhava-karaka" $bhava.BhavaKarakaInBhava $lang }}</p>
                 <table>
                     <thead>
                         <tr>

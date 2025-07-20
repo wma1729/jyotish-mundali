@@ -12,7 +12,7 @@ type BhavaDescription struct {
 	BodyParts     string
 	Relations     string
 	Meanings      string
-	Significator  string
+	Karaka        string
 	Efforts       string
 }
 
@@ -49,7 +49,7 @@ func GetBhavaDescription(lang string) ([]BhavaDescription, error) {
 				bhavaDescription[i].BodyParts = subSection.Tables[0].Rows[i][2]
 				bhavaDescription[i].Relations = subSection.Tables[0].Rows[i][3]
 				bhavaDescription[i].Meanings = subSection.Tables[0].Rows[i][4]
-				bhavaDescription[i].Significator = subSection.Tables[0].Rows[i][5]
+				bhavaDescription[i].Karaka = subSection.Tables[0].Rows[i][5]
 				bhavaDescription[i].Efforts = subSection.Tables[0].Rows[i][6]
 			}
 		}
