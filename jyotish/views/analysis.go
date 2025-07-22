@@ -210,6 +210,21 @@ func GetInfluenceRating(category string, gir analysis.GrahaInfluenceRating, lang
 		default:
 			sb.WriteString(fmt.Sprintf(`<span class="neutral">%.2f`, gir.Value.(float64)))
 		}
+	case "state-strength":
+		switch gir.Rating {
+		case constants.BENEFIC:
+			sb.WriteString(
+				fmt.Sprintf(`<span class="good">%s`,
+					models.GrahaState(gir.Value.(int), lang)))
+		case constants.MALEFIC:
+			sb.WriteString(
+				fmt.Sprintf(`<span class="bad">%s`,
+					models.GrahaState(gir.Value.(int), lang)))
+		default:
+			sb.WriteString(
+				fmt.Sprintf(`<span class="neutral">%s`,
+					models.GrahaState(gir.Value.(int), lang)))
+		}
 	}
 
 	switch gir.Notes {

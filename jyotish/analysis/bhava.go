@@ -28,6 +28,7 @@ type GrahaInfluenceOnBhava struct {
 	OwnerOf               []GrahaInfluenceRating
 	Combust               GrahaInfluenceRating
 	Retrograde            GrahaInfluenceRating
+	StateStrength         GrahaInfluenceRating
 	DirectionalStrength   GrahaInfluenceRating
 	AspectualStrength     GrahaInfluenceRating
 }
@@ -193,6 +194,16 @@ func (b *Bhava) FindGrahasInfluence(c *Chart, name string, assoc int) {
 	} else {
 		gi.Retrograde.Value = 0
 		gi.Retrograde.Rating = constants.NEUTRAL
+	}
+
+	gi.StateStrength.Value = ga.Strength.State
+	switch ga.Strength.State {
+	case constants.CHILD, constants.DEAD:
+		gi.StateStrength.Rating = constants.MALEFIC
+	case constants.YOUTH, constants.OLD:
+		gi.StateStrength.Rating = constants.NEUTRAL
+	case constants.ADULT:
+		gi.StateStrength.Rating = constants.BENEFIC
 	}
 
 	// Get the directional strength

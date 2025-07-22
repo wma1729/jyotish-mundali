@@ -34,6 +34,7 @@
                             <th>{{ $vocab.BhavaOwnership }}</th>
                             <th>{{ $vocab.Combust }}</th>
                             <th>{{ $vocab.Motion }}</th>
+                            <th>{{ $vocab.GrahaState }}</th>
                             <th>{{ $vocab.Directional }} {{ $vocab.Strength }}</th>
                             <th>{{ $vocab.Aspect }} {{ $vocab.Strength }}</th>
                         </tr>
@@ -54,6 +55,7 @@
                             </td>
                             <td>{{ GetInfluenceRating "combust" .Combust $lang }}</td>
                             <td>{{ GetInfluenceRating "retrograde" .Retrograde $lang }}</td>
+                            <td>{{ GetInfluenceRating "state-strength" .StateStrength $lang }}</td>
                             <td>{{ GetInfluenceRating "direction-strength" .DirectionalStrength $lang }}</td>
                             <td>{{ GetInfluenceRating "aspectual-strength" .AspectualStrength $lang }}</td>
                         </tr>
