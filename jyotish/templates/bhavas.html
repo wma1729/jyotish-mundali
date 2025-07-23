@@ -5,23 +5,22 @@
     <article class="bhava-analysis">
         <h2>{{ $vocab.Bhava }} {{ $vocab.Analysis }}</h2>
         {{ range .BhavaDesc }}
-            <article>
-                <details class="bhava-desc">
-                    <summary>{{ $vocab.Bhava }} {{ .DisplayNumber }} - {{ .Name }}</summary>
-                    <ul class="no-list-styling">
-                        <li><b>{{ $vocab.Relations }}</b>: {{ .Relations }}</li>
-                        <li><b>{{ $vocab.BodyParts }}</b>: {{ .BodyParts }}</li>
-                        <li><b>{{ $vocab.DirectMeanings }}</b>: {{ .Meanings }}</li>
-                        <li><b>{{ $vocab.BhavaKaraka }}</b>: {{ .Karaka }}</li>
-                        <li><b>{{ $vocab.Efforts }}</b>: {{ .Efforts }}</li>
-                    </ul>
-                </details>
+            <article class="bhava-desc">
                 {{ $bhava := GetBhava $chart .Number }}
-                <p style="padding-left: 1rem;"><b>{{ $vocab.Bhava }} {{ $vocab.Rashi }}</b>: {{ GetRashiName $bhava.RashiNum $lang }}</p>
-                <p style="padding-left: 1rem;"><b>{{ $vocab.Bhava }} {{ $vocab.Lord }}</b>: {{ GetGrahaName $bhava.RashiLord $lang }}</p>
-                <p style="padding-left: 1rem;"><b>{{ $vocab.DistanceFromLagna }}</b>: {{ GetInfluenceRating "distance" $bhava.BhavaLordDistanceFromLagna $lang }}</p>
-                <p style="padding-left: 1rem;"><b>{{ $vocab.DistanceFromBhava }}</b>: {{ GetInfluenceRating "distance" $bhava.BhavaLordDistanceFromBhava $lang }}</p>
-                <p style="padding-left: 1rem;"><b>{{ $vocab.BhavaKaraka }} {{ $vocab.Position }}</b>: {{ GetInfluenceRating "bhava-karaka" $bhava.BhavaKarakaInBhava $lang }}</p>
+                <ul class="no-list-styling">
+                    <li><b>{{ $vocab.Bhava }} {{ .DisplayNumber }}</b>: {{ .Name }}</li>
+                    <li><b>{{ $vocab.Relations }}</b>: {{ .Relations }}</li>
+                    <li><b>{{ $vocab.BodyParts }}</b>: {{ .BodyParts }}</li>
+                    <li><b>{{ $vocab.DirectMeanings }}</b>: {{ .Meanings }}</li>
+                    <li><b>{{ $vocab.BhavaKaraka }}</b>: {{ .Karaka }}</li>
+                    <li><b>{{ $vocab.Efforts }}</b>: {{ .Efforts }}</li>
+                    <li><b>{{ $vocab.Bhava }} {{ $vocab.Rashi }}</b>: {{ GetRashiName $bhava.RashiNum $lang }}</li>
+                    <li><b>{{ $vocab.Bhava }} {{ $vocab.Lord }}</b>: {{ GetGrahaName $bhava.RashiLord $lang }}</li>
+                    <li><b>{{ $vocab.DistanceFromLagna }}</b>: {{ GetInfluenceRating "distance" $bhava.BhavaLordDistanceFromLagna $lang }}</li>
+                    <li><b>{{ $vocab.DistanceFromBhava }}</b>: {{ GetInfluenceRating "distance" $bhava.BhavaLordDistanceFromBhava $lang }}</li>
+                    <li><b>{{ $vocab.BhavaKaraka }} {{ $vocab.Position }}</b>: {{ GetInfluenceRating "bhava-karaka" $bhava.BhavaKarakaInBhava $lang }}</li>
+                    <li><b>{{ $vocab.GrahasOnBothSidesOfBhava }}</b>: {{ GetInfluenceRating "bhava-flanked-by" $bhava.GrahasOnEitherSide $lang }}</li>
+                </ul>
                 <table>
                     <thead>
                         <tr>

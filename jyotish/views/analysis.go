@@ -225,6 +225,17 @@ func GetInfluenceRating(category string, gir analysis.GrahaInfluenceRating, lang
 				fmt.Sprintf(`<span class="neutral">%s`,
 					models.GrahaState(gir.Value.(int), lang)))
 		}
+	case "bhava-flanked-by":
+		switch gir.Rating {
+		case constants.BENEFIC:
+			sb.WriteString(
+				fmt.Sprintf(`<span class="good">%s`,
+					ListOfGrahas(gir.Value.([]string), lang)))
+		case constants.MALEFIC:
+			sb.WriteString(
+				fmt.Sprintf(`<span class="bad">%s`,
+					ListOfGrahas(gir.Value.([]string), lang)))
+		}
 	}
 
 	switch gir.Notes {

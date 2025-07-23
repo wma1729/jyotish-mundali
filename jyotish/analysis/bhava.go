@@ -4,6 +4,7 @@ import (
 	"jyotish/constants"
 	"jyotish/models"
 	"log"
+	"sort"
 )
 
 type GrahaLocCombust struct {
@@ -45,6 +46,7 @@ type Bhava struct {
 	BhavaLordDistanceFromLagna GrahaInfluenceRating
 	BhavaLordDistanceFromBhava GrahaInfluenceRating
 	BhavaKarakaInBhava         GrahaInfluenceRating
+	GrahasOnEitherSide         GrahaInfluenceRating
 	GrahasInfluence            []GrahaInfluenceOnBhava
 }
 
@@ -347,6 +349,68 @@ func (b *Bhava) FindBhavaKarakaInfluence(c *Chart) {
 			b.BhavaKarakaInBhava.Value = constants.JUPITER
 			b.BhavaKarakaInBhava.Rating = constants.MALEFIC
 			b.BhavaKarakaInBhava.Notes = constants.SUBJECTS_ELDER_SIBLINGS
+		}
+	}
+}
+
+func (b *Bhava) FindGrahasOnEitherSide(c *Chart) {
+	n := b.Number
+	behind := n - 1
+	ahead := n + 1
+
+	switch n {
+	case 1:
+		behind = constants.MAX_BHAVA_NUM
+	case 12:
+		ahead = 1
+	}
+
+	behindGrahas := make([]GrahaLocCombust, 0)
+	for _, grahaLocCombust := range c.Bhavas[behind-1].Grahas {
+		if grahaLocCombust.Name != constants.LAGNA {
+			behindGrahas = append(behindGrahas, grahaLocCombust)
+		}
+	}
+
+	aheadGrahas := make([]GrahaLocCombust, 0)
+	for _, grahaLocCombust := range c.Bhavas[ahead-1].Grahas {
+		if grahaLocCombust.Name != constants.LAGNA {
+			aheadGrahas = append(aheadGrahas, grahaLocCombust)
+		}
+	}
+
+	b.GrahasOnEitherSide.Value = []string{}
+	b.GrahasOnEitherSide.Rating = constants.NEUTRAL
+
+	if len(behindGrahas) > 0 && len(aheadGrahas) > 0 {
+		sort.Slice(behindGrahas, func(x, y int) bool {
+			return behindGrahas[x].Degree > behindGrahas[y].Degree
+		})
+
+		sort.Slice(aheadGrahas, func(x, y int) bool {
+			return aheadGrahas[x].Degree < aheadGrahas[y].Degree
+		})
+
+		closestBehindGrahaAttr := c.GetGrahaAttributes(behindGrahas[0].Name)
+		if closestBehindGrahaAttr == nil {
+			log.Printf("unable to find attributes of graha %s", behindGrahas[0].Name)
+			return
+		}
+
+		closestAheadGrahaAttr := c.GetGrahaAttributes(aheadGrahas[0].Name)
+		if closestAheadGrahaAttr == nil {
+			log.Printf("unable to find attributes of graha %s", aheadGrahas[0].Name)
+			return
+		}
+
+		if closestBehindGrahaAttr.Nature.NaturalNature == constants.BENEFIC &&
+			closestAheadGrahaAttr.Nature.NaturalNature == constants.BENEFIC {
+			b.GrahasOnEitherSide.Value = []string{behindGrahas[0].Name, aheadGrahas[0].Name}
+			b.GrahasOnEitherSide.Rating = constants.BENEFIC
+		} else if closestBehindGrahaAttr.Nature.NaturalNature == constants.MALEFIC &&
+			closestAheadGrahaAttr.Nature.NaturalNature == constants.MALEFIC {
+			b.GrahasOnEitherSide.Value = []string{behindGrahas[0].Name, aheadGrahas[0].Name}
+			b.GrahasOnEitherSide.Rating = constants.MALEFIC
 		}
 	}
 }

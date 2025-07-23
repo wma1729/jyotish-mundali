@@ -69,12 +69,13 @@
     margin: 0;
     padding: 0;
     width: 85vw;
+    background-color: #f4f4f4;
 }
 
 .bhava-desc {
     margin: 0.5rem;
     padding: 0.3rem;
-    background-color: rgb(119, 174, 175);
+    background-color: white
 }
 
 .no-list-styling {

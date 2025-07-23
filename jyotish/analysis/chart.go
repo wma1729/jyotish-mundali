@@ -70,6 +70,7 @@ func GetChart(gl models.GrahasLocation) Chart {
 		chart.Bhavas[i].FindGrahasInfluenceBasedOnPosition(&chart)
 		chart.Bhavas[i].FindGrahasInfluenceBasedOnStrength(&chart)
 		chart.Bhavas[i].FindBhavaKarakaInfluence(&chart)
+		chart.Bhavas[i].FindGrahasOnEitherSide(&chart)
 	}
 
 	return chart
