@@ -1,0 +1,28 @@
+{{ define "doshas" }}
+    {{ $lang := .User.Lang }}
+    {{ $vocab := .Vocab }}
+    {{ $chart := .Chart }}
+    <article class="dosha-analysis">
+        <article class="dosha-desc">
+            {{ $dosha := GetMaanglikDosha $chart }}
+            <ul class="no-list-styling">
+                <li><b>{{ $vocab.Maanglik }}</b>: {{ YesOrNo $dosha.Present $lang }}</li>
+                {{ if $dosha.Present }}
+                    {{ range $dosha.Position }}
+                        <li><b>{{ $vocab.Mars }} {{ $vocab.Position }} ({{ GetGrahaName .Reference $lang }})</b>: {{ .BhavaNumber }}</li>
+                    {{ end }}
+                {{ end }}
+                <li><b>{{ $vocab.Severity }}</b>: {{ GetSeverity $dosha.Severity $lang }}</li>
+                <li><b>{{ $vocab.Moon }} {{ $vocab.Conjunction }}</b>: {{ YesOrNo $dosha.ConjunctWithMoon $lang }}</li>
+                <li><b>{{ $vocab.Moon }} {{ $vocab.Aspect }}</b>: {{ YesOrNo $dosha.AspectedByMoon $lang }}</li>
+                <li><b>{{ $vocab.Mars }} {{ $vocab.OwnRashi }}</b>: {{ YesOrNo $dosha.MarsInOwnRashi $lang }}</li>
+                <li><b>{{ $vocab.Mars }} {{ $vocab.Aspect }} {{ $vocab.OwnRashi }}</b>: {{ YesOrNo $dosha.MarsAspectingOwnRashi $lang }}</li>
+            </ul>
+        </article>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </article>
+{{ end }}

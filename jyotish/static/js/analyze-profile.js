@@ -4,7 +4,8 @@ const contents = [
     'grahas-aspects',
     "grahas-nature",
     "grahas-strength",
-    'bhavas'
+    'bhavas',
+    'doshas'
 ];
 
 function showContent(category) {

@@ -13,6 +13,7 @@
                     <a class="analysis-toc-link" href="#" onClick="showContent('grahas-nature');">{{ .Vocab.Graha }} {{ .Vocab.Nature }}</a>
                     <a class="analysis-toc-link" href="#" onClick="showContent('grahas-strength');">{{ .Vocab.Graha }} {{ .Vocab.Strength }}</a>
                     <a class="analysis-toc-link" href="#" onClick="showContent('bhavas');">{{ .Vocab.Bhava }}</a>
+                    <a class="analysis-toc-link" href="#" onClick="showContent('doshas');">{{ .Vocab.Flaws }}</a>
                 </menu>
             </div>
             <div id="analysis-lagna-chart">
@@ -32,6 +33,9 @@
             </div>
             <div id="analysis-bhavas">
                 {{ template "bhavas" . }}
+            </div>
+            <div id="analysis-doshas">
+                {{ template "doshas" . }}
             </div>
         </section>
     	{{ template "footer" . }}

@@ -2,6 +2,7 @@ package analysis
 
 import (
 	"jyotish/constants"
+	"jyotish/misc"
 	"jyotish/models"
 	"log"
 	"math"
@@ -105,7 +106,7 @@ func (c *Chart) GetGrahaAttributes(name string) *GrahaAttributes {
 			return &grahaAttr
 		}
 	}
-	log.Printf("unable to find attributes of %s", name)
+	log.Printf("unable to get attributes of graha %s", name)
 	return nil
 }
 
@@ -117,6 +118,50 @@ func (c *Chart) GetOwningBhavas(name string) []int {
 		}
 	}
 	return bhavas
+}
+
+// If the two grahas are in the same bhava, distance is 1 (not 0)
+func (c *Chart) GetDistanceBetweenTwoGrahas(from string, to string) int {
+	i1, _ := c.GetGrahaBhava(from)
+	if i1 == -1 {
+		return -1
+	}
+
+	i2, _ := c.GetGrahaBhava(to)
+	if i2 == -1 {
+		return -1
+	}
+
+	if i2 < i1 {
+		i2 += 12
+	}
+
+	return i2 - i1 + 1
+}
+
+// Get the bhavas that the graha is aspecting
+// Returns an array of bhava numbers (not bhava index)
+func (c *Chart) GetBhavasAspectedBy(name string) []int {
+	bhavaNumbers := make([]int, 0)
+
+	for _, b := range c.Bhavas {
+		if misc.StringSliceContains(b.FullAspect, name) {
+			bhavaNumbers = append(bhavaNumbers, b.Number)
+		}
+	}
+
+	return bhavaNumbers
+}
+
+// Is Graha aspeceted by another planet
+func (c *Chart) IsGrahaAspectedBy(aspected string, aspectee string) bool {
+	_, b := c.GetGrahaBhava(aspected)
+	if b == nil {
+		return false
+	}
+
+	return misc.StringSliceContains(b.FullAspect, aspectee)
+
 }
 
 func isCombust(graha string, retrograde bool, distanceFromSun float64) (bool, float64) {

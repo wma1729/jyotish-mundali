@@ -29,6 +29,9 @@ func (strength *GrahaStrength) findGrahaPosition(name string, chart *Chart) {
 	grahaBala := constants.GrahaBalaInRashiRulesMap[name]
 	rashiLord := constants.RashiLordMap[bhava.RashiNum]
 	rashLordGrahaAttr := chart.GetGrahaAttributes(rashiLord)
+	if rashLordGrahaAttr == nil {
+		return
+	}
 	rashiLordRelations := rashLordGrahaAttr.Relations
 
 	if name == constants.RAHU {
@@ -135,12 +138,9 @@ func (strength *GrahaStrength) findDirectionalStrength(name string, bhava *Bhava
 
 func (strength *GrahaStrength) findAspectualStrength(name string, chart *Chart) {
 	ga := chart.GetGrahaAttributes(name)
-	if ga == nil {
-		log.Printf("failed to get graha attributes for %s", name)
-		return
+	if ga != nil {
+		strength.AspectualStrength = ga.Aspects.Strength
 	}
-
-	strength.AspectualStrength = ga.Aspects.Strength
 }
 
 func (strength *GrahaStrength) EvaluateGrahaStrength(name string, chart *Chart) {

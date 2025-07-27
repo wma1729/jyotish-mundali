@@ -16,6 +16,7 @@ type Language struct {
 	Aspect                   string `json:"aspect"`
 	Astrologer               string `json:"astrologer"`
 	Attributes               string `json:"attributes"`
+	Average                  string `json:"average"`
 	Benefic                  string `json:"benefic"`
 	BestFriends              string `json:"best-friends"`
 	Bhava                    string `json:"bhava"`
@@ -33,6 +34,7 @@ type Language struct {
 	City                     string `json:"city"`
 	Combust                  string `json:"combust"`
 	CombustAbbr              string `json:"combust-abbr"`
+	Conjunction              string `json:"conjunction"`
 	Contact                  string `json:"contact"`
 	Country                  string `json:"country"`
 	CreateProfile            string `json:"create-profile"`
@@ -54,6 +56,7 @@ type Language struct {
 	FAQs                     string `json:"faqs"`
 	Forward                  string `json:"forward"`
 	FiveFold                 string `json:"five-fold"`
+	Flaws                    string `json:"flaws"`
 	Friendly                 string `jsons:"friendly"`
 	FriendlyRashi            string `json:"friendly-rashi"`
 	Friends                  string `json:"friends"`
@@ -78,9 +81,12 @@ type Language struct {
 	Libra                    string `json:"libra"`
 	Logout                   string `json:"logout"`
 	Lord                     string `json:"lord"`
+	Maanglik                 string `json:"maanglik"`
 	Malefic                  string `json:"malefic"`
 	Mars                     string `json:"mars"`
+	Maximum                  string `json:"maximum"`
 	Mercury                  string `json:"mercury"`
+	Minimum                  string `json:"minimum"`
 	MoolTrikona              string `json:"mool-trikona"`
 	Moon                     string `json:"moon"`
 	Motion                   string `json:"motion"`
@@ -122,6 +128,7 @@ type Language struct {
 	Saturn                   string `json:"saturn"`
 	Save                     string `json:"save"`
 	Scorpio                  string `json:"scorpio"`
+	Severity                 string `json:"severity"`
 	SiteAdmin                string `json:"siteadmin"`
 	State                    string `json:"state"`
 	Strength                 string `json:"strength"`
@@ -360,6 +367,27 @@ func GetInfluenceOnBhava(assoc int, lang string) string {
 		return vocab.BhavaOwnership
 	case constants.BHAVA_KARAKA:
 		return vocab.BhavaKaraka
+	default:
+		return "-"
+	}
+}
+
+func GetSeverity(sev int, lang string) string {
+	var vocab *Language
+
+	if lang == "en" {
+		vocab = &EnglishVocab
+	} else {
+		vocab = &HindiVocab
+	}
+
+	switch sev {
+	case constants.MINIMUM:
+		return vocab.Minimum
+	case constants.AVERAGE:
+		return vocab.Average
+	case constants.MAXIMUM:
+		return vocab.Maximum
 	default:
 		return "-"
 	}

@@ -97,7 +97,6 @@ func (b *Bhava) FindGrahasInfluence(c *Chart, name string, assoc int) {
 
 	ga := c.GetGrahaAttributes(name)
 	if ga == nil {
-		log.Printf("unable to find attributes of graha %s", name)
 		return
 	}
 
@@ -393,13 +392,11 @@ func (b *Bhava) FindGrahasOnEitherSide(c *Chart) {
 
 		closestBehindGrahaAttr := c.GetGrahaAttributes(behindGrahas[0].Name)
 		if closestBehindGrahaAttr == nil {
-			log.Printf("unable to find attributes of graha %s", behindGrahas[0].Name)
 			return
 		}
 
 		closestAheadGrahaAttr := c.GetGrahaAttributes(aheadGrahas[0].Name)
 		if closestAheadGrahaAttr == nil {
-			log.Printf("unable to find attributes of graha %s", aheadGrahas[0].Name)
 			return
 		}
 
