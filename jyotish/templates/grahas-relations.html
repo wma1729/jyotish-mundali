@@ -15,7 +15,7 @@
             <tbody>
                 {{ range .Chart.GrahasAttr }}
                 <tr>
-                    <th class="fixed-column">{{ GetGrahaName .Relations.Name $lang }}</th>
+                    <th class="fixed-column">{{ GetGrahaName .Name $lang }}</th>
                     <td>{{ ListOfGrahas .Relations.NaturalFriends $lang }}</td>
                     <td>{{ ListOfGrahas .Relations.NaturalNeutrals $lang }}</td>
                     <td>{{ ListOfGrahas .Relations.NaturalEnemies $lang }}</td>
@@ -35,7 +35,7 @@
             <tbody>
                 {{ range .Chart.GrahasAttr }}
                 <tr>
-                    <th class="fixed-column">{{ GetGrahaName .Relations.Name $lang }}</th>
+                    <th class="fixed-column">{{ GetGrahaName .Name $lang }}</th>
                     <td>{{ ListOfGrahas .Relations.TemporaryFriends $lang }}</td>
                     <td>{{ ListOfGrahas .Relations.TemporaryEnemies $lang }}</td>
                 </tr>
@@ -58,7 +58,7 @@
             <tbody>
                 {{ range .Chart.GrahasAttr }}
                 <tr>
-                    <th class="fixed-column">{{ GetGrahaName .Relations.Name $lang }}</th>
+                    <th class="fixed-column">{{ GetGrahaName .Name $lang }}</th>
                     <td>{{ ListOfGrahas .Relations.EffectiveBestFriends $lang }}</td>
                     <td>{{ ListOfGrahas .Relations.EffectiveFriends $lang }}</td>
                     <td>{{ ListOfGrahas .Relations.EffectiveNeutrals $lang }}</td>

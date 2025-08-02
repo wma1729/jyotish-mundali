@@ -10,10 +10,12 @@ import (
 )
 
 type GrahaAttributes struct {
-	Relations GrahaRelations
-	Aspects   GrahaAspects
-	Strength  GrahaStrength
-	Nature    GrahaNature
+	Name           string
+	AbsoluteDegree float64
+	Relations      GrahaRelations
+	Aspects        GrahaAspects
+	Strength       GrahaStrength
+	Nature         GrahaNature
 }
 
 type Chart struct {
@@ -58,21 +60,11 @@ func GetChart(gl models.GrahasLocation) Chart {
 
 	var chart Chart
 	chart.Bhavas = bhavas[:]
-	chart.GrahasAttr = make([]GrahaAttributes, 9)
 
 	chart.findCombustGrahas()
 	chart.findAspectsOnBhavas()
-	chart.EvaluateGrahaRelations()
-	chart.EvaluateGrahaAspects()
-	chart.EvaluateGrahaNature()
-	chart.EvaluateGrahaStrength()
-
-	for i := 0; i < len(chart.Bhavas); i++ {
-		chart.Bhavas[i].FindGrahasInfluenceBasedOnPosition(&chart)
-		chart.Bhavas[i].FindGrahasInfluenceBasedOnStrength(&chart)
-		chart.Bhavas[i].FindBhavaKarakaInfluence(&chart)
-		chart.Bhavas[i].FindGrahasOnEitherSide(&chart)
-	}
+	chart.EvaluateGrahasAttributes()
+	chart.evaluateBhavas()
 
 	return chart
 }
@@ -98,16 +90,6 @@ func (c *Chart) GetNthBhava(i, n int) *Bhava {
 func (c *Chart) NthBhavaContainsGraha(i, n int, graha string) bool {
 	b := c.GetNthBhava(i, n)
 	return b.ContainsGraha(graha)
-}
-
-func (c *Chart) GetGrahaAttributes(name string) *GrahaAttributes {
-	for _, grahaAttr := range c.GrahasAttr {
-		if grahaAttr.Relations.Name == name {
-			return &grahaAttr
-		}
-	}
-	log.Printf("unable to get attributes of graha %s", name)
-	return nil
 }
 
 func (c *Chart) GetOwningBhavas(name string) []int {
@@ -224,23 +206,26 @@ func (c *Chart) findCombustGrahas() {
 	}
 
 	// get combustion of all grahas in the same bhava as SUN
-	for _, graha := range c.Bhavas[sunIndex].Grahas {
+	for i, graha := range c.Bhavas[sunIndex].Grahas {
 		if graha.Name != constants.SUN {
 			distance := math.Abs(graha.Degree - sunDegree)
-			graha.Combust, graha.CombustionExtent = isCombust(graha.Name, graha.Retrograde, distance)
+			c.Bhavas[sunIndex].Grahas[i].Combust, c.Bhavas[sunIndex].Grahas[i].CombustionExtent =
+				isCombust(graha.Name, graha.Retrograde, distance)
 		}
 	}
 
 	// get combustion of all grahas in the previous bhava of SUN
-	for _, graha := range c.Bhavas[prevIndex].Grahas {
+	for i, graha := range c.Bhavas[prevIndex].Grahas {
 		distance := math.Abs((graha.Degree - 30) - sunDegree)
-		graha.Combust, graha.CombustionExtent = isCombust(graha.Name, graha.Retrograde, distance)
+		c.Bhavas[prevIndex].Grahas[i].Combust, c.Bhavas[prevIndex].Grahas[i].CombustionExtent =
+			isCombust(graha.Name, graha.Retrograde, distance)
 	}
 
 	// get combustion of all grahas in the next bhava of SUN
-	for _, graha := range c.Bhavas[nextIndex].Grahas {
+	for i, graha := range c.Bhavas[nextIndex].Grahas {
 		distance := math.Abs((graha.Degree + 30) - sunDegree)
-		graha.Combust, graha.CombustionExtent = isCombust(graha.Name, graha.Retrograde, distance)
+		c.Bhavas[nextIndex].Grahas[i].Combust, c.Bhavas[nextIndex].Grahas[i].CombustionExtent =
+			isCombust(graha.Name, graha.Retrograde, distance)
 	}
 }
 
@@ -299,26 +284,11 @@ func (c *Chart) findAspectsOnBhavas() {
 	}
 }
 
-func (c *Chart) EvaluateGrahaRelations() {
-	for i, graha := range constants.GrahaNames {
-		c.GrahasAttr[i].Relations.EvaluateGrahaRelations(graha, c)
-	}
-}
-
-func (c *Chart) EvaluateGrahaAspects() {
-	for i, graha := range constants.GrahaNames {
-		c.GrahasAttr[i].Aspects.EvaluateGrahaAspects(graha, c)
-	}
-}
-
-func (c *Chart) EvaluateGrahaNature() {
-	for i, graha := range constants.GrahaNames {
-		c.GrahasAttr[i].Nature.EvaluateGrahaNature(graha, c)
-	}
-}
-
-func (c *Chart) EvaluateGrahaStrength() {
-	for i, graha := range constants.GrahaNames {
-		c.GrahasAttr[i].Strength.EvaluateGrahaStrength(graha, c)
+func (c *Chart) evaluateBhavas() {
+	for i := 0; i < len(c.Bhavas); i++ {
+		c.Bhavas[i].FindGrahasInfluenceBasedOnPosition(c)
+		c.Bhavas[i].FindGrahasInfluenceBasedOnStrength(c)
+		c.Bhavas[i].FindBhavaKarakaInfluence(c)
+		c.Bhavas[i].FindGrahasOnEitherSide(c)
 	}
 }

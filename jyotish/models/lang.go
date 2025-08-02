@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"jyotish/constants"
 	"log"
 	"os"
@@ -60,13 +61,13 @@ type Language struct {
 	Friendly                 string `jsons:"friendly"`
 	FriendlyRashi            string `json:"friendly-rashi"`
 	Friends                  string `json:"friends"`
-	FullAspect               string `json:"full-aspect"`
+	Full                     string `json:"full"`
 	Functional               string `json:"functional"`
 	Gemini                   string `json:"gemini"`
 	Graha                    string `json:"graha"`
 	GrahasOnBothSidesOfBhava string `json:"grahas-on-both-sides-of-bhava"`
 	GrahaState               string `json:"graha-state"`
-	HalfAspect               string `json:"half-aspect"`
+	Half                     string `json:"half"`
 	Hindi                    string `json:"hindi"`
 	Home                     string `json:"home"`
 	Influence                string `json:"influence"`
@@ -116,7 +117,7 @@ type Language struct {
 	Preferences              string `json:"preferences"`
 	Profiles                 string `json:"profiles"`
 	Public                   string `json:"public"`
-	QuarterAspect            string `json:"quarter-aspect"`
+	Quarter                  string `json:"quarter"`
 	Rahu                     string `json:"rahu"`
 	Rashi                    string `json:"rashi"`
 	RashiNumber              string `json:"rashi-number"`
@@ -143,7 +144,7 @@ type Language struct {
 	Sun                      string `json:"sun"`
 	Taurus                   string `json:"taurus"`
 	Temporary                string `json:"temporary"`
-	ThreeQuarterAspect       string `json:"three-quarter-aspect"`
+	ThreeQuarter             string `json:"three-quarter"`
 	Venus                    string `json:"venus"`
 	Virgo                    string `json:"virgo"`
 	WorstEnemies             string `json:"worst-enemies"`
@@ -391,4 +392,28 @@ func GetSeverity(sev int, lang string) string {
 	default:
 		return "-"
 	}
+}
+
+func GetPercentage(percent int, lang string) string {
+	var vocab *Language
+
+	if lang == "en" {
+		vocab = &EnglishVocab
+	} else {
+		vocab = &HindiVocab
+	}
+
+	switch percent {
+	case constants.FULL:
+		return vocab.Full
+	case constants.THREEQUARTER:
+		return vocab.ThreeQuarter
+	case constants.HALF:
+		return vocab.Half
+	case constants.QUARTER:
+		return vocab.Quarter
+	default:
+		return fmt.Sprintf("%d%%", percent)
+	}
+
 }

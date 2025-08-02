@@ -79,7 +79,7 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 			"GetInfluenceRating":   GetInfluenceRating,
 			"GetInfluenceOnBhava":  GetInfluenceOnBhava,
 			"GetMaanglikDosha":     GetMaanglikDosha,
-			"GetSeverity":          GetSeverity,
+			"GetSeverityStrength":  models.GetPercentage,
 		}).ParseFiles(
 		"templates/analysis.html",
 		"templates/lagna-chart.html",

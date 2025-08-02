@@ -6,7 +6,6 @@ import (
 )
 
 type GrahaRelations struct {
-	Name                  string
 	NaturalFriends        []string
 	NaturalNeutrals       []string
 	NaturalEnemies        []string
@@ -110,7 +109,6 @@ func (relations *GrahaRelations) populateEffectiveRelations(name string) {
 //
 // This finds natural, temporal, and effective relations.
 func (relations *GrahaRelations) EvaluateGrahaRelations(name string, chart *Chart) {
-	relations.Name = name
 	relations.populateNaturalRelations(name)
 	relations.populateTemporalRelations(name, chart)
 	relations.populateEffectiveRelations(name)

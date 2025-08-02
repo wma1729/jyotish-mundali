@@ -5,3 +5,11 @@ const (
 	AVERAGE
 	MAXIMUM
 )
+
+const (
+	ZERO = iota
+	QUARTER
+	HALF
+	THREEQUARTER
+	FULL
+)

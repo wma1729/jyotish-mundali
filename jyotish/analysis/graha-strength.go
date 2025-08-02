@@ -8,7 +8,6 @@ import (
 )
 
 type GrahaStrength struct {
-	Name                string
 	Position            int
 	Combust             bool
 	Retrograde          bool
@@ -144,8 +143,6 @@ func (strength *GrahaStrength) findAspectualStrength(name string, chart *Chart) 
 }
 
 func (strength *GrahaStrength) EvaluateGrahaStrength(name string, chart *Chart) {
-	strength.Name = name
-
 	_, bhava := chart.GetGrahaBhava(name)
 	if bhava == nil {
 		return

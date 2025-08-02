@@ -6,7 +6,6 @@ import (
 )
 
 type GrahaNature struct {
-	Name                  string
 	NaturalNature         int
 	FunctionalNature      int
 	FunctionalNatureScore int
@@ -42,17 +41,17 @@ func isMercuryBenefic(chart *Chart) bool {
 	var distance float64
 
 	_, b := chart.GetGrahaBhava(constants.MERCURY)
-	mercuryDegree := b.GrahaDegree(constants.MERCURY)
+	mercuryDegree := b.GrahaDegree(constants.MERCURY, false)
 	benevolence := 0
 
 	if b.ContainsGraha(constants.SUN) {
-		degree := b.GrahaDegree(constants.SUN)
+		degree := b.GrahaDegree(constants.SUN, false)
 		distance = math.Abs(float64(degree - mercuryDegree))
 		maleficDistance = math.Min(maleficDistance, distance)
 		benevolence--
 	}
 	if b.ContainsGraha(constants.MOON) {
-		degree := b.GrahaDegree(constants.MOON)
+		degree := b.GrahaDegree(constants.MOON, false)
 		distance = math.Abs(float64(degree - mercuryDegree))
 		if isMoonBenefic(chart) {
 			maleficDistance = math.Min(maleficDistance, distance)
@@ -63,37 +62,37 @@ func isMercuryBenefic(chart *Chart) bool {
 		}
 	}
 	if b.ContainsGraha(constants.MARS) {
-		degree := b.GrahaDegree(constants.MARS)
+		degree := b.GrahaDegree(constants.MARS, false)
 		distance = math.Abs(float64(degree - mercuryDegree))
 		maleficDistance = math.Min(maleficDistance, distance)
 		benevolence--
 	}
 	if b.ContainsGraha(constants.JUPITER) {
-		degree := b.GrahaDegree(constants.JUPITER)
+		degree := b.GrahaDegree(constants.JUPITER, false)
 		distance = math.Abs(float64(degree - mercuryDegree))
 		beneficDistance = math.Min(beneficDistance, distance)
 		benevolence++
 	}
 	if b.ContainsGraha(constants.VENUS) {
-		degree := b.GrahaDegree(constants.VENUS)
+		degree := b.GrahaDegree(constants.VENUS, false)
 		distance = math.Abs(float64(degree - mercuryDegree))
 		beneficDistance = math.Min(beneficDistance, distance)
 		benevolence++
 	}
 	if b.ContainsGraha(constants.SATURN) {
-		degree := b.GrahaDegree(constants.SATURN)
+		degree := b.GrahaDegree(constants.SATURN, false)
 		distance = math.Abs(float64(degree - mercuryDegree))
 		maleficDistance = math.Min(maleficDistance, distance)
 		benevolence--
 	}
 	if b.ContainsGraha(constants.RAHU) {
-		degree := b.GrahaDegree(constants.RAHU)
+		degree := b.GrahaDegree(constants.RAHU, false)
 		distance = math.Abs(float64(degree - mercuryDegree))
 		maleficDistance = math.Min(maleficDistance, distance)
 		benevolence--
 	}
 	if b.ContainsGraha(constants.KETU) {
-		degree := b.GrahaDegree(constants.KETU)
+		degree := b.GrahaDegree(constants.KETU, false)
 		distance = math.Abs(float64(degree - mercuryDegree))
 		maleficDistance = math.Min(maleficDistance, distance)
 		benevolence--
@@ -200,7 +199,6 @@ func (nature *GrahaNature) findFunctionalNature(name string, chart *Chart) {
 }
 
 func (nature *GrahaNature) EvaluateGrahaNature(name string, chart *Chart) {
-	nature.Name = name
 	nature.findNaturalNature(name, chart)
 	nature.findFunctionalNature(name, chart)
 }

@@ -14,7 +14,7 @@
             <tbody>
                 {{ range .Chart.GrahasAttr }}
                 <tr>
-                    <th class="fixed-column">{{ GetGrahaName .Nature.Name $lang }}</th>
+                    <th class="fixed-column">{{ GetGrahaName .Name $lang }}</th>
                     <td>{{ GrahaNature .Nature.NaturalNature $lang }}</td>
                     <td>{{ GrahaNature .Nature.FunctionalNature $lang }} ({{ .Nature.FunctionalNatureScore }})</td>
                 </tr>

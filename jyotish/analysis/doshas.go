@@ -7,12 +7,12 @@ import (
 type MarsPosition struct {
 	BhavaNumber int
 	Reference   string
+	Strength    int
 }
 
 type MaanglikDosha struct {
 	Present               bool
 	Position              []MarsPosition
-	Severity              int
 	MarsInOwnRashi        bool
 	MarsAspectingOwnRashi bool
 	ConjunctWithMoon      bool
@@ -53,13 +53,13 @@ func (c *Chart) EvaluateMaanglikDosha() *MaanglikDosha {
 
 	dosha.Position = make([]MarsPosition, 0)
 	if isDoshaFormedFromLagna {
-		dosha.Position = append(dosha.Position, MarsPosition{distanceFromLagna, constants.LAGNA})
+		dosha.Position = append(dosha.Position, MarsPosition{distanceFromLagna, constants.LAGNA, constants.FULL})
 	}
 	if isDoshaFormedFromMoon {
-		dosha.Position = append(dosha.Position, MarsPosition{distanceFromMoon, constants.MOON})
+		dosha.Position = append(dosha.Position, MarsPosition{distanceFromMoon, constants.MOON, constants.HALF})
 	}
 	if isDoshaFormedFromVenus {
-		dosha.Position = append(dosha.Position, MarsPosition{distanceFromVenus, constants.VENUS})
+		dosha.Position = append(dosha.Position, MarsPosition{distanceFromVenus, constants.VENUS, constants.QUARTER})
 	}
 
 	_, moonBhava := c.GetGrahaBhava(constants.MOON)
@@ -78,24 +78,37 @@ func (c *Chart) EvaluateMaanglikDosha() *MaanglikDosha {
 		}
 	}
 
-	dosha.Severity = constants.MAXIMUM
+	return dosha
+}
 
-	if dosha.ConjunctWithMoon {
-		dosha.Severity = constants.MINIMUM
-	} else if dosha.AspectedByMoon {
-		switch len(dosha.Position) {
-		case 1:
-			if dosha.MarsInOwnRashi || dosha.MarsAspectingOwnRashi {
-				dosha.Severity = constants.MINIMUM
-			} else {
-				dosha.Severity = constants.AVERAGE
-			}
-		case 2:
-			if dosha.MarsInOwnRashi || dosha.MarsAspectingOwnRashi {
-				dosha.Severity = constants.AVERAGE
-			}
+/*
+
+func (c *Chart) EvaluateKalaSarpaDosha() {
+	var rahuDegree, ketuDegree float64
+	for _, ga := range c.GrahasAttr {
+		if ga.Name == constants.RAHU {
+			rahuDegree = ga.AbsoluteDegree
+		} else if ga.Name == constants.KETU {
+			ketuDegree = ga.AbsoluteDegree
 		}
 	}
 
-	return dosha
+	var lower, upper float64
+	if rahuDegree < ketuDegree {
+		lower = rahuDegree
+		upper = ketuDegree
+	} else {
+		lower = ketuDegree
+		upper = rahuDegree
+	}
+
+	isDoshaFormed := true
+
+	for _, ga := range c.GrahasAttr {
+		if ga.Name == constants.RAHU || ga.Name == constants.KETU {
+			continue
+		}
+	}
 }
+
+*/

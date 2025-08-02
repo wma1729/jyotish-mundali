@@ -5,11 +5,6 @@ import (
 	"jyotish/misc"
 )
 
-type AscpectAndDegree struct {
-	Name   string
-	Degree int
-}
-
 type GrahaAspects struct {
 	Name     string
 	Friends  []string
@@ -19,7 +14,7 @@ type GrahaAspects struct {
 }
 
 func (aspects *GrahaAspects) findAspectualStrength(grahaAttr *GrahaAttributes, aspectedGrahas []string) {
-	aspectingGraha := aspects.Name
+	aspectingGraha := grahaAttr.Name
 
 	for _, aspectedGraha := range aspectedGrahas {
 		if (aspectingGraha == constants.RAHU && aspectedGraha == constants.KETU) ||
@@ -41,7 +36,6 @@ func (aspects *GrahaAspects) findAspectualStrength(grahaAttr *GrahaAttributes, a
 
 // Uses effective relations to determine aspect strength
 func (aspects *GrahaAspects) EvaluateGrahaAspects(name string, chart *Chart) {
-	aspects.Name = name
 	aspects.Strength = 0.0
 	_, b := chart.GetGrahaBhava(name)
 	if b == nil {

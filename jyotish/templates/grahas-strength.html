@@ -20,7 +20,7 @@
             <tbody>
                 {{ range .Chart.GrahasAttr }}
                 <tr>
-                    <th class="fixed-column">{{ GetGrahaName .Strength.Name $lang }}</th>
+                    <th class="fixed-column">{{ GetGrahaName .Name $lang }}</th>
                     <td>{{ GrahaPosition .Strength.Position $lang }}</td>
                     <td>{{ GrahaMotion .Strength.Retrograde $lang }}</td>
                     <td>{{ YesOrNo .Strength.Combust $lang }}</td>
