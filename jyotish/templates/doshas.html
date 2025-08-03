@@ -9,13 +9,25 @@
                 <li><b>{{ $vocab.Maanglik }}</b>: {{ YesOrNo $dosha.Present $lang }}</li>
                 {{ if $dosha.Present }}
                     {{ range $dosha.Position }}
-                        <li><b>{{ $vocab.Mars }} {{ $vocab.Position }} ({{ GetGrahaName .Reference $lang }})</b>: {{ .BhavaNumber }} ({{ GetSeverityStrength .Strength $lang }})</li>
+                        <li><b>{{ $vocab.Mars }} {{ $vocab.Position }} ({{ GetGrahaName .Reference $lang }})</b>: {{ GetNumber .BhavaNumber $lang }} ({{ GetSeverityStrength .Strength $lang }})</li>
                     {{ end }}
                 {{ end }}
                 <li><b>{{ $vocab.Moon }} {{ $vocab.Conjunction }}</b>: {{ YesOrNo $dosha.ConjunctWithMoon $lang }}</li>
                 <li><b>{{ $vocab.Moon }} {{ $vocab.Aspect }}</b>: {{ YesOrNo $dosha.AspectedByMoon $lang }}</li>
                 <li><b>{{ $vocab.Mars }} {{ $vocab.OwnRashi }}</b>: {{ YesOrNo $dosha.MarsInOwnRashi $lang }}</li>
                 <li><b>{{ $vocab.Mars }} {{ $vocab.Aspect }} {{ $vocab.OwnRashi }}</b>: {{ YesOrNo $dosha.MarsAspectingOwnRashi $lang }}</li>
+            </ul>
+        </article>
+        <article class="dosha-desc">
+            {{ $dosha := GetKalaSarpaDosha $chart }}
+            <ul class="no-list-styling">
+                <li><b>{{ $vocab.KalaSarpaDosha }}</b>: {{ YesOrNo $dosha.Present $lang }}</li>
+                {{ if $dosha.Present }}
+                    <li><b>{{ $vocab.Type }}</b>: {{ GetKalaSarpaDoshaType $dosha.Type $lang }}</li>
+                    {{ if $dosha.Axis }}
+                        <li><b>{{ $vocab.Axis }}</b>: {{ GetAxis $dosha.Axis $lang }}</li>
+                    {{ end }}
+                {{ end }}
             </ul>
         </article>
         <br>

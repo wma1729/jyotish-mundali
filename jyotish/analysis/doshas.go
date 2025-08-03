@@ -19,6 +19,12 @@ type MaanglikDosha struct {
 	AspectedByMoon        bool
 }
 
+type KalaSarpaDosha struct {
+	Present bool
+	Type    int
+	Axis    int
+}
+
 func isMaanglikDoshaFormed(distance int) bool {
 	switch distance {
 	case 1, 2, 4, 7, 8, 12:
@@ -81,14 +87,13 @@ func (c *Chart) EvaluateMaanglikDosha() *MaanglikDosha {
 	return dosha
 }
 
-/*
-
-func (c *Chart) EvaluateKalaSarpaDosha() {
+func (c *Chart) EvaluateKalaSarpaDosha() *KalaSarpaDosha {
 	var rahuDegree, ketuDegree float64
 	for _, ga := range c.GrahasAttr {
-		if ga.Name == constants.RAHU {
+		switch ga.Name {
+		case constants.RAHU:
 			rahuDegree = ga.AbsoluteDegree
-		} else if ga.Name == constants.KETU {
+		case constants.KETU:
 			ketuDegree = ga.AbsoluteDegree
 		}
 	}
@@ -102,13 +107,46 @@ func (c *Chart) EvaluateKalaSarpaDosha() {
 		upper = rahuDegree
 	}
 
-	isDoshaFormed := true
+	count := 0
 
 	for _, ga := range c.GrahasAttr {
 		if ga.Name == constants.RAHU || ga.Name == constants.KETU {
 			continue
 		}
-	}
-}
 
-*/
+		if ga.AbsoluteDegree >= lower && ga.AbsoluteDegree <= upper {
+			count++
+		}
+	}
+
+	var dosha = new(KalaSarpaDosha)
+
+	dosha.Present = count == 0 || count == 7
+	if dosha.Present {
+		if count == 7 {
+			if upper == rahuDegree {
+				dosha.Type = constants.BITING
+			} else {
+				dosha.Type = constants.STINGING
+			}
+		} else {
+			if upper == rahuDegree {
+				dosha.Type = constants.STINGING
+			} else {
+				dosha.Type = constants.BITING
+			}
+		}
+
+		_, b := c.GetGrahaBhava(constants.RAHU)
+		if b != nil {
+			switch b.Number {
+			case 6, 12:
+				dosha.Axis = 6
+			case 2, 8:
+				dosha.Axis = 8
+			}
+		}
+	}
+
+	return dosha
+}

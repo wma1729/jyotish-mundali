@@ -13,3 +13,8 @@ const (
 	THREEQUARTER
 	FULL
 )
+
+const (
+	BITING = iota
+	STINGING
+)

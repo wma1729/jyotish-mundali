@@ -18,6 +18,9 @@ type Language struct {
 	Astrologer               string `json:"astrologer"`
 	Attributes               string `json:"attributes"`
 	Average                  string `json:"average"`
+	Axis                     string `json:"axis"`
+	Axis6                    string `json:"axis-6"`
+	Axis8                    string `json:"axis-8"`
 	Benefic                  string `json:"benefic"`
 	BestFriends              string `json:"best-friends"`
 	Bhava                    string `json:"bhava"`
@@ -74,6 +77,9 @@ type Language struct {
 	Inimical                 string `json:"inimical"`
 	InKendra                 string `json:"in-kendra"`
 	Jupiter                  string `json:"jupiter"`
+	KalaSarpaBitingType      string `json:"kala-sarpa-biting-type"`
+	KalaSarpaDosha           string `json:"kala-sarpa-dosha"`
+	KalaSarpaStingingType    string `json:"kala-sarpa-stinging-type"`
 	Ketu                     string `json:"ketu"`
 	KnowledgeBase            string `json:"knowledgebase"`
 	Lagna                    string `json:"lagna"`
@@ -145,6 +151,7 @@ type Language struct {
 	Taurus                   string `json:"taurus"`
 	Temporary                string `json:"temporary"`
 	ThreeQuarter             string `json:"three-quarter"`
+	Type                     string `json:"type"`
 	Venus                    string `json:"venus"`
 	Virgo                    string `json:"virgo"`
 	WorstEnemies             string `json:"worst-enemies"`
@@ -394,6 +401,45 @@ func GetSeverity(sev int, lang string) string {
 	}
 }
 
+func GetNumber(num int, lang string) string {
+	var vocab *Language
+
+	if lang == "en" {
+		vocab = &EnglishVocab
+	} else {
+		vocab = &HindiVocab
+	}
+
+	switch num {
+	case 1:
+		return vocab.Number1
+	case 2:
+		return vocab.Number2
+	case 3:
+		return vocab.Number3
+	case 4:
+		return vocab.Number4
+	case 5:
+		return vocab.Number5
+	case 6:
+		return vocab.Number6
+	case 7:
+		return vocab.Number7
+	case 8:
+		return vocab.Number8
+	case 9:
+		return vocab.Number9
+	case 10:
+		return vocab.Number10
+	case 11:
+		return vocab.Number11
+	case 12:
+		return vocab.Number12
+	default:
+		return fmt.Sprintf("%d", num)
+	}
+}
+
 func GetPercentage(percent int, lang string) string {
 	var vocab *Language
 
@@ -415,5 +461,42 @@ func GetPercentage(percent int, lang string) string {
 	default:
 		return fmt.Sprintf("%d%%", percent)
 	}
+}
 
+func GetKalaSarpaDoshaType(doshaType int, lang string) string {
+	var vocab *Language
+
+	if lang == "en" {
+		vocab = &EnglishVocab
+	} else {
+		vocab = &HindiVocab
+	}
+
+	switch doshaType {
+	case constants.BITING:
+		return vocab.KalaSarpaBitingType
+	case constants.STINGING:
+		return vocab.KalaSarpaStingingType
+	default:
+		return ""
+	}
+}
+
+func GetAxis(axis int, lang string) string {
+	var vocab *Language
+
+	if lang == "en" {
+		vocab = &EnglishVocab
+	} else {
+		vocab = &HindiVocab
+	}
+
+	switch axis {
+	case 6:
+		return vocab.Axis6
+	case 8:
+		return vocab.Axis8
+	default:
+		return ""
+	}
 }
