@@ -46,6 +46,10 @@ func (c *Chart) evaluateGrahaNature() {
 	for i, graha := range constants.GrahaNames {
 		c.GrahasAttr[i].Nature.EvaluateGrahaNature(graha, c)
 	}
+
+	for i, graha := range constants.GrahaNames {
+		c.GrahasAttr[i].Nature.EvaluateGrahaFunctionalNature(graha, c)
+	}
 }
 
 func (c *Chart) evaluateGrahaStrength() {

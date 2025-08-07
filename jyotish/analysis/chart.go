@@ -146,6 +146,23 @@ func (c *Chart) IsGrahaAspectedBy(aspected string, aspectee string) bool {
 
 }
 
+// Get grahas that are conjunct with this graha
+func (c *Chart) GetConjunctGrahas(name string) []string {
+	_, b := c.GetGrahaBhava(name)
+	if b == nil {
+		return []string{}
+	}
+
+	conjunctGrahas := make([]string, 0)
+	for _, g := range b.Grahas {
+		if g.Name != name {
+			conjunctGrahas = append(conjunctGrahas, g.Name)
+		}
+	}
+
+	return conjunctGrahas
+}
+
 func isCombust(graha string, retrograde bool, distanceFromSun float64) (bool, float64) {
 	d := distanceFromSun
 	switch graha {

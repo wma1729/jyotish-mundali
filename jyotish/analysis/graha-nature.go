@@ -2,6 +2,7 @@ package analysis
 
 import (
 	"jyotish/constants"
+	"log"
 	"math"
 )
 
@@ -148,33 +149,60 @@ func (nature *GrahaNature) findNaturalNature(name string, chart *Chart) {
 	}
 }
 
-func (nature *GrahaNature) findFunctionalNature(name string, chart *Chart) {
+func (nature *GrahaNature) findFunctionalNatureFirstPass(name string, chart *Chart) {
 	nature.FunctionalNatureScore = 0
 
 	bhavas := chart.GetOwningBhavas(name)
 	for _, num := range bhavas {
 		switch num {
 		case 1:
-			if name != constants.MOON {
-				nature.FunctionalNatureScore += 2
-			}
-
-		case 2:
-			if name != constants.SUN && name != constants.MOON {
-				nature.FunctionalNatureScore += 1
-			}
-
-		case 3, 6, 11:
+			nature.FunctionalNatureScore += 1
+		case 3:
 			nature.FunctionalNatureScore -= 1
-
-		case 5, 9:
+		case 5:
 			nature.FunctionalNatureScore += 2
+		case 6:
+			nature.FunctionalNatureScore -= 2
+		case 9:
+			nature.FunctionalNatureScore += 3
+		case 11:
+			nature.FunctionalNatureScore -= 3
+		}
+	}
+}
 
-		case 8, 12:
-			if name != constants.SUN && name != constants.MOON {
-				nature.FunctionalNatureScore -= 1
+func (nature *GrahaNature) findFunctionalNatureSecondPass(name string, chart *Chart) {
+	bhavas := chart.GetOwningBhavas(name)
+	for _, num := range bhavas {
+		if num == 2 || num == 8 || num == 12 {
+			cumulativeScore := 0
+			conjunctGrahas := chart.GetConjunctGrahas(name)
+			for _, g := range conjunctGrahas {
+				log.Printf("conjunct to %s is %s", name, g)
+				ga := chart.GetGrahaAttributes(g)
+				if ga != nil {
+					cumulativeScore += ga.Nature.FunctionalNatureScore
+				}
 			}
 
+			log.Printf("cumulative score of %s (%d) = %d", name, num, cumulativeScore)
+
+			factor := 0
+
+			switch num {
+			case 12:
+				factor = 1
+			case 2:
+				factor = 2
+			case 8:
+				factor = 3
+			}
+
+			if cumulativeScore > 0 {
+				nature.FunctionalNatureScore += factor
+			} else if cumulativeScore < 0 {
+				nature.FunctionalNatureScore -= factor
+			}
 		}
 	}
 
@@ -200,5 +228,9 @@ func (nature *GrahaNature) findFunctionalNature(name string, chart *Chart) {
 
 func (nature *GrahaNature) EvaluateGrahaNature(name string, chart *Chart) {
 	nature.findNaturalNature(name, chart)
-	nature.findFunctionalNature(name, chart)
+	nature.findFunctionalNatureFirstPass(name, chart)
+}
+
+func (nature *GrahaNature) EvaluateGrahaFunctionalNature(name string, chart *Chart) {
+	nature.findFunctionalNatureSecondPass(name, chart)
 }
