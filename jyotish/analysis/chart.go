@@ -102,6 +102,10 @@ func (c *Chart) GetOwningBhavas(name string) []int {
 	return bhavas
 }
 
+func (c *Chart) GetOwnerOfBhava(n int) string {
+	return c.Bhavas[n-1].RashiLord
+}
+
 // If the two grahas are in the same bhava, distance is 1 (not 0)
 func (c *Chart) GetDistanceBetweenTwoGrahas(from string, to string) int {
 	i1, _ := c.GetGrahaBhava(from)

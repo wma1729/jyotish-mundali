@@ -9,6 +9,7 @@
                     <th class="fixed-column">{{ $vocab.Name }}</th>
                     <th>{{ $vocab.Natural }} {{ $vocab.Nature }}</th>
                     <th>{{ $vocab.Functional }} {{ $vocab.Nature }}</th>
+                    <th>{{ $vocab.YogaKaraka }} </th>
                 </tr>
             </thead>
             <tbody>
@@ -17,6 +18,7 @@
                     <th class="fixed-column">{{ GetGrahaName .Name $lang }}</th>
                     <td>{{ GrahaNature .Nature.NaturalNature $lang }}</td>
                     <td>{{ GrahaNature .Nature.FunctionalNature $lang }} ({{ .Nature.FunctionalNatureScore }})</td>
+                    <td>{{ YesOrNo .Nature.YogaKaraka $lang }}</td>
                 </tr>
                 {{ end }}
             </tbody>

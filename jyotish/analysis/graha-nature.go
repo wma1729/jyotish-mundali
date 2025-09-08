@@ -2,6 +2,7 @@ package analysis
 
 import (
 	"jyotish/constants"
+	"jyotish/misc"
 	"log"
 	"math"
 )
@@ -10,6 +11,7 @@ type GrahaNature struct {
 	NaturalNature         int
 	FunctionalNature      int
 	FunctionalNatureScore int
+	YogaKaraka            bool
 }
 
 func isMoonBenefic(chart *Chart) bool {
@@ -226,8 +228,97 @@ func (nature *GrahaNature) findFunctionalNatureSecondPass(name string, chart *Ch
 	}
 }
 
+func (nature *GrahaNature) findYogaKaraka(name string, chart *Chart) {
+	bhavas := chart.GetOwningBhavas(name)
+	if len(bhavas) == 2 {
+		if IsBhavaKendra(bhavas[0], true) && IsBhavaTrikona(bhavas[1], false) {
+			nature.YogaKaraka = true
+		} else if IsBhavaTrikona(bhavas[0], false) && IsBhavaKendra(bhavas[1], true) {
+			nature.YogaKaraka = true
+		}
+	} else if len(bhavas) == 1 {
+		if name == constants.SUN && (bhavas[0] == 5 || bhavas[0] == 10) {
+			ga := chart.GetGrahaAttributes(name)
+			if ga != nil {
+				if misc.StringSliceContains(ga.Aspects.Friends, constants.MOON) {
+					nature.YogaKaraka = true
+				}
+			}
+		} else if name == constants.MOON && (bhavas[0] == 4 || bhavas[0] == 9) {
+			ga := chart.GetGrahaAttributes(name)
+			if ga != nil {
+				if misc.StringSliceContains(ga.Aspects.Friends, constants.SUN) {
+					nature.YogaKaraka = true
+				}
+			}
+		}
+	} else if name == constants.RAHU || name == constants.KETU {
+		_, b := chart.GetGrahaBhava(name)
+		if IsBhavaKendra(b.Number, true) {
+			lordOf5th := chart.GetOwnerOfBhava(5)
+			lordOf9th := chart.GetOwnerOfBhava(9)
+			conjunctGrahas := chart.GetConjunctGrahas(name)
+
+			for _, g := range conjunctGrahas {
+				log.Printf("conjunct to %s is %s", name, g)
+				if !nature.YogaKaraka {
+					if g == lordOf5th || g == lordOf9th {
+						nature.YogaKaraka = true
+					}
+				}
+			}
+
+			if !nature.YogaKaraka {
+				ga := chart.GetGrahaAttributes(name)
+				if ga != nil {
+					var aspects []string = make([]string, 0)
+					aspects = append(aspects, ga.Aspects.Friends...)
+					aspects = append(aspects, ga.Aspects.Neutrals...)
+					aspects = append(aspects, ga.Aspects.Enemies...)
+
+					if misc.StringSliceContains(aspects, lordOf5th) ||
+						misc.StringSliceContains(aspects, lordOf9th) {
+						nature.YogaKaraka = true
+					}
+				}
+			}
+		} else if IsBhavaTrikona(b.Number, true) {
+			lordOf4th := chart.GetOwnerOfBhava(4)
+			lordOf7th := chart.GetOwnerOfBhava(7)
+			lordOf10th := chart.GetOwnerOfBhava(10)
+			conjunctGrahas := chart.GetConjunctGrahas(name)
+
+			for _, g := range conjunctGrahas {
+				log.Printf("conjunct to %s is %s", name, g)
+				if !nature.YogaKaraka {
+					if g == lordOf4th || g == lordOf7th || g == lordOf10th {
+						nature.YogaKaraka = true
+					}
+				}
+			}
+
+			if !nature.YogaKaraka {
+				ga := chart.GetGrahaAttributes(name)
+				if ga != nil {
+					var aspects []string = make([]string, 0)
+					aspects = append(aspects, ga.Aspects.Friends...)
+					aspects = append(aspects, ga.Aspects.Neutrals...)
+					aspects = append(aspects, ga.Aspects.Enemies...)
+
+					if misc.StringSliceContains(aspects, lordOf4th) ||
+						misc.StringSliceContains(aspects, lordOf7th) ||
+						misc.StringSliceContains(aspects, lordOf10th) {
+						nature.YogaKaraka = true
+					}
+				}
+			}
+		}
+	}
+}
+
 func (nature *GrahaNature) EvaluateGrahaNature(name string, chart *Chart) {
 	nature.findNaturalNature(name, chart)
+	nature.findYogaKaraka(name, chart)
 	nature.findFunctionalNatureFirstPass(name, chart)
 }
 

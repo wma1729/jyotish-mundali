@@ -50,6 +50,24 @@ type Bhava struct {
 	GrahasInfluence            []GrahaInfluenceOnBhava
 }
 
+func IsBhavaKendra(n int, includeFirstBhava bool) bool {
+	if n == 4 || n == 7 || n == 10 {
+		return true
+	} else if includeFirstBhava {
+		return n == 1
+	}
+	return false
+}
+
+func IsBhavaTrikona(n int, includeFirstBhava bool) bool {
+	if n == 5 || n == 9 {
+		return true
+	} else if includeFirstBhava {
+		return n == 1
+	}
+	return false
+}
+
 func (b *Bhava) ContainsGraha(name string) bool {
 	for _, g := range b.Grahas {
 		if g.Name == name {

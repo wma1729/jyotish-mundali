@@ -156,6 +156,7 @@ type Language struct {
 	Virgo                    string `json:"virgo"`
 	WorstEnemies             string `json:"worst-enemies"`
 	Yes                      string `json:"yes"`
+	YogaKaraka               string `json:"yoga-karaka"`
 	Youth                    string `json:"youth"`
 }
 
