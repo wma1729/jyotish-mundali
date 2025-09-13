@@ -2,6 +2,7 @@ package analysis
 
 import (
 	"jyotish/constants"
+	"jyotish/misc"
 )
 
 type MarsPosition struct {
@@ -23,6 +24,20 @@ type KalaSarpaDosha struct {
 	Present bool
 	Type    int
 	Axis    int
+}
+
+type RelativePosition struct {
+	Name      string
+	InKendra  bool
+	Reference string
+}
+
+type DebilitatedGraha struct {
+	Name                       string
+	DebilitatedRashiLord       string
+	ExaltedRashiLord           string
+	RashiLordRelativePosition  []RelativePosition
+	AspectedByExaltedRashiLord bool
 }
 
 func isMaanglikDoshaFormed(distance int) bool {
@@ -149,4 +164,74 @@ func (c *Chart) EvaluateKalaSarpaDosha() *KalaSarpaDosha {
 	}
 
 	return dosha
+}
+
+func (c *Chart) evaluateDebilitatedGraha(ga *GrahaAttributes) DebilitatedGraha {
+	dg := DebilitatedGraha{Name: ga.Name}
+
+	_, b := c.GetGrahaBhava(ga.Name)
+	if b != nil {
+		dg.DebilitatedRashiLord = b.RashiLord
+	}
+
+	grahaBala := constants.GrahaBalaInRashiRulesMap[ga.Name]
+	dg.ExaltedRashiLord = constants.RashiLordMap[grahaBala.Exaltation.RashiNum]
+	dg.RashiLordRelativePosition = make([]RelativePosition, 0)
+
+	var relPos RelativePosition
+	var distance int
+
+	distance = c.GetDistanceBetweenTwoGrahas(constants.LAGNA, dg.DebilitatedRashiLord)
+	if distance == 1 || distance == 4 || distance == 7 || distance == 10 {
+		relPos = RelativePosition{Name: dg.DebilitatedRashiLord, InKendra: true, Reference: constants.LAGNA}
+		dg.RashiLordRelativePosition = append(dg.RashiLordRelativePosition, relPos)
+	}
+
+	distance = c.GetDistanceBetweenTwoGrahas(constants.MOON, dg.DebilitatedRashiLord)
+	if distance == 1 || distance == 4 || distance == 7 || distance == 10 {
+		relPos = RelativePosition{Name: dg.DebilitatedRashiLord, InKendra: true, Reference: constants.MOON}
+		dg.RashiLordRelativePosition = append(dg.RashiLordRelativePosition, relPos)
+	}
+
+	distance = c.GetDistanceBetweenTwoGrahas(constants.LAGNA, dg.ExaltedRashiLord)
+	if distance == 1 || distance == 4 || distance == 7 || distance == 10 {
+		relPos = RelativePosition{Name: dg.ExaltedRashiLord, InKendra: true, Reference: constants.LAGNA}
+		dg.RashiLordRelativePosition = append(dg.RashiLordRelativePosition, relPos)
+	}
+
+	distance = c.GetDistanceBetweenTwoGrahas(constants.MOON, dg.ExaltedRashiLord)
+	if distance == 1 || distance == 4 || distance == 7 || distance == 10 {
+		relPos = RelativePosition{Name: dg.ExaltedRashiLord, InKendra: true, Reference: constants.MOON}
+		dg.RashiLordRelativePosition = append(dg.RashiLordRelativePosition, relPos)
+	}
+
+	distance = c.GetDistanceBetweenTwoGrahas(dg.DebilitatedRashiLord, dg.ExaltedRashiLord)
+	if distance == 1 || distance == 4 || distance == 7 || distance == 10 {
+		relPos = RelativePosition{Name: dg.DebilitatedRashiLord, InKendra: true, Reference: dg.ExaltedRashiLord}
+		dg.RashiLordRelativePosition = append(dg.RashiLordRelativePosition, relPos)
+	}
+
+	var aspects []string = make([]string, 0)
+	aspects = append(aspects, ga.Aspects.Friends...)
+	aspects = append(aspects, ga.Aspects.Neutrals...)
+	aspects = append(aspects, ga.Aspects.Enemies...)
+
+	if misc.StringSliceContains(aspects, dg.ExaltedRashiLord) {
+		dg.AspectedByExaltedRashiLord = true
+	}
+
+	return dg
+}
+
+func (c *Chart) EvaluateDebilitatedGrahas() []DebilitatedGraha {
+	debilitatedGrahas := make([]DebilitatedGraha, 0)
+
+	for _, ga := range c.GrahasAttr {
+		if ga.Strength.Position == constants.IN_DEBILITATION_RASHI {
+			dg := c.evaluateDebilitatedGraha(&ga)
+			debilitatedGrahas = append(debilitatedGrahas, dg)
+		}
+	}
+
+	return debilitatedGrahas
 }

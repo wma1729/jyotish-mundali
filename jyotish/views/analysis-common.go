@@ -67,6 +67,7 @@ func (page *AnalysisPage) Send(w http.ResponseWriter) error {
 		template.FuncMap{
 			"GetAxis":               models.GetAxis,
 			"GetBhava":              GetBhava,
+			"GetDebilitatedGrahas":  GetDebilitatedGrahas,
 			"GetGrahaNameForChart":  GetGrahaNameForChart,
 			"GetGrahaName":          GetGrahaName,
 			"GetInfluenceRating":    GetInfluenceRating,

@@ -30,6 +30,22 @@
                 {{ end }}
             </ul>
         </article>
+        {{ $debilitatedGrahas := GetDebilitatedGrahas $chart }}
+        {{ range $debilitatedGrahas }}
+            <article class="dosha-desc">
+                <ul class="no-list-styling">
+                    <li><b>{{ $vocab.Debilitated }} {{ $vocab.Graha }}</b>: {{ GetGrahaName .Name $lang }}</li>
+                    <li><b>{{ $vocab.Debilitated }} {{ $vocab.Rashi }} {{ $vocab.Lord }}</b>: {{ GetGrahaName .DebilitatedRashiLord $lang }}</li>
+                    <li><b>{{ $vocab.Exalted }} {{ $vocab.Rashi }} {{ $vocab.Lord }}</b>: {{ GetGrahaName .ExaltedRashiLord $lang }}</li>
+                    <li><b>{{ GetGrahaName .ExaltedRashiLord $lang }} {{ $vocab.Aspect }} {{ GetGrahaName .DebilitatedRashiLord $lang }}</b>: {{ YesOrNo .AspectedByExaltedRashiLord $lang }} </li>
+                    {{ range .RashiLordRelativePosition }}
+                        <li><b>{{ $vocab.Graha }}</b>: {{ GetGrahaName .Name $lang }}</li>
+                        <li><b>{{ $vocab.InKendra }}</b> {{ YesOrNo .InKendra $lang }}</li>
+                        <li><b>{{ $vocab.Reference }}</b> {{ GetGrahaName .Reference $lang }}</li>
+                    {{ end }}
+                </ul>
+            </article>
+        {{ end }}
         <br>
         <br>
         <br>

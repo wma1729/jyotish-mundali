@@ -11,3 +11,7 @@ func GetMaanglikDosha(c *analysis.Chart) *analysis.MaanglikDosha {
 func GetKalaSarpaDosha(c *analysis.Chart) *analysis.KalaSarpaDosha {
 	return c.EvaluateKalaSarpaDosha()
 }
+
+func GetDebilitatedGrahas(c *analysis.Chart) []analysis.DebilitatedGraha {
+	return c.EvaluateDebilitatedGrahas()
+}

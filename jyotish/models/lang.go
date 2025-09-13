@@ -127,6 +127,7 @@ type Language struct {
 	Rahu                     string `json:"rahu"`
 	Rashi                    string `json:"rashi"`
 	RashiNumber              string `json:"rashi-number"`
+	Reference                string `json:"reference"`
 	Relations                string `json:"relations"`
 	Remarks                  string `json:"remarks"`
 	Retrograde               string `json:"retrograde"`
